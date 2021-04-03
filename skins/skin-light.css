@@ -17,11 +17,11 @@
 /* Background and text color 1 */
 body {
     color: var(--black);
+    background-color: rgb(248, 245, 240);
 }
 
 /* ascii-tone background color */
 #main-container {
-    background-color: transparent;
 }
 
 /* main overlay */
