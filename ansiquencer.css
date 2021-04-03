@@ -1,4 +1,4 @@
-@import './skins/skins-template.css';
+@import './skins/skin-light.css';
 
 input[type='range'][orient='vertical'] {
     -webkit-appearance: slider-vertical;

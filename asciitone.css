@@ -1,4 +1,4 @@
-@import './skins/skins-template.css';
+@import './skins/skin-light.css';
 
 html * {
     -webkit-tap-highlight-color: transparent;
