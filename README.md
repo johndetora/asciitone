@@ -38,7 +38,35 @@ ANSIquencer is the note input device for ascii-tone. It is made up of 8 steps wi
 
 ### Synthesizer
 
-1.
+Block Diagram
+
+<pre>
+          ┌─────────┐  ┌─────────┐  ┌─────────┐             
+          │         │  │         │  │         │             
+          │         │  │         │  │         │             
+          │  osc    │→→│   env   │→→│   lpf   │→ → → →               
+          │         │  │         │  │         │      ↓      
+          │   fm    │  │         │  │         │      ↓      
+          └─────────┘  └─────────┘  └─────────┘    ┌───┐    
+               ↑                         ↑         │ c │    
+               ↑                         ↑         │ r │    
+               ↑  ┌──────┐               ↑         │ o │    
+               ↑  │ mod  │               ↑         │ s │    
+                ← │index │ ←             ↑         │ s │→ → [ final output ] 
+                  └──────┘  ↑            ↑         │ f │    
+                            ↑            ↑         │ a │    
+                            ↑            ↑         │ d │    
+                            ↑            ↑         │ e │    
+          ┌─────────┐  ┌─────────┐  ┌─────────┐    │ r │    
+          │         │  │         │  │         │    └───┘    
+          │         │  │         │  │         │      ↑      
+          │ mod osc │  │ mod env │  │   lfo   │      ↑      
+          │         │  │         │  │         │      ↑      
+          │         │→→│         │  │         │      ↑      
+          └─────────┘  └─────────┘  └─────────┘      ↑      
+                            ↓                        ↑      
+                            → → → → → → → → → → → → →       
+</pre>
 
 ### There are several known issues and things to note:
 
