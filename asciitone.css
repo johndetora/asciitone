@@ -339,7 +339,6 @@ p {
 #param-swap {
     position: relative;
     font-size: 15px;
-    display: none;
 }
 
 @media all and (max-width: 600px) {
