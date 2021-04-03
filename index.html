@@ -315,8 +315,6 @@
             <div class="synth-control" id="oscillator-container-a">
                 <!-- <p class="group-label">Osc</p> -->
                 <br>
-
-
                 <pre id="ascii-osc-wave">[sine]</pre>
                 <div id="ascii-osc-wave-options">
 
@@ -330,7 +328,12 @@
                 <span class="label"> glide <input type="checkbox" id="glide">
                     <pre id="ascii-glide">[ ]</pre>
                 </span>
-
+                <div class="synth-control" id="crossfader-container">
+                    <p class="label">osc <> mod</p>
+                    <input type="range" class="mixer" id="crossfader" data-ascii="ascii-crossfader" min="0" max="1"
+                        value="0" step="0.01"><span id="ascii-crossfader"
+                        class="ascii-params">|▓|||||||||||||||||</span><br>
+                </div>
             </div>
             <div class="synth-control" id="envelope-container">
                 <!-- <p class="group-label">Envelope</p> -->
@@ -384,12 +387,7 @@
                     <option value="3">3</option>
                 </select> -->
                 <br><br>
-                <div class="synth-control" id="crossfader-container">
-                    <p class="label">osc <> mod</p>
-                    <input type="range" class="mixer" id="crossfader" data-ascii="ascii-crossfader" min="0" max="1"
-                        value="0" step="0.01"><span id="ascii-crossfader"
-                        class="ascii-params">|▓|||||||||||||||||</span><br>
-                </div>
+
             </div>
 
             <div class="synth-control" id="modulation-envelope">

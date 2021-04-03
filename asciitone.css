@@ -255,7 +255,8 @@ p {
 
 #crossfader-container {
     position: relative;
-    bottom: -6px;
+    bottom: 0px;
+    width: 100px;
 }
 #crossfader {
     position: absolute;
@@ -342,7 +343,6 @@ p {
 #param-swap {
     position: relative;
     font-size: 15px;
-    display: none;
 }
 
 @media all and (max-width: 600px) {
