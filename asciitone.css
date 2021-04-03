@@ -74,7 +74,10 @@ p {
 .label {
     margin: 1px;
 }
-
+#header {
+    width: 100%;
+    font-size: 12px;
+}
 #main-container {
     margin: auto;
     padding: 5% 10% 10% 10%;
@@ -340,6 +343,9 @@ p {
 }
 
 @media all and (max-width: 600px) {
+    #header {
+        font-size: 12px;
+    }
     #main-container {
         margin: auto;
         width: fit-content;
