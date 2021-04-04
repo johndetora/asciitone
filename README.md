@@ -73,4 +73,3 @@ Block Diagram
 -   The lfo is uni-polar and only connects to the filter cutoff right now. This means that the filter cutoff must be set relatively low in frequency in order to hear the lfo doing its thing. If the decay is set to a low value, this will be even less noticeable.
 -   Similarly, the glide control will only work if the decay is set too low.
 -   The volume get slightly louder and then quiet again when the waveforms are set to anything but sine. I'm not sure why, so just consider it a quirk
--   The FX page is just getting started. the delay works but you'll see that the GUI gets messed up when on this pag
