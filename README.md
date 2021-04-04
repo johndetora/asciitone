@@ -64,9 +64,7 @@ Block Diagram
   │         │   │         │    │         │           
   │         │   │         │    │         │            
   └─────────┘   └─────────┘    └─────────┘            
-
 </pre>
-
 
 ### There are several known issues and things to note:
 
