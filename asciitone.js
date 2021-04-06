@@ -236,7 +236,7 @@ lfoRate.addEventListener('input', function () {
 lfoAmt.addEventListener('input', function () {
     console.log(this.value);
     toFilt.gain.value = this.value;
-    toFreqRatio.gain.value = this.value;
+    // toFreqRatio.gain.value = this.value;
 });
 
 //////// Delay /////////////
