@@ -110,9 +110,10 @@ a {
 
 #playhead {
     margin-top: 14px;
-    margin-left: 15px;
+    margin-left: 33px;
     font-size: 12px;
     position: absolute;
+    top: 0px;
 }
 #ascii-meter {
     margin: 20px auto auto auto;
@@ -199,10 +200,12 @@ a {
     .container {
         display: grid;
         grid-template-columns: repeat(8, 44px);
-        grid-template-rows: auto auto auto auto auto;
+        grid-template-rows: auto auto auto auto auto auto;
         grid-template-areas:
             'buttons'
-            'meters';
+            'meters'
+            'tabs';
+
         width: 100%;
         position: relative;
     }

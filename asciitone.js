@@ -652,9 +652,8 @@ function circleGrow(target) {
 
 //////////////// SWAP PARAMETERS ///////////////
 
-let paramState = 'synth';
 const fxSwap = document.getElementById('fx-swap');
-
+let paramState = 'synth';
 fxSwap.addEventListener('click', function () {
     const synthOverlay = document.getElementById('ascii-synth-overlay');
     const fxOverlay = document.getElementById('ascii-fx-overlay');
@@ -675,4 +674,34 @@ fxSwap.addEventListener('click', function () {
         fxOverlay.style.display = 'block';
         return (paramState = 'fx');
     }
+});
+
+///////////// MOBILE TABS //////////////
+// const synthControls = document.querySelector('#synth-container');
+// const fxControls = document.querySelector('#fx-container');
+
+// const stepContainer = document.querySelector('#steps');
+// const fxSwap = document.getElementById('fx-swap');
+const fxSwapTab = document.getElementById('fx-swap-tab');
+const synthSwap = document.getElementById('synth-swap');
+const seqSwap = document.getElementById('seq-swap');
+
+let tabState = 'seq';
+
+synthSwap.addEventListener('click', () => {
+    stepContainer.style.display = 'none';
+    synthControls.style.display = 'grid';
+    fxControls.style.display = 'none';
+});
+
+seqSwap.addEventListener('click', () => {
+    stepContainer.style.display = 'grid';
+    synthControls.style.display = 'none';
+    fxControls.style.display = 'none';
+});
+
+fxSwapTab.addEventListener('click', () => {
+    stepContainer.style.display = 'none';
+    synthControls.style.display = 'none';
+    fxControls.style.display = 'grid';
 });

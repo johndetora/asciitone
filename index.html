@@ -15,8 +15,8 @@
 
 <body>
 
-    <div id="hidden">This is a hidden div for the purpose of telling google that this web page is in English, and not
-        Portuguese like it seems to think.</div>
+    <!-- <div id="hidden">This is a hidden div for the purpose of telling google that this web page is in English, and not
+        Portuguese like it seems to think.</div> -->
     <!--<button id="repeatTest">[Repeat]</button> -->
     <!-- <button class="transport" id="test-button" onclick="tester()">[ array tester ]</button> teasfs-->
 
@@ -369,14 +369,17 @@
             </div>
 
         </div>
+        <!-- /////////// TABS ///////////-->
         <div id="tabs-container">
-            <button id="fx-swap">
+            <button id="fx-swap" class="tab-btn">
                 <p class="label" id="param-swap-text">[ fx ]</p>
             </button>
         </div>
-        <div id="synth-container">
-            <!-- /////////// TABS ///////////-->
 
+
+        <div id="synth-container">
+
+            <!-- ////// Synth Controls /////// -->
             <div class="synth-control" id="oscillator-container-a">
                 <br>
                 <pre id="ascii-osc-wave">[sine]</pre>
@@ -443,16 +446,6 @@
                         step="0.5"><span id="ascii-harmonicity" class="ascii-params"> |||▓|||||||||||||||</span>
                     <span id="ascii-harmonicity-num" class="label">|1.0|</span>
                 </div>
-                <!-- <select id="harmonicity">
-                    <option value="0">0</option>
-                    <option value="0.5">0.5</option>
-                    <option value="1" selected="selected">1</option>
-                    <option value="1.5">1.5</option>
-                    <option value="2">2</option>
-                    <option value="2.5">2.5</option>
-                    <option value="3">3</option>
-                </select> -->
-                <br><br>
 
             </div>
 
@@ -507,7 +500,19 @@
 
             </div>
         </div>
+        <!-- //////// Mobile ///////// -->
+        <div id="tabs-container-mobile">
+            <button id="fx-swap-tab" class="tab-btn">
+                <p class="label" id="param-swap-text" data-state="fx">[ fx ]</p>
+            </button>
+            <button id="synth-swap" class="tab-btn">
+                <p class="label" id="param-swap-text" data-state="synth">[ synth ]</p>
+            </button>
+            <button id="seq-swap" class="tab-btn">
+                <p class="label" id="param-swap-text" data-state="seq">[ seq ]</p>
+            </button>
 
+        </div>
 
 
         <script src="asciitone.js"></script>
