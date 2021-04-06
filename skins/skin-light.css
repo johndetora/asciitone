@@ -11,13 +11,13 @@
     --blue: rgba(134, 232, 254, 1);
     --on: rgba(0, 0, 0, 1);
     --off: rgba(0, 0, 0, 0.4);
-    --bg: rgb(246, 247, 239);
+    --bg: rgb(255, 255, 246);
 }
 
 /* Background and text color 1 */
 body {
     color: var(--black);
-    background-color: rgb(243, 242, 235);
+    background-color: rgb(255, 255, 246);
 }
 
 /* ascii-tone background color */
