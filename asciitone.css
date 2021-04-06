@@ -422,6 +422,14 @@ p {
         padding: 0;
         width: fit-content;
     }
+
+    /* #main-container {
+        margin: auto;
+        padding: 0;
+        width: fit-content;
+        height: 90%;
+        border: none;
+    } */
     /* #synth-container {
         position: relative;
         display: none;
