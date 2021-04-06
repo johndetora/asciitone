@@ -92,14 +92,14 @@ The $envelope section controls the amplitude of the carrier oscillator with a si
 
 ### mod envelope
 
-The $mod env section controls the amplitude of the modulator oscillator with |mod index| controlling the total amount that the modulator will influence the carrier's frequency.
+The $mod env section controls the amplitude of the modulator oscillator with >mod index controlling the total amount that the modulator will influence the carrier's frequency.
 
 ### filter
 
 The $filter section allows you to adjust the low pass filter's frequency cutoff and resonance, changing the timbre of the final output by cutting out higher frequencies.
 
--   Adjust the |cutoff| control to raise or lower the amount of high frequencies that are allowed to pass.
--   Adjust the |resonance| to change the 'quality' of the frequency band.
+-   Adjust the >cutoff control to raise or lower the amount of high frequencies that are allowed to pass.
+-   Adjust the >resonance to change the 'quality' of the frequency band.
 
 ### lfo
 
