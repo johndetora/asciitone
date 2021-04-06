@@ -494,8 +494,8 @@ function playHeadUpdate(step) {
 ///
 ///////  Bar  ////////
 function bars(v) {
-    let top = ' _' + '<br>';
-    let bottom = ' ^' + '<br>';
+    let top = '_' + '<br>';
+    let bottom = '^' + '<br>';
     let row = '|░|' + '<br>';
     let filled = '|▓|' + '<br>';
     return top + row.repeat(max - v) + filled.repeat(v) + filled + bottom;
