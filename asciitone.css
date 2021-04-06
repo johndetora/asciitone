@@ -166,7 +166,7 @@ p {
         'oscillatorB mod mixer';
     gap: 1px;
     margin: 10px auto auto auto;
-    width: 390;
+    width: fit-content;
 }
 
 .synth-control {
@@ -414,13 +414,15 @@ p {
         cursor: pointer;
         margin-top: -1px;
     }
+
     #header {
         font-size: 12px;
     }
     #main-container {
         margin: auto;
+
         padding: 0;
-        width: fit-content;
+        width: 100%;
     }
 
     /* #main-container {
@@ -430,9 +432,10 @@ p {
         height: 90%;
         border: none;
     } */
-    /* #synth-container {
+    #synth-container {
         position: relative;
         display: none;
+        top: 0px;
         grid-template-columns: 170px 170px;
         grid-template-rows: auto auto;
         grid-template-areas:
@@ -442,11 +445,8 @@ p {
         gap: 0;
 
         width: fit-content;
-    } */
-
-    #synth-container {
-        display: none;
     }
+
     #crossfader {
         position: absolute;
         z-index: 1;
