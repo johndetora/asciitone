@@ -685,23 +685,22 @@ fxSwap.addEventListener('click', function () {
 const fxSwapTab = document.getElementById('fx-swap-tab');
 const synthSwap = document.getElementById('synth-swap');
 const seqSwap = document.getElementById('seq-swap');
+const tabContainer = document.querySelector('#tabs-container-mobile');
 
-let tabState = 'seq';
-
-synthSwap.addEventListener('click', () => {
-    stepContainer.style.display = 'none';
-    synthControls.style.display = 'grid';
-    fxControls.style.display = 'none';
-});
-
-seqSwap.addEventListener('click', () => {
-    stepContainer.style.display = 'grid';
-    synthControls.style.display = 'none';
-    fxControls.style.display = 'none';
-});
-
-fxSwapTab.addEventListener('click', () => {
-    stepContainer.style.display = 'none';
-    synthControls.style.display = 'none';
-    fxControls.style.display = 'grid';
+tabContainer.addEventListener('click', ({ target }) => {
+    tabState = target.dataset.state;
+    console.log(target);
+    if (tabState === 'seq') {
+        stepContainer.style.display = 'grid';
+        synthControls.style.display = 'none';
+        fxControls.style.display = 'none';
+    } else if (tabState === 'synth') {
+        stepContainer.style.display = 'none';
+        synthControls.style.display = 'grid';
+        fxControls.style.display = 'none';
+    } else if (tabState === 'fx') {
+        stepContainer.style.display = 'none';
+        synthControls.style.display = 'none';
+        fxControls.style.display = 'grid';
+    }
 });
