@@ -23,7 +23,75 @@
     <div id="main-container">
         <div id="overlay-container">
             <pre id="ascii-synth-overlay" class="overlay">
-             ______________________________________________    
+            ________________________________________________    
+           |================================================|
+           |                                                |
+           |                                                |
+           <span class="divider">|*~~~~~~~~~ tempo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*|</span>      
+           |^                                              ^|
+           ||                                              ||
+           <span class="divider">|↓~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~↓|</span>
+           |O                                              O|    
+           |o                                              o|
+           |*                                              *|
+           |.                                              .|
+           |                                                |                                                                                             
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |                                         
+           |                                                |                                         
+           |                                                |                                         
+           |                                                |                                         
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |                                                                            
+           |                                                |                                         
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |................................................|                                        
+           |                                                |                                        
+           |                                                |
+           |..................... <span class="ascii-label">Zzz</span> ......................|
+           |                                                |     
+           |--- <span class="ascii-label">osc</span> -------- <span class="ascii-label">envelope</span> -------- <span class="ascii-label">filter</span> ------|
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |-- <span class="ascii-label">mod osc</span> ------ <span class="ascii-label">mod env</span> ---------- <span class="ascii-label">lfo</span> -------|
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
+           |------------------------------------------------|
+           |                                                |
+           |________________________________________________|
+
+         </pre>
+            <pre id="ascii-fx-overlay" class="overlay">
+            ________________________________________________    
            |================================================|
            |                                                |
            |                                                |
@@ -53,25 +121,29 @@
            |                                                |                                         
            |                                                |
            |                                                |                                                                            
+           |                                                |
+           |                                                |
+           |                                                |
+           |                                                |
            |                                                |                                         
-           |______________<!--<span class="ascii-label">ƒ</span> -->__________________________________|                                         
+           |                                                |                                        
            |                                                |
            |                                                |
            |                                                |
-           | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  |                                         
-           | <!--<span class="ascii-label">Zzz</span> -->                                               |                                        
+           |................................................|                                          
+           |                                                |                                        
            |                                                |
-           |--------------------- <span class="ascii-label">Zzz</span> ----------------------|
+           |..................... <span class="ascii-label">Zzz</span> ......................|
            |                                                |     
-           |--- <span class="ascii-label">osc</span> -------- <span class="ascii-label">envelope</span> -------- <span class="ascii-label">filter</span> ------|
+           |--- <span class="ascii-label">delay</span> --------------------------------------|
+           |                                                |    
+           |                                                |    
            |                                                |
            |                                                |
            |                                                |
            |                                                |
            |                                                |
            |                                                |
-           |                                                |
-           |-- <span class="ascii-label">mod osc</span> ------ <span class="ascii-label">mod env</span> ---------- <span class="ascii-label">lfo</span> -------|
            |                                                |
            |                                                |
            |                                                |
@@ -84,70 +156,6 @@
            |------------------------------------------------|
            |                                                |
            |________________________________________________|
-
-         </pre>
-            <pre id="ascii-fx-overlay" class="overlay">
-             ____________________________________________    
-            |=============================================|
-            |                                                |
-            |                                                |
-            <span class="divider">|*~~~~~~~~~ tempo ~~~~~~~~~~~~~~~~~~~~~~~~~~~*|</span>      
-            |^                                              ^|
-            ||                                              ||
-            <span class="divider">|↓~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~↓|</span>
-            |O                                              O|    
-            |o                                              o|
-            |*                                              *|
-            |.                                              .|
-            |                                                |                                                                                             
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |
-            |                                                |                                         
-            |                                                |                                         
-            |                                                |                                         
-            |                                                |                                         
-            |                                                |
-            |                                                |                                                                            
-            |                                                |                                         
-            |________________<!--<span class="ascii-label">ƒ</span> -->_____________________________|                                         
-            |                                                |
-            |                                                |
-            |                                                |
-            |________________________________________________|                                         
-            |                                                |                                        
-            |                                                |
-            |------------------- <span class="ascii-label">Zzz</span> ---------------------|
-            |                                                |     
-            |--- <span class="ascii-label">delay</span> -----------------------------------|
-            |                 |                              |    
-            |                 |                              |    
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |                 |                              |
-            |------------------------------------------------|
-            |                                                |
-            |________________________________________________|
         </pre>
         </div>
         <div id="heading">
@@ -205,7 +213,7 @@
             <span id="ascii-bpm"></span>
             <pre id="ascii-bpm-container">|</pre>
             <input id="bpm" class="transport" type="range" min="50" max="500" value="200">
-
+            <span id="scale-select">[scale: major]</span>
         </div>
 
         <div id="steps" class="container">
@@ -228,7 +236,7 @@
                     <input type="checkbox" data-index="0" id="check" checked />
 
                 </div>
-                <input type="range" id="slider-1" data-index="0" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-1" data-index="0" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-2">
@@ -249,7 +257,7 @@
                     <input type="checkbox" data-index="1" id="check" checked />
 
                 </div>
-                <input type="range" id="slider-2" data-index="1" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-2" data-index="1" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-3">
@@ -269,7 +277,7 @@
                     <input type="checkbox" data-index="2" id="check" checked />
 
                 </div>
-                <input type="range" id="slider-3" data-index="2" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-3" data-index="2" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-4">
@@ -281,14 +289,14 @@
                        │<span id="rep-3" class="rep-count">-</span>│↓
                        │<span id="rep-4" class="rep-count">o</span>│
                     </pre>
-                    <input type="range" class="repeater-range" data-index="3" orient="vertical" value="0" min="0"
+                    <input type="range" class="repeater-range" data-index="3" orient="vertical" value="6" min="0"
                         max="3" step="1">
                 </div>
                 <div class="check-container">
                     <pre id="ascii-checkbox">[#]</pre>
                     <input type="checkbox" data-index="3" id="check" checked />
                 </div>
-                <input type="range" id="slider-4" data-index="3" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-4" data-index="3" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-5">
@@ -307,7 +315,7 @@
                     <pre id="ascii-checkbox">[#]</pre>
                     <input type="checkbox" data-index="4" id="check" checked />
                 </div>
-                <input type="range" id="slider-5" data-index="4" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-5" data-index="4" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-6">
@@ -326,7 +334,7 @@
                     <pre id="ascii-checkbox">[#]</pre>
                     <input type="checkbox" data-index="5" id="check" checked />
                 </div>
-                <input type="range" id="slider-6" data-index="5" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-6" data-index="5" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-7">
@@ -345,7 +353,7 @@
                     <pre id="ascii-checkbox">[#]</pre>
                     <input type="checkbox" data-index="6" id="check" checked />
                 </div>
-                <input type="range" id="slider-7" data-index="6" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-7" data-index="6" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
             <div class="step" id="step-8">
@@ -364,7 +372,7 @@
                     <pre id="ascii-checkbox">[#]</pre>
                     <input type="checkbox" data-index="7" id="check" checked />
                 </div>
-                <input type="range" id="slider-8" data-index="7" class="meter" value="4" min="0" max="10" step="1"
+                <input type="range" id="slider-8" data-index="7" class="meter" value="6" min="0" max="12" step="1"
                     orient="vertical" />
             </div>
 
