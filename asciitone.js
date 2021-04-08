@@ -274,13 +274,13 @@ const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3'
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
 const minorScale = ['A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4', 'C4', 'D4', 'E4', 'F4'];
 const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
-const scales = [chromaticScale, majorScale, minorScale, pentScale];
+const scales = [majorScale, minorScale, pentScale, chromaticScale];
 let currentScale = majorScale;
 
 /// Scale set logic
 const scaleSelect = document.getElementById('scale-select');
 scaleSelect.addEventListener('click', scaleSet);
-let scaleIndex = 1;
+let scaleIndex = 0;
 function scaleSet() {
     let currentNotes = document.querySelectorAll('.meter');
     // Round Robin selection
@@ -292,10 +292,11 @@ function scaleSet() {
         notes[i].note = currentScale[currentNotes[i].value];
     }
     // DOM
-    if (currentScale === scales[0]) scaleSelect.innerHTML = '[scale: chromatic]';
-    if (currentScale === scales[1]) scaleSelect.innerHTML = '[scale: major]';
-    if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: minor]';
-    if (currentScale === scales[3]) scaleSelect.innerHTML = '[scale: pentatonic]';
+
+    if (currentScale === scales[0]) scaleSelect.innerHTML = '[scale: major]';
+    if (currentScale === scales[1]) scaleSelect.innerHTML = '[scale: minor]';
+    if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: pentatonic]';
+    if (currentScale === scales[3]) scaleSelect.innerHTML = '[scale: chromatic]';
     return currentScale;
 }
 
