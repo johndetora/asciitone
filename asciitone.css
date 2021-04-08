@@ -5,6 +5,7 @@
 
 html * {
     -webkit-tap-highlight-color: transparent;
+    /* font-family: 'Courier New', Courier, monospace */
     font-family: monospace !important;
 }
 
