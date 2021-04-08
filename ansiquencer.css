@@ -106,6 +106,7 @@ a {
 
 #scale-select {
     position: absolute;
+    cursor: pointer;
     font-size: 14px;
     top: 29px;
     left: 220px;
