@@ -269,26 +269,33 @@ delay.toDestination(0.8);
 //        Note Data          //
 // ------------------------- //
 
-// Major
-
-// Chromatic
-
+/// SCALES /////
 const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4'];
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
-const scales = [chromaticScale, majorScale];
+const minorScale = ['A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4', 'C4', 'D4', 'E4', 'F4'];
+const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
+const scales = [chromaticScale, majorScale, minorScale, pentScale];
+let currentScale = majorScale;
 
-let currentScale = chromaticScale;
-
+/// Scale set logic
 const scaleSelect = document.getElementById('scale-select');
 scaleSelect.addEventListener('click', scaleSet);
-//console.log('The 2nd step is' + stepContainer[1].value);
+let scaleIndex = 1;
 function scaleSet() {
-    let index = 1;
     let currentNotes = document.querySelectorAll('.meter');
-    currentScale = scales[index];
+    // Round Robin selection
+    scaleIndex++;
+    if (scaleIndex === scales.length) scaleIndex = 0; // counter resets to 0
+    currentScale = scales[scaleIndex];
+    // Loop through the current note object and set the values to the current slider values
     for (let i = 0; i < notes.length; i++) {
         notes[i].note = currentScale[currentNotes[i].value];
     }
+    // DOM
+    if (currentScale === scales[0]) scaleSelect.innerHTML = '[scale: chromatic]';
+    if (currentScale === scales[1]) scaleSelect.innerHTML = '[scale: major]';
+    if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: minor]';
+    if (currentScale === scales[3]) scaleSelect.innerHTML = '[scale: pentatonic]';
     return currentScale;
 }
 
@@ -412,6 +419,7 @@ let part = new Tone.Part(function (time, value) {
     // Repeat Logic
     if (value.repeat == 1) {
         playHeadUpdate(step);
+        // Can try setting the decay to a low value before this, and then setting it back after the notes play
         synth.triggerAttackRelease(value.note, '32n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '32n', time + 0.1, value.velocity);
         index++;
