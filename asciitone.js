@@ -82,7 +82,7 @@ const mod = document.querySelector('#modulation-envelope');
 const oscWave = document.querySelector('#osc-wave');
 const modWave = document.querySelector('#mod-wave');
 const steps = 8; // Total step length
-const max = 10; // Max slider value for note meters
+
 const filterControls = document.querySelector('#filter-container');
 const delayControl = document.querySelector('#delay-container');
 
@@ -269,6 +269,7 @@ delay.toDestination(0.8);
 //     Sequencer Data        //
 // ------------------------- //
 
+// Major
 let sliderNotes = {
     0: 'C3',
     1: 'D3',
@@ -281,6 +282,25 @@ let sliderNotes = {
     8: 'D4',
     9: 'E4',
     10: 'F4',
+    11: 'G4',
+    12: 'A4',
+};
+
+// Chromatic
+let chromaticScale = {
+    0: 'C3',
+    1: 'C#3',
+    2: 'D3',
+    3: 'D#3',
+    4: 'E3',
+    5: 'F3',
+    6: 'F#3',
+    7: 'G3',
+    8: 'G#3',
+    9: 'A3',
+    10: 'A#3',
+    11: 'B3',
+    12: 'C4',
 };
 
 ////// Notes, value time object each object is a step
@@ -354,6 +374,9 @@ let notes = [
     },
 ];
 
+// Scale Select button
+
+const scaleSelect = document.getElementById('');
 // TEST Buttons
 function tester() {
     // notes.splice(0, 1, repeatNote[0], repeatNote[1]);
@@ -494,6 +517,7 @@ function playHeadUpdate(step) {
 ///
 ///////  Bar  ////////
 function bars(v) {
+    const max = 12; // Max slider value for note meters
     let top = '_' + '<br>';
     let bottom = '^' + '<br>';
     let row = '|░|' + '<br>';
@@ -554,7 +578,7 @@ transport.addEventListener('input', function () {
 /// Initialization
 function init() {
     for (let i = 0; i < meters.length; i++) {
-        meters[i].innerHTML = bars(5);
+        meters[i].innerHTML = bars(6);
         const empty = '│-│' + '<br>';
         const arrowUp = '│-│↑' + '<br>';
         const arrowDown = '│-│↓' + '<br>';
