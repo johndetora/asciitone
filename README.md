@@ -15,7 +15,7 @@ ascii-tone is inspired by the west coast synthesis paradigm. At its heart, ascii
 
 Specifications:
 
--   one main oscillator with sine, triangle, sawtooth, and square waveform selection11
+-   one main oscillator with sine, triangle, sawtooth, and square waveform selection
 -   Simple glide/portamento on/off
 -   one modulation oscillator with waveform selection, and frequency ratio to determine the pitch
 -   A crossfader that controls the final output level of the main oscillator and the modulation oscillator respectively

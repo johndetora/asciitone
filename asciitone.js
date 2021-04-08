@@ -501,9 +501,8 @@ stepContainer.addEventListener('change', ({ target }) => {
         // Turns step 'on'
         notes[target.dataset.index].velocity = 1;
         // UI Update
-        asciiCheck[target.dataset.index].innerHTML = '[#]';
         asciiCheck[target.dataset.index].style.color = 'var(--on)';
-        meters[target.dataset.index].style.color = 'var(--on)';
+        asciiRepeater[target.dataset.index].style.color = 'var(--on)';
         meters[target.dataset.index].style.color = 'var(--on)';
     } else if (target.type == 'checkbox' && !target.checked) {
         // Turns step 'off'
