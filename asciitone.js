@@ -504,13 +504,15 @@ stepContainer.addEventListener('change', ({ target }) => {
         asciiCheck[target.dataset.index].innerHTML = '[#]';
         asciiCheck[target.dataset.index].style.color = 'var(--on)';
         meters[target.dataset.index].style.color = 'var(--on)';
+        meters[target.dataset.index].style.color = 'var(--on)';
     } else if (target.type == 'checkbox' && !target.checked) {
         // Turns step 'off'
         notes[target.dataset.index].velocity = 0;
         // UI Update
-        asciiCheck[target.dataset.index].innerHTML = '[ ]';
-        asciiCheck[target.dataset.index].style.color = 'var(--off)';
+
         meters[target.dataset.index].style.color = 'var(--off)';
+        asciiRepeater[target.dataset.index].style.color = 'var(--off)';
+        asciiCheck[target.dataset.index].style.color = 'var(--off)';
     }
 });
 
