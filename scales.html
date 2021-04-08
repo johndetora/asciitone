@@ -14,7 +14,23 @@
 
 <script type="text/javascript">
 
+    let sliderNotes = {
+        0: 'C3',
+        1: 'D3',
+        2: 'E3',
+        3: 'F3',
+        4: 'G3',
+        5: 'A3',
+        6: 'B3',
+        7: 'C4',
+        8: 'D4',
+        9: 'E4',
+        10: 'F4',
+    };
+
+
     let notes = [
+
         {
             // Step 1
             time: '0:0:0',
@@ -30,7 +46,7 @@
             note: 'A3',
             velocity: 1,
             timing: '16n',
-            repeat: 0,
+            repeat: 1,
         },
         {
             // Step 3
@@ -82,6 +98,50 @@
             repeat: 0,
         },
     ];
+
+
+    class Note {
+
+        constructor(_time, _note, _velocity, _timing, _repeat) {
+            console.log(this);
+            this.time = _time;
+            this.note = _note;
+            this.velocity = _velocity;
+            this.timing = _timing;
+            this.repeat = _repeat;
+        }
+
+        randomize() {
+            // Make new note object with random note
+            const randomNote = Math.floor(Math.random() * 10)
+            this.note = sliderNotes[randomNote]
+            //  this.note = sliderNotes[randomNote]
+        }
+
+        shuffleAll() {
+
+        }
+    }
+
+    // let note1 = new Note('0:3:0', 'C6', 1, '4n', 0).randomize()
+
+
+    // Randomize notes in current pattern
+    function shuffleNotes() {
+        for (let i = 0; i < notes.length; i++) {
+            const randomNote = Math.floor(Math.random() * 10)
+            // notes[i] = new Note('0:3:0', 'C6', 1, '4n', 0).randomize()
+            notes[i].note = sliderNotes[randomNote]
+        }
+        console.log(notes)
+    }
+
+    // Coin Toss for note rested
+
+
+
+    shuffleNotes()
+
 </script>
 
 
