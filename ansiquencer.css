@@ -143,6 +143,8 @@ a {
     right: 228px;
 }
 #ascii-repeater {
+    font-family: Courier, 'Courier New', monospace, monospace !important;
+    font-weight: bold;
     text-align: center;
     position: absolute;
     line-height: 70%;
