@@ -33,9 +33,6 @@ a {
         'buttons'
         'meters';
     margin: auto;
-    width: auto;
-    height: auto;
-
     z-index: 0;
 }
 .group-label {
