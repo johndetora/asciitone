@@ -588,8 +588,8 @@ function animateLFO(index) {
 // ------------------------- //
 /////// Horizontal Slider Animation ////////
 const tempoMeter = document.getElementById('ascii-bpm');
-const lines = '|';
-const block = '▓';
+let lines = '|';
+let block = '▓';
 
 tempoMeter.innerHTML = '||||||||||||||▓══════════════════ |';
 transport.addEventListener('input', function () {
