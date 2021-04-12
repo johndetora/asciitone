@@ -343,6 +343,8 @@ p {
 }
 
 .ascii-params {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
     z-index: 0;
     position: absolute;
     left: 7px;
