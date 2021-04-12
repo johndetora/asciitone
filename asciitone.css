@@ -146,8 +146,6 @@ p {
 #synth-container {
     /* border: 1px solid red; */
     display: grid;
-    position: relative;
-    top: 0px;
     grid-template-columns: 95px 150px 150px;
     grid-template-rows: 100px auto auto;
     grid-template-areas:
@@ -155,12 +153,13 @@ p {
         'oscillatorB mod mixer';
 
     gap: 1px;
-    margin: 2.5rem auto auto 1px;
+    margin: 2.2rem auto auto 1px;
     width: 500px;
 }
 
 .synth-control {
     z-index: 0;
+
     padding: 4px;
 }
 #oscillator-container-a {
@@ -373,7 +372,7 @@ p {
 #tabs-container {
     display: block;
     position: absolute;
-    top: 875px;
+    top: 880px;
     width: 90px;
     height: 100px;
     font-size: 15px;

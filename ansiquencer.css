@@ -1,5 +1,5 @@
-@import './skins/skin-light.css';
-* {
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+.repeater-range * {
     box-sizing: border-box;
 }
 
@@ -126,7 +126,6 @@ a {
     width: auto;
     font-size: 20px;
     font-weight: bold;
-
     grid-area: meters;
     z-index: -1;
 }
@@ -143,11 +142,12 @@ a {
 }
 #ascii-repeater {
     font-family: 'Courier New', Courier, monospace;
+    font-size: 17px;
+    font-weight: normal;
     text-align: center;
     position: absolute;
     line-height: 70%;
-    font-size: 17px;
-    font-weight: normal;
+
     margin: 0px;
     width: 20px;
     z-index: -1;
@@ -166,6 +166,11 @@ a {
     top: -6px;
 }
 
+#rep-divider {
+    position: absolute;
+    top: 40px;
+    left: 210px;
+}
 .mini-label {
     font-size: 11px;
 }
