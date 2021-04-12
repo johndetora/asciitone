@@ -169,6 +169,12 @@ p {
     grid-area: oscillatorA;
 }
 
+#oscillator-container-b {
+    position: relative;
+    text-align: left;
+    /* border: 1px solid black; */
+    grid-area: oscillatorB;
+}
 #osc-wave {
     display: none;
     position: absolute;
@@ -187,11 +193,9 @@ p {
     display: inline;
     cursor: pointer;
     text-align: center;
-    margin: 10px 0 6px 0;
     width: 59px;
     height: 16px;
-    padding: 2px;
-    top: 13px;
+    margin: 0;
     opacity: 1;
     z-index: 3;
 }
@@ -203,9 +207,7 @@ p {
     cursor: pointer;
     flex-direction: column;
     position: absolute;
-    margin: 10px 0 6px 0;
-    top: 15px;
-    left: 0px;
+    margin: 0px 0 6px 0;
     width: 92%;
     height: 79%;
     line-height: 18px;
@@ -214,6 +216,7 @@ p {
 
 #glide-container {
     position: relative;
+    top: -5px;
     left: 6px;
 }
 /* input checkbox */
@@ -239,12 +242,10 @@ p {
     display: inline;
     cursor: pointer;
     text-align: center;
-
-    margin: 4px 0 6px 0;
     width: 59px;
     height: 16px;
     padding: 2px;
-    top: 13px;
+    margin: 0;
     opacity: 1;
     z-index: 3;
 }
@@ -256,7 +257,6 @@ p {
     cursor: pointer;
     flex-direction: column;
     position: absolute;
-    top: 15px;
     left: 0px;
     width: 90%;
     height: 80%;
@@ -272,6 +272,7 @@ p {
 } */
 #harmonicity-container {
     position: relative;
+    width: 100px;
     top: 10px;
 }
 
@@ -288,7 +289,7 @@ p {
 }
 #crossfader-container {
     position: relative;
-    bottom: 0px;
+    top: -5px;
 
     width: 100px;
 }
@@ -298,14 +299,6 @@ p {
     left: 1px;
 }
 
-#oscillator-container-b {
-    margin: 1px;
-    padding: 0;
-    position: relative;
-
-    /* border: 1px solid black; */
-    grid-area: oscillatorB;
-}
 #filter-container {
     position: relative;
     /* border: 1px solid black; */
@@ -376,10 +369,11 @@ p {
 }
 
 #tabs-container {
-    position: relative;
+    display: block;
+    position: absolute;
+    top: 875px;
     width: 90px;
-    top: 10px;
-    height: auto;
+    height: 100px;
     font-size: 15px;
 }
 
@@ -387,8 +381,6 @@ p {
     display: none;
 }
 #fx-swap {
-    position: absolute;
-
     width: 100px;
 }
 
