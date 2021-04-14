@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-.repeater-range * {
+* {
     box-sizing: border-box;
 }
 
