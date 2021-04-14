@@ -87,7 +87,7 @@
         }
 
         function keyUpHandler(event) {
-            console.log(event)
+
             if (event.key == "Shift") {
                 keys.shiftPressed = false;
             }
@@ -116,32 +116,49 @@
 
         }
 
+        // this is just for testing
         const colors = {
             0: 'lightblue',
             1: 'blue',
             2: 'red',
         }
 
-        const boxes = document.querySelectorAll('.box')
-        window.addEventListener('keydown', (event) => {
-            let num = parseInt(event.key - 1)
-            // Can try .classList.toggle()
-            boxes[num].style.backgroundColor = 'yellow'
-            boxes[num].style.backgroundColor = colors[num]
-            boxes[num].innerHTML = 'changed'
+        // way to simplify some code//
+        // ------------------------//
+        // const boxes = document.querySelectorAll('.box')
+        // window.addEventListener('keydown', (event) => {
+        //     let num = parseInt(event.key - 1)
+        //     // Can try .classList.toggle()
+        //     boxes[num].style.backgroundColor = 'yellow'
+        //     boxes[num].style.backgroundColor = colors[num]
+        //     boxes[num].innerHTML = 'changed'
 
-        })
-
-        window.addEventListener('keyup', (event) => {
-            let num = parseInt(event.key - 1)
-            boxes[num].style.backgroundColor = colors[num]
-        })
+        // })
+        // window.addEventListener('keyup', (event) => {
+        //     let num = parseInt(event.key - 1)
+        //     boxes[num].style.backgroundColor = colors[num]
+        // })
         // boxes.forEach((item, index) => {
         //     if (event.key)
         // })
 
-        let value = 0;
+
+        // Main system 
+        window.addEventListener('keydown', () => {
+            if (keys.shiftPressed) {
+                doThis();
+            }
+        })
+
+        function doThis() {
+            console.log('ok')
+        };
+
+        // Hold number, use arrows to change value //
+        //----------------------------------------//
+
         // function boxChange(event) {
+        // let value;
         //     const boxes = document.querySelectorAll('.box')
 
         //     //  boxes[parseInt(event.key)].style.backGroundColor = "yellow";
@@ -160,9 +177,10 @@
         //     else boxes[0].style.backgroundColor = 'green'
         // }
 
-
+        // --- This was so confusing and stupid. will ditch sooon --
         // let index = 0;
 
+        // 
         // console.log(index)
         // function select() {
         //     const boxes = document.querySelectorAll('.box')
@@ -187,18 +205,6 @@
         //         selection = false;
         //         index = 0;
         //     }
-
-        // }
-
-        // function colorChange(selection) {
-        //     let index = 1;
-        //     const boxes = document.querySelectorAll('.box')
-        //     console.log(boxes)
-        //     if (shiftPressed && rightPressed) {
-        //         console.log('shift + right')
-        //     }
-
-        // }
 
 
 
