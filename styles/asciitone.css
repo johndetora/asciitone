@@ -1,12 +1,13 @@
-@import './skins/skin-light.css';
 * {
     box-sizing: border-box;
+    padding: 0;
+    /* margin: 0; */
 }
 
 html * {
     -webkit-tap-highlight-color: transparent;
     /* font-family: 'Courier New', Courier, monospace */
-    font-family: monospace !important;
+    font-family: monospace;
 }
 
 html,
@@ -16,6 +17,7 @@ body {
 }
 
 input[type='range'] {
+    margin: 0;
     -webkit-appearance: none;
     background-color: transparent;
     border: 1px solid black;
@@ -25,7 +27,7 @@ input[type='range'] {
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: 1px solid #000000;
-    height: 15px;
+    height: 18px;
     width: 23px;
     background-color: transparent;
     border-radius: 3px;
@@ -55,7 +57,6 @@ button {
     border: none;
     background-color: transparent;
 }
-
 p {
     margin: 1px;
     margin-bottom: 1px;
@@ -74,42 +75,47 @@ p {
     opacity: 0;
 }
 .label {
-    margin: 1px;
-}
-#header {
-    width: 100%;
-    font-size: 12px;
-    z-index: 9999 !important;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-bottom: 1px;
 }
 
+/* GUI Overlays */
 #overlay-container {
-    font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
     position: relative;
     pointer-events: none;
     z-index: 0;
 }
-
 .overlay {
+    font-family: Courier, monospace !important;
     position: absolute;
     line-height: 13px;
     font-size: 14px;
-    top: -40px;
-    left: -105px;
+    left: -128px;
+    top: -840px;
 }
 #ascii-synth-overlay {
     display: block;
 }
-
 #ascii-fx-overlay {
     display: none;
 }
+
+/* MAIN */
 #main-container {
-    margin: auto;
-    padding: 5% 10% 10% 10%;
+    /* margin: auto; */
+
+    margin: 5% 10% 10% 10%;
     border-radius: 2rem;
-    width: 1000px;
-    height: 105vh;
+    width: auto;
+    height: auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: 'header' 'transport' 'main' 'controls' 'footer';
+    justify-content: center;
+    align-items: center;
 }
 
 /* //////// TOP BAR /////////////*/
@@ -120,7 +126,6 @@ p {
     width: 70%;
     cursor: help;
 }
-
 #help-menu {
     position: absolute;
     color: red;
@@ -133,34 +138,65 @@ p {
     /* border: 1px solid black; */
     background-color: transparent;
 }
-
 #help:hover + #help-menu {
     display: block;
 }
-
 #skinSwap {
     cursor: cell;
 }
 
 /*///////   SYNTH LAYOUT    ////////////*/
+
+.synth-control {
+    z-index: 1;
+}
+.fx-control {
+    padding: 4px;
+    z-index: 1;
+}
+
+.group-label {
+    padding: 0;
+    font-size: 14px;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+.ascii-params {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: -4px;
+    position: absolute;
+    left: 0px;
+    z-index: -5;
+}
 #synth-container {
     /* border: 1px solid red; */
+    height: 250px;
     display: grid;
-    grid-template-columns: 95px 150px 150px;
-    grid-template-rows: 100px auto auto;
+    padding-right: 20px;
+    /* padding-left: 20px; */
+    grid-template-columns: 95px 148px 148px;
+    grid-template-rows: 115px auto;
     grid-template-areas:
         'oscillatorA envelope filter'
         'oscillatorB mod mixer';
-
     gap: 1px;
-    margin: 2.2rem auto auto 1px;
-    width: 500px;
+    margin: auto auto auto auto;
+
+    grid-area: controls;
 }
-
-.synth-control {
-    z-index: 0;
-
-    padding: 4px;
+#fx-container {
+    height: 250px;
+    /* border: 1px solid green; */
+    display: none;
+    grid-template-columns: 95px 155px 155px;
+    grid-template-rows: 100px auto auto;
+    gap: 1px;
+    margin: auto auto auto auto;
+    width: auto;
+    grid-area: controls;
 }
 #oscillator-container-a {
     position: relative;
@@ -174,6 +210,11 @@ p {
     /* border: 1px solid black; */
     grid-area: oscillatorB;
 }
+
+.wave-select {
+    width: 60px;
+    margin: 3px;
+}
 #osc-wave {
     display: none;
     position: absolute;
@@ -181,16 +222,21 @@ p {
     opacity: 1;
     z-index: 2;
 }
-.wave-select {
-    width: 60px;
-    margin: 3px;
-}
 
 /* wave select "button" */
+
+/* 
+use [class*="ascii-osc-"] to select this and the mod wave
+
+//// */
+.ascii-dropdown {
+    font-size: 14px;
+    cursor: pointer;
+}
+
 #ascii-osc-wave {
     position: absolute;
     display: inline;
-    cursor: pointer;
     text-align: center;
     width: 59px;
     height: 16px;
@@ -203,7 +249,6 @@ p {
 #ascii-osc-wave-options {
     background-color: var(--bg);
     display: none;
-    cursor: pointer;
     flex-direction: column;
     position: absolute;
     margin: 0px 0 6px 0;
@@ -216,7 +261,6 @@ p {
 #glide-container {
     position: relative;
     top: -5px;
-    left: 6px;
 }
 /* input checkbox */
 #glide {
@@ -224,7 +268,6 @@ p {
     left: 50px;
     top: 3px;
     margin: auto;
-
     cursor: pointer;
     opacity: 0;
 }
@@ -239,7 +282,6 @@ p {
 #ascii-mod-wave {
     position: absolute;
     display: inline;
-    cursor: pointer;
     text-align: center;
     width: 59px;
     height: 16px;
@@ -253,11 +295,9 @@ p {
 #ascii-mod-wave-options {
     background-color: var(--bg);
     display: none;
-    cursor: pointer;
     flex-direction: column;
     position: absolute;
-    left: 0px;
-    width: 90%;
+    width: 92%;
     height: 80%;
     line-height: 18px;
     z-index: 4;
@@ -288,8 +328,6 @@ p {
 }
 #crossfader-container {
     position: relative;
-    top: -5px;
-
     width: 100px;
 }
 #crossfader {
@@ -328,6 +366,7 @@ p {
 
 #modulation {
     position: relative;
+
     /* border: 1px solid black; */
     grid-area: mixer;
 }
@@ -337,52 +376,37 @@ p {
     font-weight: bold;
     margin: auto;
     width: 3rem;
-    height: 3rem;
+    height: 2rem;
     text-align: center;
 }
 
-.ascii-params {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 13px;
-    z-index: 0;
+#delay-container {
     position: absolute;
-    left: 7px;
-    font-weight: bold;
-    letter-spacing: -4px;
-    z-index: -5;
 }
-.fx-control {
-    padding: 4px;
-    margin-left: 5px;
-}
-
-#fx-container {
-    display: none;
-    position: relative;
-    top: 60px;
-    margin: 10px 5px auto auto;
-    z-index: 0;
-}
-
 .ascii-label {
     font-weight: bold;
     font-size: 14px;
 }
 
 #tabs-container {
+    /* border: 1px solid orange; */
     display: block;
-    position: absolute;
-    top: 860px;
-    width: 90px;
-    height: 100px;
+    position: relative;
+    padding: 10px 0px;
+    width: 100px;
+    height: 30px;
     font-size: 15px;
-}
-
-#tabs-container-mobile {
-    display: none;
+    grid-area: footer;
 }
 #fx-swap {
-    width: 100px;
+    text-align: left;
+    width: 120px;
+
+    top: 10px;
+}
+#tabs-container-mobile {
+    display: none;
+    grid-area: footer;
 }
 
 .tab-btn {
@@ -397,6 +421,9 @@ p {
         overflow: hidden;
         position: fixed;
     }
+    input[type='range'] {
+        width: 150px;
+    }
     input[type='range']::-webkit-slider-thumb {
         -webkit-appearance: none;
         border: 1px solid #000000;
@@ -409,63 +436,75 @@ p {
         margin-top: -1px;
     }
 
+    .ascii-params {
+        font-size: 14px;
+    }
     #header {
         font-size: 12px;
     }
     #main-container {
-        margin: auto;
-
-        padding: 0;
-        width: 100%;
+        margin-left: 25px;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas: 'header' 'transport' 'main' 'footer';
     }
 
-    /* #main-container {
-        margin: auto;
-        padding: 0;
-        width: fit-content;
-        height: 90%;
-        border: none;
-    } */
     #synth-container {
-        position: relative;
+        margin-top: 20px;
+        padding-left: 15px;
+        grid-area: main;
         display: none;
-        top: 0px;
         grid-template-columns: 170px 170px;
         grid-template-rows: auto auto;
         grid-template-areas:
             'oscillatorA oscillatorB '
             'envelope mod '
             'filter mixer';
-        gap: 0;
+        gap: 0px;
 
-        width: fit-content;
+        width: 350px;
+        height: 450px;
     }
 
-    #crossfader {
-        position: absolute;
-        z-index: 1;
+    #fx-container {
+        grid-area: main;
+        width: 350px;
+        height: 470px;
     }
+
     #overlay-container {
         display: none;
     }
     #tabs-container {
         display: none;
     }
+
+    #param-swap-text {
+        font-size: 16px;
+    }
     #tabs-container-mobile {
         display: flex;
         flex-direction: row;
-        position: fixed;
-        top: 70vh;
-
-        /* bottom: 250px; */
 
         width: 350px;
         height: 60px;
         font-size: 15px;
+        grid-area: footer;
     }
-    #fx-swap {
-        position: initial;
-        z-index: 2;
+    @media all and (max-height: 600px) {
+        #param-swap-text {
+            font-size: 14px;
+        }
+        #tabs-container-mobile {
+            margin-top: 1px;
+            display: flex;
+            flex-direction: row;
+
+            width: 350px;
+            height: 30px;
+            font-size: 15px;
+            grid-area: footer;
+        }
     }
 }
 
