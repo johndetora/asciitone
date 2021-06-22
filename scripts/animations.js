@@ -94,7 +94,6 @@ synthControls.addEventListener('input', ({ target }) => {
     let emptyAlt = '-';
     console.log(target.max);
     //// The '/ n' parts make it so the lines amount equal 31 at their max. Just divide/multiply target max so it reaches 31
-
     /// Mod index
     if (target.max == 100) {
         let linesAmount = parseInt(target.value / 3.2); // This ends up being the total width essentially

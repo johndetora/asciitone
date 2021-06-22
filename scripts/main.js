@@ -484,58 +484,19 @@ function init() {
 
 ///// Horizontal Slider for Parameters /////
 
-// synthControls.addEventListener('input', ({ target }) => {
-//     let empty = '|';
-//     let emptyAlt = '-';
-
-//     console.log(target.offsetWidth);
-//     // document.getElementById(target.dataset.ascii).getBoundingClientRect().width
-//     let linesAmount = parseInt(target.value * 31);
-//     document.getElementById(target.dataset.ascii).innerHTML = lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-//     console.log(document.getElementById(target.dataset.ascii).getBoundingClientRect().width);
-
-//     /// Envelopes
-// });
+// Synth control slider animations
 synthControls.addEventListener('input', ({ target }) => {
     let empty = '|';
     let emptyAlt = '-';
-    // console.log(target.max);
-    //// The '/ n' parts make it so the lines amount equal 31 at their max. Just divide/multiply target max so it reaches 31
-
-    /// Mod index
-    if (target.max == 100) {
-        let linesAmount = parseInt(target.value / 3.2); // This ends up being the total width essentially
-        console.log(parseInt(32 - linesAmount));
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-    } else if (target.id === 'crossfader') {
-        let linesAmount = parseInt(target.value * 18); // Change this value back to 31 if width is reverted
-        document.getElementById(target.dataset.ascii).innerHTML = lines.repeat(linesAmount) + block + empty.repeat(17 - linesAmount + 1); // Fills in empty space.  +1 so that it doesn't hit 0 and throw an error
-        /// Filter
-    } else if (target.max == 1) {
-        console.log(target.offsetWidth);
-        /// Envelopes
-        let linesAmount = parseInt(target.value * 31);
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-        /// Filter
-    } else if (target.max == 1500) {
-        let linesAmount = parseInt(target.value / 47);
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-        // Resonance
-    } else if (target.max == 10) {
-        let linesAmount = parseInt(target.value * 3.1);
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-    } else if (target.id === 'lfo-rate') {
-        let linesAmount = parseInt(target.value * 2.1);
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-    } else if (target.id === 'harmonicity') {
-        let linesAmount = parseInt(target.value * 2.7);
-        document.getElementById(target.dataset.ascii).innerHTML = lines + lines.repeat(linesAmount) + block + empty.repeat(17 - linesAmount);
+    let factor = 31;
+    let linesAmount = parseInt((factor / target.max) * target.value);
+    if (target.id === 'crossfader' || target.id === 'harmonicity') {
+        let linesAmount = parseInt((18 / target.max) * target.value);
+        document.getElementById(target.dataset.ascii).innerHTML = lines.repeat(linesAmount) + block + empty.repeat(18 - linesAmount) + empty;
         document.getElementById('ascii-harmonicity-num').innerHTML = '|' + parseFloat(target.value).toFixed(1) + '|';
+    } else if (target.id !== 'glide') {
+        document.getElementById(target.dataset.ascii).innerHTML =
+            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
     }
 });
 
@@ -620,7 +581,7 @@ function mobileSwap() {
     tabContainer.addEventListener('click', ({ target }) => {
         tabState = target.dataset.state;
         // make highlighted text bold
-        swapLabels.forEach((element) => {
+        swapLabels.forEach(element => {
             element.style.fontWeight = 'normal';
             target.style.fontWeight = 'bold';
         });
