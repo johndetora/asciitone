@@ -399,6 +399,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
     grid-area: footer;
 }
 #fx-swap {
+    display: block;
     text-align: left;
     width: 120px;
 

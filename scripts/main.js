@@ -45,6 +45,7 @@ playButton.addEventListener('click', () => {
 // Initialization of bpm and ascii meters
 window.addEventListener('load', () => {
     initVerticalControls();
+    initHorizontalControls();
     let bpm = transport.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -464,10 +465,25 @@ function drawHorizontalControls(e) {
     let linesAmount = parseInt((factor / target.max) * target.value);
     if (target.id === 'crossfader' || target.id === 'harmonicity') {
         let linesAmount = parseInt((18 / target.max) * target.value);
-        document.getElementById(target.dataset.ascii).innerHTML = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
-        document.getElementById('ascii-harmonicity-num').innerHTML = pipe + parseFloat(target.value).toFixed(1) + pipe;
+        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
+        document.getElementById('ascii-harmonicity-num').innerText = pipe + parseFloat(target.value).toFixed(1) + pipe;
     } else if (target.id !== 'glide') {
-        document.getElementById(target.dataset.ascii).innerHTML = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
+        document.getElementById(target.dataset.ascii).innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
+    }
+}
+//TODO: this does work.  Just gotta see if it's worth adding a class to every control that would use it.
+function initHorizontalControls() {
+    const controls = document.querySelectorAll('.hControl');
+    const controlsAscii = document.querySelectorAll('.ascii-params');
+    let block = '▓';
+    let pipe = '|';
+    let dash = '-';
+    let factor = 31;
+    for (let i = 0; i < controls.length; i++) {
+        let linesAmount = parseInt((factor / controls[i].max) * controls[i].value);
+        console.log(controls[i]);
+        // console.log(controlsAscii[i].innerText);
+        controlsAscii[i].innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
     }
 }
 
@@ -519,6 +535,7 @@ let paramState = 'synth';
 fxSwap.addEventListener('click', function () {
     const synthOverlay = document.getElementById('ascii-synth-overlay');
     const fxOverlay = document.getElementById('ascii-fx-overlay');
+
     if (paramState === 'fx') {
         console.log('fx state');
         synthControls.style.display = 'grid';
