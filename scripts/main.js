@@ -458,15 +458,17 @@ function animateLFO(index) {
 //    Slider Animations      //
 // ------------------------- //
 /////// Horizontal Slider Animation ////////
-const tempoMeter = document.getElementById('ascii-bpm');
-let lines = '|';
-let block = '▓';
 
+// let lines = '|';
+// let block = '▓';
+const tempoMeter = document.getElementById('ascii-bpm');
 tempoMeter.innerHTML = '||||||||||||||▓══════════════════ |';
 transport.addEventListener('input', function () {
-    let animBars = parseInt(this.value / 15);
-    let empty = '═';
-    tempoMeter.innerHTML = lines.repeat(animBars - 1) + block + empty.repeat(33 - animBars) + ' |';
+    let block = '▓';
+    let pipe = '|';
+    let equals = '═';
+    let linesAmount = parseInt(this.value / 15);
+    tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(33 - linesAmount) + ` ${pipe}`; // ' |'
 });
 /// Initialization
 function init() {
@@ -484,36 +486,26 @@ function init() {
 
 ///// Horizontal Slider for Parameters /////
 
-// Synth control slider animations
-synthControls.addEventListener('input', ({ target }) => {
-    let empty = '|';
-    let emptyAlt = '-';
+// Synth/FX control slider animations
+function drawHorizontalSliders(e) {
+    let target = e.target;
+    let block = '▓';
+    let pipe = '|';
+    let dash = '-';
     let factor = 31;
     let linesAmount = parseInt((factor / target.max) * target.value);
     if (target.id === 'crossfader' || target.id === 'harmonicity') {
         let linesAmount = parseInt((18 / target.max) * target.value);
-        document.getElementById(target.dataset.ascii).innerHTML = lines.repeat(linesAmount) + block + empty.repeat(18 - linesAmount) + empty;
-        document.getElementById('ascii-harmonicity-num').innerHTML = '|' + parseFloat(target.value).toFixed(1) + '|';
+        document.getElementById(target.dataset.ascii).innerHTML = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
+        document.getElementById('ascii-harmonicity-num').innerHTML = pipe + parseFloat(target.value).toFixed(1) + pipe;
+    } else if (target.id === 'ascii-bpm') {
     } else if (target.id !== 'glide') {
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
+        document.getElementById(target.dataset.ascii).innerHTML = lines + lines.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
     }
-});
+}
 
-// FX Horizontal slider animations
-
-fxControls.addEventListener('input', ({ target }) => {
-    let empty = '|';
-    let emptyAlt = '-';
-    console.log(target.max);
-    if (target.id == 'delayTime' || target.id == 'delayFeedback' || target.id == 'delayMix') {
-        // Target max is 1
-        /// Envelopes
-        let linesAmount = parseInt(target.value * 31);
-        document.getElementById(target.dataset.ascii).innerHTML =
-            lines + lines.repeat(linesAmount) + block + emptyAlt.repeat(31 - linesAmount) + empty;
-    }
-});
+synthControls.addEventListener('input', e => drawHorizontalSliders(e));
+fxControls.addEventListener('input', e => drawHorizontalSliders(e));
 
 /////// Circle Grow Animation
 // let circle = document.getElementById('ascii-cutoff');

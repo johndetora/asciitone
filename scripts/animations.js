@@ -90,8 +90,9 @@ transport.addEventListener('input', function () {
 ///// Horizontal Slider for Parameters /////
 
 synthControls.addEventListener('input', ({ target }) => {
-    let empty = '|';
-    let emptyAlt = '-';
+    let pipe = '|';
+    let dash = '-';
+    let block = '▓';
     console.log(target.max);
     //// The '/ n' parts make it so the lines amount equal 31 at their max. Just divide/multiply target max so it reaches 31
     /// Mod index
