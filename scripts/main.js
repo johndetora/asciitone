@@ -4,6 +4,8 @@ import { synthParamController } from './synth-controls.js';
 
 skinSwapper();
 
+reverb.generate();
+
 //TODO: Refactor this to its own function.  Add web browser check
 let OSName = 'Unknown OS';
 if (navigator.appVersion.indexOf('Win') != -1) OSName = 'Windows';
@@ -22,7 +24,6 @@ if (navigator.appVersion.indexOf('Win') != -1) {
 //Audio play confirmation - needed because of autoplay policy
 document.querySelector('button')?.addEventListener('click', async () => {
     await Tone.start();
-    await reverb.generate();
 });
 
 //////////////// Start Stop Init ////////////////////////
