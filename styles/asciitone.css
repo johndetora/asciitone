@@ -1,13 +1,10 @@
 * {
     box-sizing: border-box;
     padding: 0;
-    /* margin: 0; */
 }
 
 html * {
     -webkit-tap-highlight-color: transparent;
-    /* font-family: 'Courier New', Courier, monospace */
-    /* font-family: monospace; */
 }
 
 html,
@@ -38,15 +35,13 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 input[type='range']:focus {
-    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+    outline: none;
 }
 
 input[type='range']::-ms-track {
     width: 100%;
     -webkit-appearance: none;
     cursor: pointer;
-
-    /* Hides the slider so custom styles can be added */
     background: transparent;
     border-color: transparent;
     color: transparent;
@@ -63,16 +58,7 @@ p {
     margin: 1px;
     margin-bottom: 1px;
 }
-/* 
-#background {
-    position: absolute;
-    margin: auto;
 
-    height: 90%;
-    width: 90%;
-    background-color: blue;
-    z-index: -99;
-} */
 #hidden {
     opacity: 0;
 }
@@ -106,8 +92,6 @@ p {
 
 /* MAIN */
 #main-container {
-    /* margin: auto; */
-
     margin: 5% 10% 10% 10%;
     border-radius: 2rem;
     width: auto;
@@ -249,6 +233,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
     text-align: center;
     width: 59px;
     height: 16px;
+    padding: 2px;
     margin: 0;
     opacity: 1;
     z-index: 3;
@@ -260,22 +245,24 @@ use [class*="ascii-osc-"] to select this and the mod wave
     display: none;
     flex-direction: column;
     position: absolute;
-    margin: 0px 0 6px 0;
-    width: 92%;
-    height: 79%;
+    /* margin: 0px 0 6px 0px; */
+    width: 93%;
+    height: 80%;
     line-height: 18px;
     z-index: 4;
 }
 
 #glide-container {
     position: relative;
-    top: -5px;
+    top: -9px;
 }
 /* input checkbox */
 #glide {
     position: absolute;
-    left: 50px;
-    top: 3px;
+    width: 30px;
+    height: 20px;
+    left: 45px;
+    top: -px;
     margin: auto;
     cursor: pointer;
     opacity: 0;
@@ -283,7 +270,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
 #ascii-glide {
     position: absolute;
     left: 45px;
-    top: -13px;
+    top: -17px;
     z-index: -1;
 }
 
@@ -306,7 +293,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
     display: none;
     flex-direction: column;
     position: absolute;
-    width: 92%;
+    width: 93%;
     height: 80%;
     line-height: 18px;
     z-index: 4;
