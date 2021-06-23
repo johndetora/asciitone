@@ -44,7 +44,7 @@ playButton.addEventListener('click', () => {
 });
 // Initialization of bpm and ascii meters
 window.addEventListener('load', () => {
-    drawFlutterControls();
+    initVerticalControls();
     let bpm = transport.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -442,7 +442,7 @@ function animateLFO(index) {
 //    Slider Animations      //
 // ------------------------- //
 /////// Horizontal Slider Animation ////////
-
+//TODO: add special classes so that we can target the controls and initialize the renders on load
 const tempoMeter = document.getElementById('ascii-bpm');
 tempoMeter.innerHTML = '||||||||||||||▓══════════════════ |';
 
@@ -455,7 +455,7 @@ transport.addEventListener('input', function () {
 });
 
 // Synth/FX control slider animations
-function drawHorizontalSliders(e) {
+function drawHorizontalControls(e) {
     let target = e.target;
     let block = '▓';
     let pipe = '|';
@@ -466,14 +466,13 @@ function drawHorizontalSliders(e) {
         let linesAmount = parseInt((18 / target.max) * target.value);
         document.getElementById(target.dataset.ascii).innerHTML = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
         document.getElementById('ascii-harmonicity-num').innerHTML = pipe + parseFloat(target.value).toFixed(1) + pipe;
-    } else if (target.id === 'ascii-bpm') {
     } else if (target.id !== 'glide') {
-        document.getElementById(target.dataset.ascii).innerHTML = lines + lines.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
+        document.getElementById(target.dataset.ascii).innerHTML = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
     }
 }
 
-synthControls.addEventListener('input', e => drawHorizontalSliders(e));
-fxControls.addEventListener('input', e => drawHorizontalSliders(e));
+synthControls.addEventListener('input', e => drawHorizontalControls(e));
+fxControls.addEventListener('input', e => drawHorizontalControls(e));
 
 /////// Circle Grow Animation
 // let circle = document.getElementById('ascii-cutoff');
@@ -501,7 +500,7 @@ fxControls.addEventListener('input', e => drawHorizontalSliders(e));
 // }
 
 /// Flutter Controls
-function drawFlutterControls() {
+function initVerticalControls() {
     for (let i = 0; i < meters.length; i++) {
         meters[i].innerHTML = bars(6);
         const empty = '│-│' + '<br>';
