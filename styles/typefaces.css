@@ -16,13 +16,13 @@ html * {
 }
 .ascii-params {
     /* font-family: 'Courier New', Courier, monospace !important; */
-    font-family: 'Menlo Regular';
+
     
 }
 
-.overlay {
+/* .overlay {
     font-family: 'Menlo-Regular';
-}
+} */
 /* #ascii-repeater {
     font-family: Courier, monospace;
 }
