@@ -1,12 +1,12 @@
 # Change Log
 
-All notable changes to asciiquencer/asciitone will be documented in this file.
+All notable changes to ascii-tone will be documented in this file.
 
-## v0.3.0b - 2021-06-23
+## v0.3.0 - 2021-06-23
 
 ### Added
 
--   v0.3 introduces convolution reverb to ascii-tone. Click the FX tab to try out the new parameters:
+-   v0.3.0 introduces convolution reverb to ascii-tone. Click the FX tab to try out the new parameters:
     -   Mix: Controls the wet/dry mix of reverb. Put this all the way up to hear only the reverb signal, and all the way down to hear only the synth engine.
     -   Decay: Sets the duration of the reverb.
     -   Pre-delay: Sets the amount of time before the reverb is fully ramped in once signal is sent.
@@ -22,8 +22,9 @@ All notable changes to asciiquencer/asciitone will be documented in this file.
 -   Seperated synth and effect objects generated from Tone.js into seperate script 'synth-objects.js'
 -   Misc. stylesheet changes.
 
-##### Code
+##### misc
 
+-   Changed versioning system. Format is now |major version|minor version|patch version| with no 'b' identifier to specify beta.
 -   Refactored the function that renders the horizontal sliders. It is now much cleaner and won't require adding conditions for every parameter added.
 
 ### Fixed
