@@ -3,6 +3,7 @@ import { synthParamController } from './synth-controls.js';
 
 skinSwapper();
 
+//TODO: Refactor this to its own function.  Add web browser check
 let OSName = 'Unknown OS';
 if (navigator.appVersion.indexOf('Win') != -1) OSName = 'Windows';
 if (navigator.appVersion.indexOf('Mac') != -1) OSName = 'MacOS';
@@ -43,7 +44,7 @@ playButton.addEventListener('click', () => {
 });
 // Initialization of bpm and ascii meters
 window.addEventListener('load', () => {
-    init();
+    drawFlutterControls();
     let bpm = transport.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -60,6 +61,7 @@ transport.addEventListener('input', function () {
 //         Variables         //
 // ------------------------- //
 
+//TODO: See which ones can go into their own functions
 const synthControls = document.querySelector('#synth-container');
 const fxControls = document.querySelector('#fx-container');
 const stepContainer = document.querySelector('#steps');
@@ -73,8 +75,7 @@ const steps = 8; // Total step length
 //    Synth Parameters       //
 // ------------------------- //
 
-// TO DO:
-// Put these and routing in their own module, then import all into param controls
+// TODO: Put these and routing in their own module, then import all into param controls
 
 export const synth = new Tone.FMSynth({
     harmonicity: 1,
@@ -158,7 +159,7 @@ let currentScale = majorScale;
 /// Scale set logic
 const scaleSelect = document.getElementById('scale-select');
 scaleSelect.addEventListener('click', scaleSet);
-let scaleIndex = 0;
+let scaleIndex = 0; // Should be global
 function scaleSet() {
     let currentNotes = document.querySelectorAll('.meter');
     // Round Robin selection
@@ -178,24 +179,7 @@ function scaleSet() {
     return currentScale;
 }
 
-// let sliderNotes = {
-//     0: 'C3',
-//     1: 'D3',
-//     2: 'E3',
-//     3: 'F3',
-//     4: 'G3',
-//     5: 'A3',
-//     6: 'B3',
-//     7: 'C4',
-//     8: 'D4',
-//     9: 'E4',
-//     10: 'F4',
-//     11: 'G4',
-//     12: 'A4',
-// };
-
 ////// Notes, value time object each object is a step
-
 let notes = [
     {
         // Step 1
@@ -282,7 +266,7 @@ let repeatButton = document.getElementById('repeatTest');
 // ------------------------- //
 
 let repStep; // Can delete this soon
-let index = 0; // Never change this
+let index = 0; // Never change this.  It is the global reference for each
 
 let part = new Tone.Part(function (time, value) {
     let step = index % steps;
@@ -459,10 +443,9 @@ function animateLFO(index) {
 // ------------------------- //
 /////// Horizontal Slider Animation ////////
 
-// let lines = '|';
-// let block = '▓';
 const tempoMeter = document.getElementById('ascii-bpm');
 tempoMeter.innerHTML = '||||||||||||||▓══════════════════ |';
+
 transport.addEventListener('input', function () {
     let block = '▓';
     let pipe = '|';
@@ -470,21 +453,6 @@ transport.addEventListener('input', function () {
     let linesAmount = parseInt(this.value / 15);
     tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(33 - linesAmount) + ` ${pipe}`; // ' |'
 });
-/// Initialization
-function init() {
-    for (let i = 0; i < meters.length; i++) {
-        meters[i].innerHTML = bars(6);
-        const empty = '│-│' + '<br>';
-        const arrowUp = '│-│↑' + '<br>';
-        const arrowDown = '│-│↓' + '<br>';
-        const arrowUpFilled = '│o│↑' + '<br>';
-        const arrowDownFilled = '│o│↓' + '<br>';
-        const filled = '│o│' + '<br>';
-        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
-    }
-}
-
-///// Horizontal Slider for Parameters /////
 
 // Synth/FX control slider animations
 function drawHorizontalSliders(e) {
@@ -532,6 +500,19 @@ fxControls.addEventListener('input', e => drawHorizontalSliders(e));
 //     }
 // }
 
+/// Flutter Controls
+function drawFlutterControls() {
+    for (let i = 0; i < meters.length; i++) {
+        meters[i].innerHTML = bars(6);
+        const empty = '│-│' + '<br>';
+        const arrowUp = '│-│↑' + '<br>';
+        const arrowDown = '│-│↓' + '<br>';
+        const arrowUpFilled = '│o│↑' + '<br>';
+        const arrowDownFilled = '│o│↓' + '<br>';
+        const filled = '│o│' + '<br>';
+        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
+    }
+}
 //////////////// SWAP PARAMETERS ///////////////
 
 const fxSwap = document.getElementById('fx-swap');
