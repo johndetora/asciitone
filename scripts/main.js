@@ -127,8 +127,8 @@ function scaleSet() {
 
     if (currentScale === scales[0]) scaleSelect.innerHTML = '[scale: major]';
     if (currentScale === scales[1]) scaleSelect.innerHTML = '[scale: minor]';
-    if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: pentatonic]';
-    if (currentScale === scales[3]) scaleSelect.innerHTML = '[scale: chromatic]';
+    if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: pent]';
+    if (currentScale === scales[3]) scaleSelect.innerHTML = '[scale: chrom]';
     return currentScale;
 }
 
