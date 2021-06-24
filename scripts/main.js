@@ -29,9 +29,11 @@ document.querySelector('button')?.addEventListener('click', async () => {
 
 //////////////// Start Stop Init ////////////////////////
 //  Starts transport and initializes certain animations like playhead and spin //
-let playButton = document.getElementById('play-button');
+
 //TODO: add space key to play/pause
-playButton.addEventListener('click', () => {
+let playButton = document.getElementById('play-button');
+playButton.addEventListener('click', async () => {
+    await Tone.start();
     const asciiPlay = '[play]';
     const asciiPause = '[pause]';
     if (Tone.Transport.state !== 'started') {
@@ -222,8 +224,6 @@ let index = 0; // Never change this.  It is the global reference for each step
 
 let part = new Tone.Part(function (time, value) {
     let step = index % steps;
-    console.log(value.repeat);
-
     // Repeat Logic
     if (value.repeat == 0) {
         playHeadUpdate(step);
