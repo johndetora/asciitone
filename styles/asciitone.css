@@ -94,7 +94,6 @@ p {
 #main-container {
     margin: 5% 10% 10% 10%;
     border-radius: 2rem;
-    width: 100%;
     height: auto;
     display: grid;
     grid-template-columns: auto;
@@ -312,7 +311,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
 
 #harmonicity {
     position: absolute;
-    width: 80px;
+    width: 90px;
     z-index: 1;
 }
 
@@ -327,7 +326,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
 }
 #crossfader {
     position: absolute;
-    width: 80px;
+    width: 90px;
     left: 1px;
 }
 
