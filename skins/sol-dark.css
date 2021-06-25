@@ -1,36 +1,38 @@
 :root {
     /* Set Base Colors here */
-    --black: rgb(9, 31, 44);
-    --blue: rgb(60, 219, 192);
-    --yellow: rgb(241, 190, 72);
-    --red: #bf616a;
-    --orange: #d08770;
-    --yellow: #ebcb8b;
-    --green: #a3be8c;
-    --purple: #b48ead;
-    --gray: #232525;
-
+    --black: #002b36;
+    --dark: #073642;
+    --green: #859900;
+    --cyan: #2aa198;
+    --blue: #268bd2;
+    --yellow: #b58900;
+    --purple: #d33682;
+    --red: #dc322f;
+    --white: #fdf6e3;
+    --white2: #eee8d5;
     /* Quick Change */
-    --bg: var(--gray);
-    --primary: var(--green);
-    --secondary: var(--orange);
+    --bg: var(--black);
+    --primary: var(--blue);
+    --secondary: var(--yellow);
     --accent1: var(--red);
 
     /* Change these as long as they match condition*/
-    --metersOn: var(--purple); /*  note meters are set to this */
-    --repeaterOn: var(--yellow); /* ascii-repeater is set to this */
-    --checksOn: var(--secondary); /* Checks are set to this */
-    --off: #a3be8c; /*Background and text color 1 */
+    --metersOn: var(--cyan); /*  note meters are set to this */
+    --repeaterOn: var(--purple); /* ascii-repeater is set to this */
+    --checksOn: var(--green); /* Checks are set to this */
+    --off: rgba(60, 219, 192, 0.5); /* primary with half opacity */
 }
+
+/* Background and text color 1 */
 body {
     /* Text Colors */
-    color: var(--yellow);
+    color: var(--purple);
     /* frame color -- set to same as --bg if no frame is needed*/
     background-color: var(--bg);
 }
 
 #header {
-    color: var(--off);
+    color: var(--yellow);
 }
 /* ascii-tone background color */
 #main-container {
@@ -41,7 +43,7 @@ body {
 
 /* main overlay */
 .overlay {
-    color: var(--primary);
+    color: var(--green);
 }
 
 #ascii-repeater {
@@ -50,18 +52,18 @@ body {
 
 /* For f and Zzz */
 .ascii-label {
-    color: var(--green);
+    color: var(--accent1);
 }
 
 /*//////////*/
 /* Transport */
 /*//////////*/
 #play-button {
-    color: var(--red);
+    color: var(--green);
 }
 
 #ascii-bpm {
-    color: var(--orange);
+    color: var(--primary);
 }
 
 #scale-select {
@@ -70,7 +72,7 @@ body {
 
 /* The 'playhead' arrow that moves along the top */
 #playhead {
-    color: var(--accent1);
+    color: var(--purple);
 }
 
 /* The note selection meters */
@@ -85,17 +87,17 @@ body {
 
 /* The synth control parameters */
 .ascii-params {
-    color: var(--purple);
+    color: var(--primary);
 }
 
 /*  Control box titles */
 .group-label {
-    color: var(--yellow);
+    color: var(--secondary);
 }
 
 /* titles for each parameter */
 .label {
-    color: var(--primary);
+    color: var(--red);
 }
 
 #ascii-lfo-spin {
@@ -103,10 +105,10 @@ body {
 }
 /* the fx tab */
 #fx-swap {
-    color: var(--secondary);
+    color: var(--purple);
 }
 
 /* param tabs on mobile */
 #tabs-container-mobile {
-    color: var(--secondary);
+    color: var(--purple);
 }

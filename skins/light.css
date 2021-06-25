@@ -1,110 +1,86 @@
 :root {
-    --black: #050404;
-    --orange: #d6482a;
-    --sand: #e0a144;
-    --red: #a81b0b;
-    --rust: #9f3f1b;
-    --lightBlue: #acd8e2;
-    --blue: #588696;
-    /* Quick Change */
-    --bg: var(--rust);
-    --primary: var(--sand);
-    --secondary: var(--rust);
-    --accent1: var(--blue);
+    --white: rgba(241, 232, 208, 1);
+    --black: rgba(0, 0, 0, 1);
 
-    /* Change these as long as they match condition*/
-    --metersOn: var(--primary); /*  note meters are set to this */
-    --repeaterOn: var(--primary); /* ascii-repeater is set to this */
-    --checksOn: var(--blue); /* Checks are set to this */
-    --off: rgba(60, 219, 192, 0.5); /* primary with half opacity */
+    /* Don't remove these */
+    --meterOn: var(--black)
+    --repeaterOn: var(--black);
+    --checksOn: var(--black);
+    --on: rgba(0, 0, 0, 1);
+    --off: rgba(0, 0, 0, 0.4);
+    --bg: rgb(255, 255, 246);
 }
 
 /* Background and text color 1 */
 body {
-    /* Text Colors */
-    color: var(--primary);
-    /* frame color -- set to same as --bg if no frame is needed*/
-    background-color: var(--bg);
+    color: var(--black);
+    background-color: rgb(255, 255, 246);
 }
 
-#header {
-    color: var(--sand);
-}
 /* ascii-tone background color */
 #main-container {
-    /* This has to be the --bg variable */
     background: var(--bg);
     z-index: -999;
 }
 
 /* main overlay */
-.overlay {
-    color: var(--primary);
+#ascii-window {
+    color: var(--black);
 }
 
-#ascii-repeater {
-    color: var(--repeaterOn);
-}
-
-/* For f and Zzz */
 .ascii-label {
-    color: var(--red);
+    color: var(--black);
 }
 
-/*//////////*/
-/* Transport */
-/*//////////*/
+.label {
+    color: var(--black);
+}
+/* Horizontal seperators of overlay */
+.divider {
+    color: var(--black);
+}
+/* For coloring specific elements, use the following: */
+
 #play-button {
-    color: var(--red);
+    color: var(--black);
 }
 
-#ascii-bpm {
-    color: var(--primary);
-}
-
-#scale-select {
-    color: var(--sand);
+/* The spinning BPM animation */
+#ascii-spin {
+    color: var(--black);
 }
 
 /* The 'playhead' arrow that moves along the top */
 #playhead {
-    color: var(--accent1);
+    color: var(--black);
 }
 
 /* The note selection meters */
 #ascii-meter {
-    color: var(--metersOn);
+    color: var(--black);
 }
 
 /* The snooze buttons */
 #ascii-checkbox {
-    color: var(--checksOn);
+    color: var(--black);
 }
+
+/* synthesizer section background color */
 
 /* The synth control parameters */
 .ascii-params {
-    color: var(--primary);
+    color: var(--black);
 }
 
 /*  Control box titles */
 .group-label {
-    color: var(--secondary);
+    color: var(--black);
 }
 
-/* titles for each parameter */
-.label {
-    color: var(--orange);
-}
-
-#ascii-lfo-spin {
-    color: var(--accent1);
-}
-/* the fx tab */
 #fx-swap {
-    color: var(--secondary);
+    color: var(--black);
 }
 
-/* param tabs on mobile */
 #tabs-container-mobile {
-    color: var(--primary);
+    color: var(--black);
 }
