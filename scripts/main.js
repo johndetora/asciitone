@@ -37,14 +37,14 @@ playButton.addEventListener('click', async () => {
     const asciiPlay = '[play]';
     const asciiPause = '[pause]';
     if (Tone.Transport.state !== 'started') {
-        playButton.innerHTML = asciiPause;
+        playButton.innerText = asciiPause;
         Tone.Transport.start();
         animateLFO(0);
         playHeadUpdate(0);
         index = 0;
     } else {
-        playButton.innerHTML = asciiPlay;
-        playHead.innerHTML = '';
+        playButton.innerText = asciiPlay;
+        playHead.innerText = '';
         Tone.Transport.stop();
         index = 0;
     }

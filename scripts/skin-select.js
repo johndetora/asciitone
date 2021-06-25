@@ -2,7 +2,7 @@
 export function skinSwapper() {
     const skinSwapBtn = document.querySelector('#skinSwap');
     const skinSelector = document.getElementById('skin');
-    const allSkins = ['light', 'dark', 'metro', '9009', 'nord', 'sol-light', 'dune'];
+    const allSkins = ['light', 'dark', 'metro', 'dune', 'nord', 'dmg', 'sol-light', '9009'];
     let skinIndex = 1;
     skinSwapBtn.addEventListener('click', () => {
         let skin = allSkins[skinIndex % allSkins.length];

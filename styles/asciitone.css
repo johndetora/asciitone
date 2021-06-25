@@ -106,6 +106,7 @@ p {
 /* //////// TOP BAR /////////////*/
 #help {
     margin-bottom: 1px;
+    padding: 5px 0px;
 }
 #help:hover {
     width: 70%;
@@ -128,6 +129,13 @@ p {
 }
 #skinSwap {
     cursor: cell;
+    padding: 5px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /*///////   SYNTH LAYOUT    ////////////*/

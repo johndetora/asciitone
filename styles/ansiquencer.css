@@ -29,6 +29,10 @@ a {
     grid-area: header;
 }
 
+#title {
+    z-index: -3;
+}
+
 #steps {
     /* border: 1px solid blue; */
     margin: auto;
