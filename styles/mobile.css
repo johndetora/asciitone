@@ -240,7 +240,121 @@
         grid-area: footer;
     }
 }
-@media all and (min-width: 391px) and (max-width: 450px) {
+@media all and (min-width: 391px) and (max-width: 450px), screen and (max-height: 850px) {
+    body {
+        overflow: hidden;
+        position: fixed;
+    }
+    input[type='range'] {
+        width: 150px;
+    }
+    input[type='range']::-webkit-slider-thumb {
+        height: 30px;
+        width: 23px;
+        margin-top: -1px;
+    }
+
+    #main-container {
+        margin: auto;
+        margin-left: 10px;
+        width: 100%;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas: 'header' 'transport' 'main' 'footer';
+    }
+    #header {
+        margin-left: 5px;
+    }
+    #bpm-container {
+        margin-right: 5px;
+        margin-left: 5px;
+        position: relative;
+        width: 140px;
+    }
+    #scale-select {
+        margin-right: 10px;
+        margin-left: 0px;
+        font-size: 14px;
+        padding-top: 5px;
+    }
+    #steps {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(8, 44px);
+        grid-template-rows: auto;
+        gap: 1px;
+        padding: 0;
+        margin: auto;
+        width: 350px;
+    }
+
+    #playhead {
+        margin-top: 14px;
+        margin-left: 15px;
+        font-size: 12px;
+        position: absolute;
+    }
+    .ascii-params {
+        font-size: 14px;
+    }
+    #ascii-lfo-spin {
+        display: none;
+    }
+    #header {
+        margin-bottom: 0px;
+    }
+
+    #synth-container {
+        margin-top: 20px;
+        padding-left: 15px;
+        grid-area: main;
+        display: none;
+        grid-template-columns: 170px 170px;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            'oscillatorA oscillatorB '
+            'envelope mod '
+            'filter mixer';
+        gap: 0px;
+
+        width: 350px;
+        height: 450px;
+    }
+
+    #fx-container {
+        grid-area: main;
+        width: 350px;
+        height: 470px;
+    }
+
+    #overlay-container {
+        display: none;
+    }
+    #tabs-container {
+        display: none;
+    }
+
+    #param-swap-text {
+        font-size: 16px;
+    }
+
+    #scale-select {
+        margin-right: 20px;
+        font-size: 14px;
+        padding-top: 5px;
+    }
+
+    #tabs-container-mobile {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        width: 350px;
+        height: 30px;
+        font-size: 15px;
+        grid-area: footer;
+    }
+}
+@media all and (min-height: 600) {
     body {
         overflow: hidden;
         position: fixed;
