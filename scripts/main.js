@@ -133,7 +133,7 @@ function scaleSet() {
     return currentScale;
 }
 
-////// Notes, value time object each object is a step
+////// Notes, value time object. each object is a step
 let notes = [
     {
         // Step 1
