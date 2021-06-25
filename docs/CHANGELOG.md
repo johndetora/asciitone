@@ -8,6 +8,7 @@ All notable changes to ascii-tone will be documented in this file.
 
 -   Added several new color themes:
     -   metro, dune, nord, dmg, sol-light, 9009
+-   Added a place holder favicon.
 
 ### Changed
 
@@ -49,7 +50,7 @@ All notable changes to ascii-tone will be documented in this file.
 
 ### Added
 
--   normalize.css stylesheet for css reset. This should maintain more consistency across platforms.
+-   Addition of normalize.css stylesheet for css reset. This should maintain more consistency across platforms.
 
 ### Changed
 
