@@ -216,35 +216,58 @@ function tester() {
 // For testing purposes.  Hidden
 let repeatButton = document.getElementById('repeatTest');
 
+function reverseNotes() {
+    // Isolate the timing of the notes object
+    const timing = notes.map(item => item.time);
+    const newNotes = [...notes];
+    const reversed = newNotes.reverse();
+
+    for (let i = 0; i < reversed.length; i++) {
+        reversed[i].time = timing[i];
+        console.log(timing[i]);
+    }
+
+    console.log(timing);
+    return reversed;
+    // console.log(reversed);
+    //  const pendulum = [...notes, ...reversed];
+    //  console.log(notes);
+    // console.log(reversed);
+    // return pendulum;
+    // console.log('pundulum');
+    // console.log(pendulum);
+    // return pendulum;
+}
+
 // ------------------------- //
 //     Play Sequence         //
 // ------------------------- //
 
 let index = 0; // Never change this.  It is the global reference for each step
 
-let part = new Tone.Part(function (time, value) {
+let part = new Tone.Part((time, value) => {
     let step = index % steps;
-    // Repeat Logic
-    if (value.repeat == 0) {
+
+    if (value.repeat === 0) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, value.timing, time, value.velocity);
         index++;
     }
-    if (value.repeat == 1) {
+    if (value.repeat === 1) {
         playHeadUpdate(step);
         // Can try setting the decay to a low value before this, and then setting it back after the notes play
         synth.triggerAttackRelease(value.note, '32n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '32n', time + 0.1, value.velocity);
         index++;
     }
-    if (value.repeat == 2) {
+    if (value.repeat === 2) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, '48n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.075, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.15, value.velocity);
         index++;
     }
-    if (value.repeat == 3) {
+    if (value.repeat === 3) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, '64n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.05, value.velocity);
@@ -271,13 +294,13 @@ Tone.Transport.loop = true;
 // Notes and Repeats
 stepContainer.addEventListener('input', ({ target }) => {
     // Note Sliders
-    if (target.className == 'meter') {
+    if (target.className === 'meter') {
         // className == Meter so that the repeater slider isn't targeted
         meters[target.dataset.index].innerHTML = bars(target.value); // Sets bar animation value
         notes[target.dataset.index].note = currentScale[target.value];
     }
-    if (target.className == 'repeater-range') {
-        notes[target.dataset.index].repeat = target.value;
+    if (target.className === 'repeater-range') {
+        notes[target.dataset.index].repeat = parseInt(target.value);
         repeatAnim(target);
     }
 });
@@ -285,6 +308,7 @@ stepContainer.addEventListener('input', ({ target }) => {
 // Repeater ascii-animation
 // There's probably a better way to do this but it works.
 function repeatAnim(target) {
+    let repeats = parseInt(target.value);
     const empty = '│-│' + '<br>';
     const arrowUp = '│-│↑' + '<br>';
     const arrowDown = '│-│↓' + '<br>';
@@ -293,16 +317,16 @@ function repeatAnim(target) {
     const filled = '│o│' + '<br>';
     // console.log(asciiRepeater[target.dataset.index][asciiRepCount[0]]);
 
-    if (target.value == 0) {
+    if (repeats === 0) {
         asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDown + filled;
     }
-    if (target.value == 1) {
+    if (repeats === 1) {
         asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDownFilled + empty;
     }
-    if (target.value == 2) {
+    if (repeats === 2) {
         asciiRepeater[target.dataset.index].innerHTML = empty + arrowUpFilled + arrowDown + empty;
     }
-    if (target.value == 3) {
+    if (repeats === 3) {
         asciiRepeater[target.dataset.index].innerHTML = filled + arrowUp + arrowDown + empty;
     }
 }
