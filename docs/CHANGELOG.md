@@ -7,7 +7,7 @@ All notable changes to ascii-tone will be documented in this file.
 ### Added
 
 -   Added several new color themes:
-    -   metro, dune, nord, dmg, sol-light, 9009
+    -   metro, dune, nord, dmg, solarized, 9009
 -   Added a place holder favicon.
 
 ### Changed

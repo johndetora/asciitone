@@ -2,7 +2,7 @@
 export function themeSelector() {
     const themeSelectBtn = document.querySelector('#theme-select');
     const themeEl = document.getElementById('theme');
-    const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'dmg', 'sol-light', '9009'];
+    const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'nord2', 'dmg', 'solarized', '9009'];
     let themeIndex = 1;
     themeSelectBtn.addEventListener('click', () => {
         let theme = allThemes[themeIndex % allThemes.length];
