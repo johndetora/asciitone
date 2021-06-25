@@ -70,7 +70,7 @@ body {
 
 /* The 'playhead' arrow that moves along the top */
 #playhead {
-    color: var(--accent1);
+    color: var(--yellow);
 }
 
 /* The note selection meters */
@@ -90,7 +90,7 @@ body {
 
 /*  Control box titles */
 .group-label {
-    color: var(--yellow);
+    color: var(--orange);
 }
 
 /* titles for each parameter */

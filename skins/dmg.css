@@ -12,7 +12,7 @@
 
     --black: #202020;
     --gray: #646464;
-    --beige: #d8d5d5;
+    --beige: #e4e2e2;
 
     /* Quick Change */
     --bg: var(--beige);
@@ -24,7 +24,7 @@
     --metersOn: var(--lightGreen); /*  note meters are set to this */
     --repeaterOn: var(--midishGreen); /* ascii-repeater is set to this */
     --checksOn: var(--lightGreen); /* Checks are set to this */
-    --off: var(--midGreen);
+    --off: var(--gray);
 }
 
 /* Background and text color 1 */
