@@ -134,6 +134,74 @@ function scaleSet() {
 }
 
 ////// Notes, value time object. each object is a step
+// let notes = [
+//     {
+//         // Step 1
+//         time: '0:0:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+
+//     {
+//         // Step 2
+//         time: '0:1:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+//     {
+//         // Step 3
+//         time: '0:2:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+
+//     {
+//         // Step 4
+//         time: '0:3:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+//     {
+//         // Step 5
+//         time: '1:0:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+//     {
+//         // Step 6
+//         time: '1:1:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+//     {
+//         // Step 7
+//         time: '1:2:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+//     {
+//         // Step 8
+//         time: '1:3:0',
+//         note: currentScale[6],
+//         velocity: 1,
+//         timing: '16n',
+//         repeat: 0,
+//     },
+// ];
 let notes = [
     {
         // Step 1
@@ -201,8 +269,74 @@ let notes = [
         timing: '16n',
         repeat: 0,
     },
-];
+    // Added
+    {
+        // Step 9
+        time: '2:0:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
 
+    {
+        // Step 10
+        time: '2:1:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 11
+        time: '2:2:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+
+    {
+        // Step 12
+        time: '2:3:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 13
+        time: '3:0:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 14
+        time: '3:1:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 15
+        time: '3:2:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 16
+        time: '3:3:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+];
 // Scale Select button
 
 // TEST Buttons
@@ -216,29 +350,6 @@ function tester() {
 // For testing purposes.  Hidden
 let repeatButton = document.getElementById('repeatTest');
 
-function reverseNotes() {
-    // Isolate the timing of the notes object
-    const timing = notes.map(item => item.time);
-    const newNotes = [...notes];
-    const reversed = newNotes.reverse();
-
-    for (let i = 0; i < reversed.length; i++) {
-        reversed[i].time = timing[i];
-        console.log(timing[i]);
-    }
-
-    console.log(timing);
-    return reversed;
-    // console.log(reversed);
-    //  const pendulum = [...notes, ...reversed];
-    //  console.log(notes);
-    // console.log(reversed);
-    // return pendulum;
-    // console.log('pundulum');
-    // console.log(pendulum);
-    // return pendulum;
-}
-
 // ------------------------- //
 //     Play Sequence         //
 // ------------------------- //
@@ -251,21 +362,18 @@ let part = new Tone.Part((time, value) => {
     if (value.repeat === 0) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, value.timing, time, value.velocity);
-        index++;
     }
     if (value.repeat === 1) {
         playHeadUpdate(step);
         // Can try setting the decay to a low value before this, and then setting it back after the notes play
         synth.triggerAttackRelease(value.note, '32n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '32n', time + 0.1, value.velocity);
-        index++;
     }
     if (value.repeat === 2) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, '48n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.075, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.15, value.velocity);
-        index++;
     }
     if (value.repeat === 3) {
         playHeadUpdate(step);
@@ -273,18 +381,33 @@ let part = new Tone.Part((time, value) => {
         synth.triggerAttackRelease(value.note, '64n', time + 0.05, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.1, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.15, value.velocity);
-        index++;
     }
+    console.log(index);
+    // if (step === 16) {
+    //     // reverseNotes();
+    // }
+    // if (index === 20) {
+    //     console.log('end');
+    //     // reverseNotes();
+
+    //     part.loopEnd = '4m';
+    //     console.log(notes);
+    //     // part.loopEnd = '2m';
+    // }
+    console.log(notes);
+
+    index++;
 }, notes);
 
+console.log(index);
 /////// Transport and Loop ////////////
 part.start('0m');
-// repeatNoise.start('0m');
 part.loopStart = '0m';
-part.loopEnd = '2m';
+part.loopEnd = '4m';
 part.loop = true;
+
 Tone.Transport.loopStart = '0m';
-Tone.Transport.loopEnd = '2m';
+Tone.Transport.loopEnd = '4m';
 Tone.Transport.loop = true;
 
 // ------------------------- //
@@ -293,11 +416,17 @@ Tone.Transport.loop = true;
 
 // Notes and Repeats
 stepContainer.addEventListener('input', ({ target }) => {
+    const length = 16;
     // Note Sliders
     if (target.className === 'meter') {
+        let reverse = 16 - target.dataset.index - 1;
         // className == Meter so that the repeater slider isn't targeted
         meters[target.dataset.index].innerHTML = bars(target.value); // Sets bar animation value
         notes[target.dataset.index].note = currentScale[target.value];
+
+        notes[reverse].note = currentScale[target.value];
+
+        console.log(notes);
     }
     if (target.className === 'repeater-range') {
         notes[target.dataset.index].repeat = parseInt(target.value);
@@ -358,7 +487,7 @@ stepContainer.addEventListener('change', ({ target }) => {
 ///// ASCII Playhead Animation
 function playHeadUpdate(step) {
     if (step > 0 && step <= 7) {
-        playHead.prepend('──────');
+        playHead.append('──────');
     } else if (step === 0) {
         playHead.innerHTML = '►';
     }
