@@ -2,6 +2,12 @@
 
 All notable changes to ascii-tone will be documented in this file.
 
+## v0.3.1 - 2021-06-xx
+
+### Added
+
+-   Added several themes
+
 ## v0.3.0 - 2021-06-23
 
 ### Added

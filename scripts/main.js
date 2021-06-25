@@ -1,9 +1,9 @@
-import { skinSwapper } from './skin-select.js';
+import { themeSelector } from './theme-select.js';
 import { synth, delay, filter, crossFade, lfo, toFilt, reverb, gain, modGain, toModIndex } from './synth-objects.js';
 import { synthParamController } from './synth-controls.js';
 
 // Controls selected skin
-skinSwapper();
+themeSelector();
 // This generates the reverb's impulse response via Tone.js
 reverb.generate();
 

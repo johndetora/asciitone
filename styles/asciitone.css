@@ -127,7 +127,7 @@ p {
 #help:hover + #help-menu {
     display: block;
 }
-#skinSwap {
+#theme-select {
     cursor: cell;
     padding: 5px 0px;
     -webkit-touch-callout: none;
