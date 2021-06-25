@@ -2,16 +2,14 @@
 export function skinSwapper() {
     const skinSwapBtn = document.querySelector('#skinSwap');
     const skinSelector = document.getElementById('skin');
-    let skin = 'default';
-    skinSwapBtn.addEventListener('click', function () {
-        if (skin === 'default') {
-            skinSelector.setAttribute('href', 'skins/dark.css');
-            skinSwapBtn.innerHTML = '[ light mode ]';
-            return (skin = 'dark');
-        } else if (skin === 'dark') {
-            skinSelector.setAttribute('href', 'skins/light.css');
-            skinSwapBtn.innerHTML = '[ dark mode ]';
-            return (skin = 'default');
-        }
+    const allSkins = ['light', 'dark', 'metro', '9009', 'nord'];
+    let skinIndex = 1;
+    skinSwapBtn.addEventListener('click', () => {
+        let skin = allSkins[skinIndex % allSkins.length];
+        console.log(skin);
+        skinSelector.setAttribute('href', `skins/${skin}.css`);
+        skinSwapBtn.innerText = `[ ${skin} ]`;
+        //  return (skin = 'dark');
+        skinIndex++;
     });
 }
