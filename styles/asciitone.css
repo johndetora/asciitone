@@ -126,6 +126,10 @@ p {
 #help:hover + #help-menu {
     display: block;
 }
+#skinSwap {
+    cursor: cell;
+}
+
 /*///////   SYNTH LAYOUT    ////////////*/
 
 .synth-control {
