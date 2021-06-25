@@ -6,7 +6,14 @@ All notable changes to ascii-tone will be documented in this file.
 
 ### Added
 
--   Added several themes
+-   Added several new color themes:
+    -   metro, dune, nord, dmg, sol-light, 9009
+
+### Changed
+
+-   Skins are now called themes.
+-   The theme select button now rotates through all available themes, round robin style.
+-   Small interface tweaks.
 
 ## v0.3.0 - 2021-06-23
 
