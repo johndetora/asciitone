@@ -95,7 +95,7 @@ reverb.toDestination(0.8);
 lfo.connect(toFilt);
 toFilt.connect(filter.frequency);
 // Connect LFO to mod index
-// lfo.connect(toFreqRatio);
+// lfo.connect(toFreqRatio);/notes
 toModIndex.connect(synth.modulationIndex);
 
 // ------------------------- //
@@ -116,16 +116,21 @@ scaleSelect.addEventListener('click', scaleSet);
 let scaleIndex = 0; // Should be global
 function scaleSet() {
     let currentNotes = document.querySelectorAll('.meter');
+
     // Round Robin selection
     scaleIndex++;
     if (scaleIndex === scales.length) scaleIndex = 0; // counter resets to 0
     currentScale = scales[scaleIndex];
     // Loop through the current note object and set the values to the current slider values
-    for (let i = 0; i < notes.length; i++) {
+
+    for (let i = 0; i < currentNotes.length; i++) {
+        // Note at meter index = major scale note at index of 1-8
         notes[i].note = currentScale[currentNotes[i].value];
+        // // Set opposite side note for reverse mode
+        notes[16 - i - 1].note = currentScale[currentNotes[i].value];
     }
     // DOM
-
+    //TODO: change to innertext
     if (currentScale === scales[0]) scaleSelect.innerHTML = '[scale: major]';
     if (currentScale === scales[1]) scaleSelect.innerHTML = '[scale: minor]';
     if (currentScale === scales[2]) scaleSelect.innerHTML = '[scale: pent]';
@@ -201,73 +206,74 @@ let notes = [
         repeat: 0,
     },
     // // Added
-    // {
-    //     // Step 9
-    //     time: '2:0:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
+    {
+        // Step 9
+        time: '2:0:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
 
-    // {
-    //     // Step 10
-    //     time: '2:1:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
-    // {
-    //     // Step 11
-    //     time: '2:2:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
+    {
+        // Step 10
+        time: '2:1:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 11
+        time: '2:2:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
 
-    // {
-    //     // Step 12
-    //     time: '2:3:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
-    // {
-    //     // Step 13
-    //     time: '3:0:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
-    // {
-    //     // Step 14
-    //     time: '3:1:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
-    // {
-    //     // Step 15
-    //     time: '3:2:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
-    // {
-    //     // Step 16
-    //     time: '3:3:0',
-    //     note: currentScale[6],
-    //     velocity: 1,
-    //     timing: '16n',
-    //     repeat: 0,
-    // },
+    {
+        // Step 12
+        time: '2:3:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 13
+        time: '3:0:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 14
+        time: '3:1:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 15
+        time: '3:2:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
+    {
+        // Step 16
+        time: '3:3:0',
+        note: currentScale[6],
+        velocity: 1,
+        timing: '16n',
+        repeat: 0,
+    },
 ];
+
 // Scale Select button
 
 // TEST Buttons
@@ -347,7 +353,6 @@ Tone.Transport.loop = true;
 
 // Notes and Repeats
 stepContainer.addEventListener('input', ({ target }) => {
-    const length = 16;
     // Note Sliders
     if (target.className === 'meter') {
         let reverse = 16 - target.dataset.index - 1;
