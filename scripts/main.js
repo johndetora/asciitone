@@ -76,7 +76,7 @@ const stepContainer = document.querySelector('#steps');
 const playHead = document.querySelector('#playhead');
 const meters = document.querySelectorAll('#ascii-meter');
 const asciiRepeater = document.querySelectorAll('#ascii-repeater');
-const steps = 8; // Total step length
+let steps = 8; // Total step length
 
 // ------------------------- //
 //         Routing           //
@@ -296,42 +296,26 @@ let index = 0; // Never change this.  It is the global reference for each step
 let part = new Tone.Part((time, value) => {
     let step = index % steps;
     if (value.repeat === 0) {
-        playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, value.timing, time, value.velocity);
     }
     if (value.repeat === 1) {
-        playHeadUpdate(step);
         // Can try setting the decay to a low value before this, and then setting it back after the notes play
         synth.triggerAttackRelease(value.note, '32n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '32n', time + 0.1, value.velocity);
     }
     if (value.repeat === 2) {
-        playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, '48n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.075, value.velocity);
         synth.triggerAttackRelease(value.note, '48n', time + 0.15, value.velocity);
     }
     if (value.repeat === 3) {
-        playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, '64n', time, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.05, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.1, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.15, value.velocity);
     }
-    console.log(index);
-    // if (step === 16) {
-    //     // reverseNotes();
-    // }
-    // if (index === 20) {
-    //     console.log('end');
-    //     // reverseNotes();
-
-    //     part.loopEnd = '4m';
-    //     console.log(notes);
-    //     // part.loopEnd = '2m';
-    // }
-    console.log(notes);
-
+    // console.log(notes);
+    playHeadUpdate(step);
     index++;
 }, notes);
 
@@ -414,22 +398,73 @@ stepContainer.addEventListener('change', ({ target }) => {
     }
 });
 
+// Sequence mode
+function setSeqMode() {
+    const modeBtn = document.getElementById('seq-mode');
+    let pendulum = false;
+    modeBtn.addEventListener('click', e => {
+        pendulum = !pendulum;
+        // pendulum = !pendulum;
+        if (pendulum === true) {
+            modeBtn.innerText = '[ <-> ]';
+            part.loopEnd = '4m';
+            steps = 16;
+        } else {
+            modeBtn.innerText = '[ --> ]';
+            part.loopEnd = '2m';
+            steps = 16;
+        }
+    });
+}
+setSeqMode();
 // ------------------------- //
 //       Animations          //
 // ------------------------- //
 
 ///// ASCII Playhead Animation
 function playHeadUpdate(step) {
-    const asciiArrow = ['►', '------►', '-──────-----►', '──────────────────►'];
-    const tail = '──────';
-    const arrowHead = '►';
-    const arrow = tail + arrowHead;
+    let headFwd = '>';
+    let headBack = '<';
+
+    let tail = '──────';
+    let space = '&nbsp'.repeat(6);
+
+    console.log('step', step);
+    // Draw Forward
+    if (step === 0) {
+        playHead.innerHTML = headFwd;
+    }
     if (step > 0 && step <= 7) {
-        playHead.prepend('──────');
-    } else if (step === 0) {
-        playHead.innerHTML = '►';
+        playHead.innerHTML = tail.repeat(step) + headFwd;
+    }
+    // Draw Backward
+    if (step === 8) {
+        playHead.innerHTML = space.repeat(15 - step) + headBack;
+    }
+    if (step === 15) {
+        playHead.innerHTML = headBack + tail.repeat(step - 8);
+    }
+    // if (step === 14) {
+    //     playHead.innerHTML = headBack + tail;
+    // }
+
+    if (step > 8 && step < 15) {
+        playHead.innerHTML = '';
+        playHead.innerHTML = space.repeat(15 - step) + headBack + tail.repeat(step - 8); // + tail.repeat(step);
     }
 }
+// function playHeadUpdate(step) {
+//     const asciiArrow = ['►', '------►', '-──────-----►', '──────────────────►'];
+//     const tail = '──────';
+//     const arrowHead = '►';
+//     const arrow = tail + arrowHead;
+//     if (step > 0 && step <= 7) {
+//         playHead.prepend('──────');
+
+//     } else if (step === 0) {
+//         playHead.innerHTML = '>';
+//     }
+// }
 ///
 ///////  Bar  ////////
 function bars(v) {
