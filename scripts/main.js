@@ -403,7 +403,7 @@ console.log(index);
 /////// Transport and Loop ////////////
 part.start('0m');
 part.loopStart = '0m';
-part.loopEnd = '4m';
+part.loopEnd = '2m';
 part.loop = true;
 
 Tone.Transport.loopStart = '0m';
@@ -486,8 +486,12 @@ stepContainer.addEventListener('change', ({ target }) => {
 
 ///// ASCII Playhead Animation
 function playHeadUpdate(step) {
+    const asciiArrow = ['►', '------►', '-──────-----►', '──────────────────►'];
+    const tail = '──────';
+    const arrowHead = '►';
+    const arrow = tail + arrowHead;
     if (step > 0 && step <= 7) {
-        playHead.append('──────');
+        playHead.prepend('──────');
     } else if (step === 0) {
         playHead.innerHTML = '►';
     }
