@@ -362,8 +362,8 @@ function repeatAnim(target) {
     let arrowUpFilled = '│o│↑' + '<br>';
     let arrowDownFilled = '│o│↓' + '<br>';
     const filled = '│o│' + '<br>';
-    // console.log(asciiRepeater[target.dataset.index][asciiRepCount[0]]);
-    // console.log(target);
+
+    // Don't render the arrows on the last step
     if (parseInt(target.dataset.index) === 7) {
         console.log(target);
         arrowUp = empty;
@@ -598,6 +598,7 @@ function initVerticalControls() {
         meters[i].innerHTML = bars(6);
         asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
         if (i === 7) {
+            // Don't render arrows on last step
             asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
         }
     }
