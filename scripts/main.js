@@ -357,25 +357,24 @@ stepContainer.addEventListener('input', ({ target }) => {
 function repeatAnim(target) {
     let repeats = parseInt(target.value);
     const empty = '│-│' + '<br>';
-    const arrowUp = '│-│↑' + '<br>';
-    const arrowDown = '│-│↓' + '<br>';
-    const arrowUpFilled = '│o│↑' + '<br>';
-    const arrowDownFilled = '│o│↓' + '<br>';
+    let arrowUp = '│-│↑' + '<br>';
+    let arrowDown = '│-│↓' + '<br>';
+    let arrowUpFilled = '│o│↑' + '<br>';
+    let arrowDownFilled = '│o│↓' + '<br>';
     const filled = '│o│' + '<br>';
     // console.log(asciiRepeater[target.dataset.index][asciiRepCount[0]]);
-
-    if (repeats === 0) {
-        asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDown + filled;
+    // console.log(target);
+    if (parseInt(target.dataset.index) === 7) {
+        console.log(target);
+        arrowUp = empty;
+        arrowDown = empty;
+        arrowUpFilled = filled;
+        arrowDownFilled = filled;
     }
-    if (repeats === 1) {
-        asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDownFilled + empty;
-    }
-    if (repeats === 2) {
-        asciiRepeater[target.dataset.index].innerHTML = empty + arrowUpFilled + arrowDown + empty;
-    }
-    if (repeats === 3) {
-        asciiRepeater[target.dataset.index].innerHTML = filled + arrowUp + arrowDown + empty;
-    }
+    if (repeats === 0) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDown + filled;
+    if (repeats === 1) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDownFilled + empty;
+    if (repeats === 2) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUpFilled + arrowDown + empty;
+    if (repeats === 3) asciiRepeater[target.dataset.index].innerHTML = filled + arrowUp + arrowDown + empty;
 }
 
 // Snooze Checks
@@ -598,6 +597,9 @@ function initVerticalControls() {
     for (let i = 0; i < meters.length; i++) {
         meters[i].innerHTML = bars(6);
         asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
+        if (i === 7) {
+            asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
+        }
     }
 }
 //////////////// SWAP PARAMETERS ///////////////
