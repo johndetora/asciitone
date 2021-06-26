@@ -295,7 +295,6 @@ let index = 0; // Never change this.  It is the global reference for each step
 
 let part = new Tone.Part((time, value) => {
     let step = index % steps;
-
     if (value.repeat === 0) {
         playHeadUpdate(step);
         synth.triggerAttackRelease(value.note, value.timing, time, value.velocity);
@@ -451,21 +450,21 @@ const ASCIIs = [
 ];
 
 // Formerly a fun spinning animation for the tempo speed.  Now used by animateLFO()
-function animate(index) {
-    // Update the element id of elementID to have the index-th ASCII array entry in it. (Note: arrays start at 0)
-    document.getElementById('ascii-spin').innerHTML = ASCIIs[2][index];
-    let inputSlider = document.getElementById('bpm');
-    let frequency = inputSlider.value;
-    // Call the update function after 1 second / frequency (Hz).
-    setTimeout(function () {
-        if (Tone.Transport.state === 'started') {
-            // Pass the update function the index that it was called with this time, plus 1.
-            // % means modulus (remainder when divided by)
-            // This way, it doesnt' try to look for the 1000th element which doesn't exist
-            animate((index + 1) % ASCIIs[2].length);
-        }
-    }, 10000 / frequency);
-}
+// function animate(index) {
+//     // Update the element id of elementID to have the index-th ASCII array entry in it. (Note: arrays start at 0)
+//     document.getElementById('ascii-spin').innerHTML = ASCIIs[2][index];
+//     let inputSlider = document.getElementById('bpm');
+//     let frequency = inputSlider.value;
+//     // Call the update function after 1 second / frequency (Hz).
+//     setTimeout(function () {
+//         if (Tone.Transport.state === 'started') {
+//             // Pass the update function the index that it was called with this time, plus 1.
+//             // % means modulus (remainder when divided by)
+//             // This way, it doesnt' try to look for the 1000th element which doesn't exist
+//             animate((index + 1) % ASCIIs[2].length);
+//         }
+//     }, 10000 / frequency);
+// }
 
 function animateLFO(index) {
     document.getElementById('ascii-lfo-spin').innerHTML = ASCIIs[1][index];
@@ -485,14 +484,13 @@ function animateLFO(index) {
 /////// Horizontal Slider Animation ////////
 //TODO: add special classes so that we can target the controls and initialize the renders on load
 const tempoMeter = document.getElementById('ascii-bpm');
-tempoMeter.innerHTML = '||||||||||||||▓══════════════════ |';
-
-transport.addEventListener('input', function () {
+transport.addEventListener('input', ({ target }) => {
+    console.log(target.value);
     let block = '▓';
     let pipe = '|';
     let equals = '═';
-    let linesAmount = parseInt(this.value / 15);
-    tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(33 - linesAmount) + ` ${pipe}`; // ' |'
+    let linesAmount = parseInt(target.value / 20);
+    tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`; // ' |'
 });
 
 // Synth/FX control slider animations
