@@ -295,19 +295,6 @@ let notes = [
     },
 ];
 
-// Scale Select button
-
-// TEST Buttons
-// Logs the global note and bpm
-function tester() {
-    // notes.splice(0, 1, repeatNote[0], repeatNote[1]);
-    console.log(notes);
-    console.log(bpm);
-}
-
-// For testing purposes.  Hidden
-let repeatButton = document.getElementById('repeatTest');
-
 // ------------------------- //
 //     Play Sequence         //
 // ------------------------- //
@@ -363,9 +350,7 @@ stepContainer.addEventListener('input', ({ target }) => {
         // className == Meter so that the repeater slider isn't targeted
         meters[target.dataset.index].innerHTML = bars(target.value); // Sets bar animation value
         notes[target.dataset.index].note = currentScale[target.value];
-
         notes[reverse].note = currentScale[target.value];
-        console.log(notes);
     }
     if (target.className === 'repeater-range') {
         notes[target.dataset.index].repeat = parseInt(target.value);

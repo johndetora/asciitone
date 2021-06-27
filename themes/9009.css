@@ -23,13 +23,13 @@
 /* Background and text color 1 */
 body {
     /* Text Colors */
-    color: var(--blue);
+    color: var(--red);
     /* frame color -- set to same as --bg if no frame is needed*/
     background-color: var(--bg);
 }
 
 #header {
-    color: var(--primary);
+    color: var(--gray);
 }
 /* ascii-tone background color */
 #main-container {
