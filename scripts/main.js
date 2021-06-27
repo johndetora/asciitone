@@ -105,12 +105,13 @@ toModIndex.connect(synth.modulationIndex);
 /// SCALES /////
 const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4'];
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
-const minorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
+const minorScale = ['C3', 'D3', 'D#3', 'F3', 'G3', 'G#3', 'A#3', 'C4', 'D4', 'D#4', 'F4', 'G4', 'G#4'];
 const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
 const scales = [majorScale, minorScale, pentScale, chromaticScale];
 let currentScale = majorScale;
 
 /// Scale set logic
+
 const scaleSelect = document.getElementById('scale-select');
 scaleSelect.addEventListener('click', scaleSet);
 let scaleIndex = 0; // Should be global
@@ -122,8 +123,7 @@ function scaleSet() {
     scaleIndex++;
     if (scaleIndex === scales.length) scaleIndex = 0; // counter resets to 0
     currentScale = scales[scaleIndex];
-    // Loop through the current note object and set the values to the current slider values
-
+    // Loop through the current note object and set the notes to the current slider values
     for (let i = 0; i < currentNotes.length; i++) {
         // Note at meter index = major scale note at index of 1-8
         notes[i].note = currentScale[currentNotes[i].value];
