@@ -108,7 +108,6 @@ function randomNoteScale(scale) {
         const random = Math.floor(Math.random() * scale.length);
         array.push(chromaticScale[random]);
     }
-    console.log(array);
     return array;
 }
 
@@ -139,19 +138,11 @@ function scaleSet() {
 }
 
 // Helper
-window.addEventListener('click', () => {
+// window.addEventListener('click', helper);
+
+function helper() {
     console.log(currentScale);
     console.log(notes);
-});
-
-function resetNotes() {
-    let currentNotes = document.querySelectorAll('.meter');
-    for (let i = 0; i < currentNotes.length; i++) {
-        // Note at meter index = major scale note at index of 1-8
-        notes[i].note = currentScale[currentNotes[i].value];
-        // // Set opposite side note for reverse mode
-        notes[15 - i].note = currentScale[currentNotes[i].value];
-    }
 }
 
 let notes = [
@@ -317,7 +308,6 @@ let part = new Tone.Part((time, value) => {
         synth.triggerAttackRelease(value.note, '64n', time + 0.1, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.15, value.velocity);
     }
-    console.log(notes);
     playHeadUpdate(step);
     index++;
 }, notes);
@@ -450,7 +440,7 @@ function drawNoteMeters(inputVal) {
 ///////  Spin  ////////
 function animateLFO(index) {
     const ASCII_SPIN = ['&ndash;', '/', '|', '\\']; // Backward Spin
-    document.getElementById('ascii-lfo-spin').innerHTML = ASCIIs[1][index];
+    document.getElementById('ascii-lfo-spin').innerHTML = ASCII_SPIN[index];
     let inputSlider = document.getElementById('lfo-rate');
     let frequency = inputSlider.value;
     // Call the update function after 1 second / frequency (Hz).
