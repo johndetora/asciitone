@@ -15,9 +15,9 @@
 
     /* Change these as long as they match condition*/
     --metersOn: var(--primary); /*  note meters are set to this */
-    --repeaterOn: var(--primary); /* ascii-repeater is set to this */
-    --checksOn: var(--secondary); /* Checks are set to this */
-    --off: rgba(60, 219, 192, 0.5); /* primary with half opacity */
+    --repeaterOn: var(--green); /* ascii-repeater is set to this */
+    --checksOn: var(--green); /* Checks are set to this */
+    --off: #ffcd0583; /* primary with half opacity */
 }
 
 /* Background and text color 1 */
