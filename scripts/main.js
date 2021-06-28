@@ -99,7 +99,7 @@ const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3'
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
 const minorScale = ['C3', 'D3', 'D#3', 'F3', 'G3', 'G#3', 'A#3', 'C4', 'D4', 'D#4', 'F4', 'G4', 'G#4'];
 const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
-const scales = [majorScale, minorScale, pentScale, chromaticScale, randomNoteScale(chromaticScale)];
+const scales = [majorScale, minorScale, pentScale, chromaticScale];
 let currentScale = majorScale;
 
 //TODO: figure out a way to make scale selection, seq mode, and note entry functions work together
