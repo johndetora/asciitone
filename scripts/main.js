@@ -265,17 +265,19 @@ function drawHorizontalControls(e) {
     let block = '▓';
     let pipe = '|';
     let dash = '-';
-    let factor = 31;
-    let linesAmount = parseInt((factor / target.max) * target.value);
+    const FACTOR = 31;
+    const CF_FACTOR = 18;
+    const CF_FACTOR_CALC = parseInt((CF_FACTOR / target.max) * target.value);
+    let linesAmount = parseInt((FACTOR / target.max) * target.value);
     if (target.id === 'crossfader') {
-        let linesAmount = parseInt((18 / target.max) * target.value);
-        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
+        let linesAmount = CF_FACTOR_CALC;
+        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(CF_FACTOR - linesAmount) + pipe;
     } else if (target.id === 'harmonicity') {
-        let linesAmount = parseInt((18 / target.max) * target.value);
-        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(18 - linesAmount) + pipe;
+        let linesAmount = CF_FACTOR_CALC;
+        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(CF_FACTOR - linesAmount) + pipe;
         document.getElementById('ascii-harmonicity-num').innerHTML = pipe + parseFloat(target.value).toFixed(1) + pipe;
     } else if (target.id !== 'glide') {
-        document.getElementById(target.dataset.ascii).innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
+        document.getElementById(target.dataset.ascii).innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(FACTOR - linesAmount) + pipe;
     }
 }
 //TODO: this does work.  Just gotta see if it's worth adding a class to every control that would use it.
@@ -285,12 +287,12 @@ function initHorizontalControls() {
     let block = '▓';
     let pipe = '|';
     let dash = '-';
-    let factor = 31;
+    let FACTOR = 31;
     for (let i = 0; i < controls.length; i++) {
-        let linesAmount = parseInt((factor / controls[i].max) * controls[i].value);
+        let linesAmount = parseInt((FACTOR / controls[i].max) * controls[i].value);
         console.log(controls[i]);
         // console.log(controlsAscii[i].innerText);
-        controlsAscii[i].innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
+        controlsAscii[i].innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(FACTOR - linesAmount) + pipe;
     }
 }
 
