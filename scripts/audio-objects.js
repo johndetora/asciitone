@@ -29,7 +29,6 @@ export const synth = new Tone.FMSynth({
         attackCurve: 'exponential',
     },
 });
-const noiseSynth = new Tone.NoiseSynth();
 
 /// Delay object
 export const delay = new Tone.FeedbackDelay({
@@ -56,3 +55,20 @@ export const toFilt = new Tone.Gain(0);
 export const gain = new Tone.Gain(0.7);
 export const modGain = new Tone.Gain(0.2);
 export const toModIndex = new Tone.Gain(0);
+
+// ------------------------- //
+//         Routing           //
+// ------------------------- //
+export function initAudioChain() {
+    synth.chain(gain, crossFade.a);
+    synth.modulationEnvelope.chain(modGain, crossFade.b);
+    crossFade.connect(filter);
+    filter.connect(delay);
+    delay.connect(reverb);
+    reverb.toDestination(0.8);
+    lfo.connect(toFilt);
+    toFilt.connect(filter.frequency);
+    // Connect LFO to mod index
+    // lfo.connect(toFreqRatio);/notes
+    toModIndex.connect(synth.modulationIndex);
+}

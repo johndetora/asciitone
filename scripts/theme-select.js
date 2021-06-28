@@ -5,7 +5,7 @@ export function themeSelector() {
     let themeIndex = 1;
 
     // remove this for production:
-    resetTheme();
+    // resetTheme();
 
     if (localStorage.length > 1) {
         window.addEventListener('load', () => {
