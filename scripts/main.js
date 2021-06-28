@@ -1,39 +1,34 @@
 import { themeSelector } from './theme-select.js';
-import { synth, reverb, initAudioChain } from './audio-objects.js';
+import { synth, initAudioChain } from './audio-objects.js';
 import { synthParamController } from './synth-controls.js';
 import { notes, setScale, currentScale } from './note-data.js';
 import { browserChecker } from './browser-checker.js';
+import { tabController } from './tab-controller.js';
+import { renderControls } from './render-controls.js';
 
 // ------------------------- //
 //         Variables         //
 // ------------------------- //
 //TODO: See which ones can go into their own functions
-const synthControls = document.querySelector('#synth-container');
-const fxControls = document.querySelector('#fx-container');
 const stepContainer = document.querySelector('#steps');
 const playHead = document.querySelector('#playhead');
 const noteMeters = document.querySelectorAll('#ascii-meter');
 const asciiRepeater = document.querySelectorAll('#ascii-repeater');
 let sequenceIndex = 0;
-
 let steps = 8; // Total step length
 
 // TODO: figure out why the theme selector breaks theme persistance if loaded here:
 themeSelector();
 
 window.addEventListener('load', () => {
+    renderControls();
     setScale(); // Sets global scale
-    reverb.generate(); // This generates the reverb's impulse response via Tone.js
     initAudioChain();
-    initVerticalControls();
-    initHorizontalControls();
     browserChecker();
-    mobileTabController();
     synthParamController();
+    tabController();
     setSeqMode();
     //TODO: add these event listeners to the function itself?
-    synthControls.addEventListener('input', e => drawHorizontalControls(e));
-    fxControls.addEventListener('input', e => drawHorizontalControls(e));
     let bpm = transportInput.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -221,15 +216,6 @@ function playHeadUpdate(step) {
         playHead.innerHTML = space.repeat(15 - step) + headBack + tail.repeat(step - 8);
     }
 }
-///////  UpdateMeters  ////////
-function drawNoteMeters(inputVal) {
-    const BARS_MAX = 12; // Max slider value for note meters
-    let top = '_' + '<br>';
-    let bottom = '^' + '<br>';
-    let row = '|░|' + '<br>';
-    let filled = '|▓|' + '<br>';
-    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
-}
 
 ///////  Spin  ////////
 function animateLFO(index) {
@@ -243,128 +229,4 @@ function animateLFO(index) {
             animateLFO((index + 1) % ASCII_SPIN.length);
         }
     }, 500 / frequency);
-}
-
-// ------------------------- //
-//    Slider Animations      //
-// ------------------------- //
-/////// Horizontal Slider Animation ////////
-//TODO: add special classes so that we can target the controls and initialize the renders on load
-transportInput.addEventListener('input', ({ target }) => {
-    const tempoMeter = document.getElementById('ascii-bpm');
-    let block = '▓';
-    let pipe = '|';
-    let equals = '═';
-    let linesAmount = parseInt(target.value / 20);
-    tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`; // ' |'
-});
-
-// Synth/FX control slider animations
-function drawHorizontalControls(e) {
-    let target = e.target;
-    let block = '▓';
-    let pipe = '|';
-    let dash = '-';
-    const FACTOR = 31;
-    const CF_FACTOR = 18;
-    const CF_FACTOR_CALC = parseInt((CF_FACTOR / target.max) * target.value);
-    let linesAmount = parseInt((FACTOR / target.max) * target.value);
-    if (target.id === 'crossfader') {
-        let linesAmount = CF_FACTOR_CALC;
-        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(CF_FACTOR - linesAmount) + pipe;
-    } else if (target.id === 'harmonicity') {
-        let linesAmount = CF_FACTOR_CALC;
-        document.getElementById(target.dataset.ascii).innerText = pipe.repeat(linesAmount) + block + pipe.repeat(CF_FACTOR - linesAmount) + pipe;
-        document.getElementById('ascii-harmonicity-num').innerHTML = pipe + parseFloat(target.value).toFixed(1) + pipe;
-    } else if (target.id !== 'glide') {
-        document.getElementById(target.dataset.ascii).innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(FACTOR - linesAmount) + pipe;
-    }
-}
-//TODO: this does work.  Just gotta see if it's worth adding a class to every control that would use it.
-function initHorizontalControls() {
-    const controls = document.querySelectorAll('.hControl');
-    const controlsAscii = document.querySelectorAll('.ascii-params');
-    let block = '▓';
-    let pipe = '|';
-    let dash = '-';
-    let FACTOR = 31;
-    for (let i = 0; i < controls.length; i++) {
-        let linesAmount = parseInt((FACTOR / controls[i].max) * controls[i].value);
-        console.log(controls[i]);
-        // console.log(controlsAscii[i].innerText);
-        controlsAscii[i].innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(FACTOR - linesAmount) + pipe;
-    }
-}
-
-/// Initialize note and flutter controls ui
-function initVerticalControls() {
-    for (let i = 0; i < noteMeters.length; i++) {
-        noteMeters[i].innerHTML = drawNoteMeters(6);
-        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
-        if (i === 7) {
-            // Don't render arrows on last step
-            asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
-        }
-    }
-}
-//////////////// SWAP PARAMETERS ///////////////
-
-const fxSwap = document.getElementById('fx-swap');
-let paramState = 'synth';
-fxSwap.addEventListener('click', function () {
-    const synthOverlay = document.getElementById('ascii-synth-overlay');
-    const fxOverlay = document.getElementById('ascii-fx-overlay');
-    const asciiFx = '| fx |';
-    const asciiSynth = '| synth |';
-    if (paramState === 'fx') {
-        console.log('fx state');
-        synthControls.style.display = 'grid';
-        fxControls.style.display = 'none';
-        fxSwap.innerHTML = asciiFx;
-        synthOverlay.style.display = 'block';
-        fxOverlay.style.display = 'none';
-        return (paramState = 'synth');
-    } else {
-        fxControls.style.display = 'grid';
-        synthControls.style.display = 'none';
-        fxSwap.innerHTML = asciiSynth;
-        console.log('synth state');
-        synthOverlay.style.display = 'none';
-        fxOverlay.style.display = 'block';
-        return (paramState = 'fx');
-    }
-});
-
-///////////// MOBILE TABS //////////////
-let tabState = 'seq';
-function mobileTabController() {
-    const fxSwapTab = document.getElementById('fx-swap-tab');
-    const synthSwap = document.getElementById('synth-swap');
-    const seqSwap = document.getElementById('seq-swap');
-    const tabContainer = document.querySelector('#tabs-container-mobile');
-    const swapLabels = document.querySelectorAll('#param-swap-text');
-    tabContainer.addEventListener('click', ({ target }) => {
-        tabState = target.dataset.state;
-        // make highlighted text bold
-        swapLabels.forEach(element => {
-            element.style.fontWeight = 'normal';
-            target.style.fontWeight = 'bold';
-        });
-        if (tabState === 'seq') {
-            stepContainer.style.display = 'grid';
-            synthControls.style.display = 'none';
-            fxControls.style.display = 'none';
-            seqSwap.style.display = 'bold';
-        } else if (tabState === 'synth') {
-            stepContainer.style.display = 'none';
-            synthControls.style.display = 'grid';
-            fxControls.style.display = 'none';
-            synthSwap.style.fontWeight = 'bold';
-        } else if (tabState === 'fx') {
-            stepContainer.style.display = 'none';
-            synthControls.style.display = 'none';
-            fxControls.style.display = 'grid';
-            fxSwapTab.style.fontWeight = 'bold';
-        }
-    });
 }
