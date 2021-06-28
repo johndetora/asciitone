@@ -16,7 +16,6 @@ export function renderControls() {
     initHorizontalControls();
 }
 
-function renderTempo() {}
 //TODO: add these conditions to renderHorizontalControls
 function renderTempoSlider() {
     transportInput.addEventListener('input', ({ target }) => {
