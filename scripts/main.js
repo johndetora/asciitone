@@ -37,12 +37,12 @@ playButton.addEventListener('click', async () => {
         Tone.Transport.start();
         animateLFO(0);
         playHeadUpdate(0);
-        index = 0;
+        sequenceIndex = 0;
     } else {
         playButton.innerText = asciiPlay;
         playHead.innerText = '';
         Tone.Transport.stop();
-        index = 0;
+        sequenceIndex = 0;
     }
 });
 // Initialization of bpm and ascii meters
@@ -71,6 +71,7 @@ const stepContainer = document.querySelector('#steps');
 const playHead = document.querySelector('#playhead');
 const noteMeters = document.querySelectorAll('#ascii-meter');
 const asciiRepeater = document.querySelectorAll('#ascii-repeater');
+
 let steps = 8; // Total step length
 
 // ------------------------- //
@@ -102,14 +103,14 @@ const scales = [majorScale, minorScale, pentScale, chromaticScale, randomNoteSca
 let currentScale = majorScale;
 
 //TODO: figure out a way to make scale selection, seq mode, and note entry functions work together
-function randomNoteScale(scale) {
-    const array = [];
-    for (let i = 0; i < scale.length; i++) {
-        const random = Math.floor(Math.random() * scale.length);
-        array.push(chromaticScale[random]);
-    }
-    return array;
-}
+// function randomNoteScale(scale) {
+//     const array = [];
+//     for (let i = 0; i < scale.length; i++) {
+//         const random = Math.floor(Math.random() * scale.length);
+//         array.push(chromaticScale[random]);
+//     }
+//     return array;
+// }
 
 /// Scale set logic
 
@@ -117,29 +118,25 @@ const scaleSelect = document.getElementById('scale-select');
 scaleSelect.addEventListener('click', scaleSet);
 let scaleIndex = 0; // Should be global
 function scaleSet() {
-    let currentNotes = document.querySelectorAll('.meter');
     scaleIndex++;
-    if (scaleIndex === scales.length) scaleIndex = 0; // counter resets to 0
-    currentScale = scales[scaleIndex];
+    let currentNotes = document.querySelectorAll('.meter');
+    currentScale = scales[scaleIndex % scales.length];
     // Loop through the current note object and set the notes to the current slider values
+
     for (let i = 0; i < currentNotes.length; i++) {
-        // Note at meter index = major scale note at index of 1-8
         notes[i].note = currentScale[currentNotes[i].value];
-        // // Set opposite side note for reverse mode
         notes[15 - i].note = notes[i].note;
     }
     // DOM
-    //TODO: change to innertext
+
     if (currentScale === scales[0]) scaleSelect.innerText = '[scale: major]';
     if (currentScale === scales[1]) scaleSelect.innerText = '[scale: minor]';
     if (currentScale === scales[2]) scaleSelect.innerText = '[scale: pent]';
     if (currentScale === scales[3]) scaleSelect.innerText = '[scale: chrom]';
-    if (currentScale === scales[4]) scaleSelect.innerText = '[scale: random]';
 }
 
 // Helper
 // window.addEventListener('click', helper);
-
 function helper() {
     console.log(currentScale);
     console.log(notes);
@@ -285,10 +282,9 @@ let notes = [
 //     Play Sequence         //
 // ------------------------- //
 
-let index = 0; // Never change this.  It is the global reference for each step
-
+let sequenceIndex = 0; // Never change this.  It is the global reference for each step
 let part = new Tone.Part((time, value) => {
-    let step = index % steps;
+    let step = sequenceIndex % steps;
     if (value.repeat === 0) {
         synth.triggerAttackRelease(value.note, value.timing, time, value.velocity);
     }
@@ -309,7 +305,7 @@ let part = new Tone.Part((time, value) => {
         synth.triggerAttackRelease(value.note, '64n', time + 0.15, value.velocity);
     }
     playHeadUpdate(step);
-    index++;
+    sequenceIndex++;
 }, notes);
 
 /////// Transport and Loop ////////////

@@ -4,6 +4,9 @@ export function themeSelector() {
     const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'nord2', 'dmg', 'solarized', '9009'];
     let themeIndex = 1;
 
+    // remove this for production:
+    resetTheme();
+
     if (localStorage.length > 1) {
         window.addEventListener('load', () => {
             let theme = localStorage.getItem('theme');
@@ -28,6 +31,11 @@ function setTheme(theme) {
     const themeEl = document.getElementById('theme');
     themeEl.setAttribute('href', `themes/${theme}.css`);
     themeSelectBtn.innerText = `[ ${theme} ]`;
+}
+
+function resetTheme() {
+    localStorage.removeItem('theme');
+    localStorage.removeItem('index');
 }
 
 // OLD ONE IN CASE THIS DOESN'T LOAD FAST ENOUGH
