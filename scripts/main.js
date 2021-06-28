@@ -17,20 +17,18 @@ const asciiRepeater = document.querySelectorAll('#ascii-repeater');
 let sequenceIndex = 0;
 let steps = 8; // Total step length
 
+// This will become index.js
 // TODO: figure out why the theme selector breaks theme persistance if loaded here:
 themeSelector();
-
 window.addEventListener('load', () => {
     renderControls();
-    setScale(); // Sets global scale
+    setScale();
+    setTempo();
     initAudioChain();
     browserChecker();
     synthParamController();
     tabController();
     setSeqMode();
-    //TODO: add these event listeners to the function itself?
-    let bpm = transportInput.value;
-    Tone.Transport.bpm.value = bpm;
 });
 
 // ------------------------- //
@@ -63,13 +61,14 @@ playButton.addEventListener('click', async () => {
     }
 });
 
-// BPM Change input
-let transportInput = document.querySelector('#bpm');
-transportInput.addEventListener('input', function () {
-    let bpm = this.value;
+function setTempo() {
+    let transportInput = document.querySelector('#bpm');
+    let bpm = transportInput.value;
     Tone.Transport.bpm.value = bpm;
-});
-
+    transportInput.addEventListener('input', () => {
+        Tone.Transport.bpm.value = this.value;
+    });
+}
 // Helper
 // window.addEventListener('click', helper);
 function helper() {
