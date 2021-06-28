@@ -1,20 +1,37 @@
 import { themeSelector } from './theme-select.js';
-import { synth, delay, filter, crossFade, lfo, toFilt, reverb, gain, modGain, toModIndex } from './synth-objects.js';
+import { synth, reverb, initAudioChain } from './audio-objects.js';
 import { synthParamController } from './synth-controls.js';
+import { notes, setScale, currentScale } from './note-data.js';
+import { browserChecker } from './browser-checker.js';
 
-themeSelector(); // Controls selected skin
-reverb.generate(); // This generates the reverb's impulse response via Tone.js
+// ------------------------- //
+//         Variables         //
+// ------------------------- //
+//TODO: See which ones can go into their own functions
+const synthControls = document.querySelector('#synth-container');
+const fxControls = document.querySelector('#fx-container');
+const stepContainer = document.querySelector('#steps');
+const playHead = document.querySelector('#playhead');
+const noteMeters = document.querySelectorAll('#ascii-meter');
+const asciiRepeater = document.querySelectorAll('#ascii-repeater');
+let sequenceIndex = 0;
+let steps = 8; // Total step length
 
-//TODO: Refactor this to its own function.  Add web browser check
-let OSName = 'Unknown OS';
-if (navigator.appVersion.indexOf('Win') != -1) OSName = 'Windows';
-if (navigator.appVersion.indexOf('Mac') != -1) OSName = 'MacOS';
-else OSName = 'Linux (probably)';
-console.log('Your OS: ' + OSName);
-const overlay = document.querySelector('.overlay');
-if (navigator.appVersion.indexOf('Win') != -1) {
-    overlay.style.left = '-103px';
-}
+// TODO: figure out why the theme selector breaks theme persistance if loaded here:
+themeSelector();
+
+window.addEventListener('load', () => {
+    setScale(); // Sets global scale
+    reverb.generate(); // This generates the reverb's impulse response via Tone.js
+    initAudioChain();
+    initVerticalControls();
+    initHorizontalControls();
+    browserChecker();
+    mobileTabController();
+    synthParamController();
+    let bpm = transportInput.value;
+    Tone.Transport.bpm.value = bpm;
+});
 
 // ------------------------- //
 //    Transport / Init       //
@@ -45,95 +62,13 @@ playButton.addEventListener('click', async () => {
         sequenceIndex = 0;
     }
 });
-// Initialization of bpm and ascii meters
-window.addEventListener('load', () => {
-    initVerticalControls();
-    initHorizontalControls();
-    let bpm = transport.value;
-    Tone.Transport.bpm.value = bpm;
-});
 
 // BPM Change input
-let transport = document.querySelector('#bpm');
-transport.addEventListener('input', function () {
+let transportInput = document.querySelector('#bpm');
+transportInput.addEventListener('input', function () {
     let bpm = this.value;
     Tone.Transport.bpm.value = bpm;
 });
-
-// ------------------------- //
-//         Variables         //
-// ------------------------- //
-
-//TODO: See which ones can go into their own functions
-const synthControls = document.querySelector('#synth-container');
-const fxControls = document.querySelector('#fx-container');
-const stepContainer = document.querySelector('#steps');
-const playHead = document.querySelector('#playhead');
-const noteMeters = document.querySelectorAll('#ascii-meter');
-const asciiRepeater = document.querySelectorAll('#ascii-repeater');
-
-let steps = 8; // Total step length
-
-// ------------------------- //
-//         Routing           //
-// ------------------------- //
-
-synth.chain(gain, crossFade.a);
-synth.modulationEnvelope.chain(modGain, crossFade.b);
-crossFade.connect(filter);
-filter.connect(delay);
-delay.connect(reverb);
-reverb.toDestination(0.8);
-lfo.connect(toFilt);
-toFilt.connect(filter.frequency);
-// Connect LFO to mod index
-// lfo.connect(toFreqRatio);/notes
-toModIndex.connect(synth.modulationIndex);
-
-// ------------------------- //
-//        Note Data          //
-// ------------------------- //
-
-/// SCALES /////
-const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4'];
-const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
-const minorScale = ['C3', 'D3', 'D#3', 'F3', 'G3', 'G#3', 'A#3', 'C4', 'D4', 'D#4', 'F4', 'G4', 'G#4'];
-const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
-const scales = [majorScale, minorScale, pentScale, chromaticScale];
-let currentScale = majorScale;
-
-//TODO: figure out a way to make scale selection, seq mode, and note entry functions work together
-// function randomNoteScale(scale) {
-//     const array = [];
-//     for (let i = 0; i < scale.length; i++) {
-//         const random = Math.floor(Math.random() * scale.length);
-//         array.push(chromaticScale[random]);
-//     }
-//     return array;
-// }
-
-/// Scale set logic
-
-const scaleSelect = document.getElementById('scale-select');
-scaleSelect.addEventListener('click', scaleSet);
-let scaleIndex = 0; // Should be global
-function scaleSet() {
-    scaleIndex++;
-    let currentNotes = document.querySelectorAll('.meter');
-    currentScale = scales[scaleIndex % scales.length];
-    // Loop through the current note object and set the notes to the current slider values
-
-    for (let i = 0; i < currentNotes.length; i++) {
-        notes[i].note = currentScale[currentNotes[i].value];
-        notes[15 - i].note = notes[i].note;
-    }
-    // DOM
-
-    if (currentScale === scales[0]) scaleSelect.innerText = '[scale: major]';
-    if (currentScale === scales[1]) scaleSelect.innerText = '[scale: minor]';
-    if (currentScale === scales[2]) scaleSelect.innerText = '[scale: pent]';
-    if (currentScale === scales[3]) scaleSelect.innerText = '[scale: chrom]';
-}
 
 // Helper
 // window.addEventListener('click', helper);
@@ -142,147 +77,10 @@ function helper() {
     console.log(notes);
 }
 
-let notes = [
-    {
-        // Step 1
-        time: '0:0:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-
-    {
-        // Step 2
-        time: '0:1:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 3
-        time: '0:2:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-
-    {
-        // Step 4
-        time: '0:3:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 5
-        time: '1:0:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 6
-        time: '1:1:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 7
-        time: '1:2:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 8
-        time: '1:3:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    // // Added
-    {
-        // Step 9
-        time: '2:0:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-
-    {
-        // Step 10
-        time: '2:1:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 11
-        time: '2:2:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-
-    {
-        // Step 12
-        time: '2:3:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 13
-        time: '3:0:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 14
-        time: '3:1:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 15
-        time: '3:2:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-    {
-        // Step 16
-        time: '3:3:0',
-        note: currentScale[6],
-        velocity: 1,
-        timing: '16n',
-        repeat: 0,
-    },
-];
-
 // ------------------------- //
 //     Play Sequence         //
 // ------------------------- //
 
-let sequenceIndex = 0; // Never change this.  It is the global reference for each step
 let part = new Tone.Part((time, value) => {
     let step = sequenceIndex % steps;
     if (value.repeat === 0) {
@@ -349,7 +147,6 @@ function repeatAnim(target) {
     const filled = '│o│' + '<br>';
     // Don't render the arrows on the last step
     if (parseInt(target.dataset.index) === 7) {
-        console.log(target);
         arrowUp = empty;
         arrowDown = empty;
         arrowUpFilled = filled;
@@ -452,9 +249,8 @@ function animateLFO(index) {
 // ------------------------- //
 /////// Horizontal Slider Animation ////////
 //TODO: add special classes so that we can target the controls and initialize the renders on load
-const tempoMeter = document.getElementById('ascii-bpm');
-transport.addEventListener('input', ({ target }) => {
-    console.log(target.value);
+transportInput.addEventListener('input', ({ target }) => {
+    const tempoMeter = document.getElementById('ascii-bpm');
     let block = '▓';
     let pipe = '|';
     let equals = '═';
@@ -540,12 +336,8 @@ fxSwap.addEventListener('click', function () {
 });
 
 ///////////// MOBILE TABS //////////////
-// const synthControls = document.querySelector('#synth-container');
-// const fxControls = document.querySelector('#fx-container');
 let tabState = 'seq';
-function mobileSwap() {
-    // const stepContainer = document.querySelector('#steps');
-    // const fxSwap = document.getElementById('fx-swap');
+function mobileTabController() {
     const fxSwapTab = document.getElementById('fx-swap-tab');
     const synthSwap = document.getElementById('synth-swap');
     const seqSwap = document.getElementById('seq-swap');
@@ -562,6 +354,7 @@ function mobileSwap() {
             stepContainer.style.display = 'grid';
             synthControls.style.display = 'none';
             fxControls.style.display = 'none';
+            seqSwap.style.display = 'bold';
         } else if (tabState === 'synth') {
             stepContainer.style.display = 'none';
             synthControls.style.display = 'grid';
@@ -575,6 +368,3 @@ function mobileSwap() {
         }
     });
 }
-
-mobileSwap();
-synthParamController();
