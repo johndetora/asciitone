@@ -222,8 +222,7 @@ function animateLFO(index) {
     document.getElementById('ascii-lfo-spin').innerHTML = ASCII_SPIN[index];
     let inputSlider = document.getElementById('lfo-rate');
     let frequency = inputSlider.value;
-    // Call the update function after 1 second / frequency (Hz).
-    setTimeout(function () {
+    setTimeout(() => {
         if (Tone.Transport.state === 'started') {
             animateLFO((index + 1) % ASCII_SPIN.length);
         }
