@@ -60,15 +60,14 @@ export const toModIndex = new Tone.Gain(0);
 //         Routing           //
 // ------------------------- //
 export function initAudioChain() {
+    // lfo.connect(toFreqRatio);/notes
+    lfo.connect(toFilt);
+    toFilt.connect(filter.frequency);
+    toModIndex.connect(synth.modulationIndex);
     synth.chain(gain, crossFade.a);
     synth.modulationEnvelope.chain(modGain, crossFade.b);
     crossFade.connect(filter);
     filter.connect(delay);
     delay.connect(reverb);
-    reverb.toDestination(0.8);
-    lfo.connect(toFilt);
-    toFilt.connect(filter.frequency);
-    // Connect LFO to mod index
-    // lfo.connect(toFreqRatio);/notes
-    toModIndex.connect(synth.modulationIndex);
+    reverb.generate().then(reverb.toDestination(0.8));
 }
