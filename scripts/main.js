@@ -15,6 +15,7 @@ const playHead = document.querySelector('#playhead');
 const noteMeters = document.querySelectorAll('#ascii-meter');
 const asciiRepeater = document.querySelectorAll('#ascii-repeater');
 let sequenceIndex = 0;
+
 let steps = 8; // Total step length
 
 // TODO: figure out why the theme selector breaks theme persistance if loaded here:
@@ -29,6 +30,7 @@ window.addEventListener('load', () => {
     browserChecker();
     mobileTabController();
     synthParamController();
+    setSeqMode();
     let bpm = transportInput.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -111,7 +113,6 @@ part.start('0m');
 part.loopStart = '0m';
 part.loopEnd = '2m';
 part.loop = true;
-
 Tone.Transport.loopStart = '0m';
 Tone.Transport.loopEnd = '4m';
 Tone.Transport.loop = true;
@@ -162,15 +163,13 @@ function repeatAnim(target) {
 stepContainer.addEventListener('change', ({ target }) => {
     const asciiCheck = document.querySelectorAll('#ascii-checkbox');
     if (target.type == 'checkbox' && target.checked) {
-        // Turns step 'on'
-        notes[target.dataset.index].velocity = 1;
+        notes[target.dataset.index].velocity = 1; // Turns step 'on'
         // UI Update
         asciiCheck[target.dataset.index].style.color = 'var(--checksOn)';
         asciiRepeater[target.dataset.index].style.color = 'var(--repeaterOn)';
         noteMeters[target.dataset.index].style.color = 'var(--metersOn)';
     } else if (target.type == 'checkbox' && !target.checked) {
-        // Turns step 'off'
-        notes[target.dataset.index].velocity = 0;
+        notes[target.dataset.index].velocity = 0; // Turns step 'off'
         // UI Update
         noteMeters[target.dataset.index].style.color = 'var(--off)';
         asciiRepeater[target.dataset.index].style.color = 'var(--off)';
@@ -198,7 +197,6 @@ function setSeqMode() {
         }
     });
 }
-setSeqMode();
 // ------------------------- //
 //       Animations          //
 // ------------------------- //
