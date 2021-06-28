@@ -1,6 +1,8 @@
-// All of the event listeners for the synth controls
 import { synth, delay, filter, crossFade, lfo, toFilt, reverb } from './audio-objects.js';
 
+//TODO: could easy crush this down to half the size.
+// Can do for instance synth[target.dataset.module][target.dataset.action] = target.value
+// TODO: after that, turn them into arrow functions
 export function synthParamController() {
     //////// OSC Select Boxes ////////////
     const oscWaveSwitch = document.querySelector('#ascii-osc-wave');
