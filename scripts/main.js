@@ -31,6 +31,9 @@ window.addEventListener('load', () => {
     mobileTabController();
     synthParamController();
     setSeqMode();
+    //TODO: add these event listeners to the function itself?
+    synthControls.addEventListener('input', e => drawHorizontalControls(e));
+    fxControls.addEventListener('input', e => drawHorizontalControls(e));
     let bpm = transportInput.value;
     Tone.Transport.bpm.value = bpm;
 });
@@ -290,9 +293,6 @@ function initHorizontalControls() {
         controlsAscii[i].innerText = pipe + pipe.repeat(linesAmount) + block + dash.repeat(31 - linesAmount) + pipe;
     }
 }
-
-synthControls.addEventListener('input', e => drawHorizontalControls(e));
-fxControls.addEventListener('input', e => drawHorizontalControls(e));
 
 /// Initialize note and flutter controls ui
 function initVerticalControls() {
