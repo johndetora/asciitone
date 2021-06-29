@@ -12,7 +12,6 @@ export function renderControls() {
     synthControls.addEventListener('input', e => renderHorizontalControls(e));
     fxControls.addEventListener('input', e => renderHorizontalControls(e));
     renderTempoSlider();
-    initVerticalControls();
     initHorizontalControls();
 }
 
