@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
     setScale();
     setTempo();
     initAudioChain();
+    initVerticalControls();
     browserChecker();
     synthParamController();
     tabController();
@@ -124,7 +125,7 @@ stepContainer.addEventListener('input', ({ target }) => {
     if (target.className === 'meter') {
         let reverse = 15 - target.dataset.index;
         // className == Meter so that the repeater slider isn't targeted
-        noteMeters[target.dataset.index].innerHTML = drawNoteMeters(target.value); // Sets bar animation value
+        noteMeters[target.dataset.index].innerHTML = renderNoteMeters(target.value); // Sets bar animation value
         notes[target.dataset.index].note = currentScale[target.value];
         notes[reverse].note = currentScale[target.value];
     }
@@ -133,6 +134,27 @@ stepContainer.addEventListener('input', ({ target }) => {
         repeatAnim(target);
     }
 });
+
+function initVerticalControls() {
+    for (let i = 0; i < noteMeters.length; i++) {
+        noteMeters[i].innerHTML = renderNoteMeters(6);
+        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
+        if (i === 7) {
+            // Don't render arrows on last step
+            asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
+        }
+    }
+}
+
+///////  Update Note Meters  ////////
+function renderNoteMeters(inputVal) {
+    const BARS_MAX = 12; // Max slider value for note meters
+    let top = '_' + '<br>';
+    let bottom = '^' + '<br>';
+    let row = '|░|' + '<br>';
+    let filled = '|▓|' + '<br>';
+    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
+}
 
 // Repeater ascii-animation. There's probably a better way to do this but it works.
 function repeatAnim(target) {
