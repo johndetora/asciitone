@@ -64,23 +64,3 @@ function initHorizontalControls() {
 }
 
 /// Initialize note and flutter controls ui
-function initVerticalControls() {
-    for (let i = 0; i < noteMeters.length; i++) {
-        noteMeters[i].innerHTML = renderNoteMeters(6);
-        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
-        if (i === 7) {
-            // Don't render arrows on last step
-            asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
-        }
-    }
-}
-
-///////  Update Note Meters  ////////
-function renderNoteMeters(inputVal) {
-    const BARS_MAX = 12; // Max slider value for note meters
-    let top = '_' + '<br>';
-    let bottom = '^' + '<br>';
-    let row = '|░|' + '<br>';
-    let filled = '|▓|' + '<br>';
-    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
-}
