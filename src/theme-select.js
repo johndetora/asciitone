@@ -1,11 +1,12 @@
-// This function is used to select different color themes
+// // This function is used to select different color themes
+
 export function themeSelector() {
     const themeSelectBtn = document.querySelector('#theme-select');
     const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'nord2', 'dmg', 'solarized', '9009'];
     let themeIndex = 1;
 
     // remove this for production:
-    // resetTheme();
+    resetTheme();
 
     if (localStorage.length > 1) {
         window.addEventListener('load', () => {

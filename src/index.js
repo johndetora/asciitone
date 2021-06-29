@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import './styles/main.css';
 import { themeSelector } from './theme-select.js';
 import { synth, initAudioChain } from './audio-objects.js';
 import { synthParamController } from './synth-controls.js';
