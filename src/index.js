@@ -5,36 +5,35 @@ import { synth, initAudioChain } from './audio-objects.js';
 import { synthParamController } from './synth-controls.js';
 import { notes, setScale, currentScale } from './note-data.js';
 import { browserChecker } from './browser-checker.js';
-import { tabController } from './tab-controller.js';
-import { renderControls } from './render-controls.js';
+import { mobileTabController, desktopTabController } from './tab-controller.js';
+import { renderControls } from './horizontal-controls.js';
+import { sequencerInput } from './sequencer-controls';
 
 // ------------------------- //
 //         Variables         //
 // ------------------------- //
 //TODO: See which ones can go into their own functions
 
-const synthControls = document.querySelector('#synth-container');
-const fxControls = document.querySelector('#fx-container');
-const stepContainer = document.querySelector('#steps');
 const playHead = document.querySelector('#playhead');
-const noteMeters = document.querySelectorAll('#ascii-meter');
-const asciiRepeater = document.querySelectorAll('#ascii-repeater');
 let sequenceIndex = 0;
 let steps = 8; // Total step length
 
 // This will become index.js
 // TODO: figure out why the theme selector breaks theme persistance if loaded here:
 themeSelector();
+
 window.addEventListener('load', () => {
+    sequencerInput();
+    desktopTabController();
+    mobileTabController();
     renderControls();
     setScale();
     setTempo();
     initAudioChain();
-    initVerticalControls();
     browserChecker();
     synthParamController();
-    //tabController();
     setSeqMode();
+    renderTempoSlider();
 });
 
 // ------------------------- //
@@ -67,14 +66,27 @@ playButton.addEventListener('click', async () => {
     }
 });
 
-function setTempo() {
+//TODO: add these conditions to renderHorizontalControls
+function renderTempoSlider() {
     let transportInput = document.querySelector('#bpm');
-    let bpm = transportInput.value;
-    Tone.Transport.bpm.value = bpm;
-    transportInput.addEventListener('input', () => {
-        Tone.Transport.bpm.value = this.value;
+    transportInput.addEventListener('input', ({ target }) => {
+        const tempoMeter = document.getElementById('ascii-bpm');
+        let block = '▓';
+        let pipe = '|';
+        let equals = '═';
+        let linesAmount = parseInt(target.value / 20);
+        tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`;
     });
 }
+
+function setTempo() {
+    let transportInput = document.querySelector('#bpm');
+    Tone.Transport.bpm.value = transportInput.value;
+    transportInput.addEventListener('input', ({ target }) => {
+        Tone.Transport.bpm.value = target.value;
+    });
+}
+
 // Helper
 // window.addEventListener('click', helper);
 function helper() {
@@ -120,86 +132,86 @@ Tone.Transport.loopStart = '0m';
 Tone.Transport.loopEnd = '4m';
 Tone.Transport.loop = true;
 
-// ------------------------- //
-//   Sequencer User Input    //
-// ------------------------- //
+// // ------------------------- //
+// //   Sequencer User Input    //
+// // ------------------------- //
 
-// Notes and Repeats
-stepContainer.addEventListener('input', ({ target }) => {
-    // Note Sliders
-    if (target.className === 'meter') {
-        let reverse = 15 - target.dataset.index;
-        // className == Meter so that the repeater slider isn't targeted
-        noteMeters[target.dataset.index].innerHTML = renderNoteMeters(target.value); // Sets bar animation value
-        notes[target.dataset.index].note = currentScale[target.value];
-        notes[reverse].note = currentScale[target.value];
-    }
-    if (target.className === 'repeater-range') {
-        notes[target.dataset.index].repeat = parseInt(target.value);
-        repeatAnim(target);
-    }
-});
+// // // Notes and Repeats
+// stepContainer.addEventListener('input', ({ target }) => {
+//     // Note Sliders
+//     if (target.className === 'meter') {
+//         let reverse = 15 - target.dataset.index;
+//         // className == Meter so that the repeater slider isn't targeted
+//         noteMeters[target.dataset.index].innerHTML = renderNoteMeters(target.value); // Sets bar animation value
+//         notes[target.dataset.index].note = currentScale[target.value];
+//         notes[reverse].note = currentScale[target.value];
+//     }
+//     if (target.className === 'repeater-range') {
+//         notes[target.dataset.index].repeat = parseInt(target.value);
+//         repeatAnim(target);
+//     }
+// });
 
-function initVerticalControls() {
-    for (let i = 0; i < noteMeters.length; i++) {
-        noteMeters[i].innerHTML = renderNoteMeters(6);
-        asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
-        if (i === 7) {
-            // Don't render arrows on last step
-            asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
-        }
-    }
-}
+// function initVerticalControls() {
+//     for (let i = 0; i < noteMeters.length; i++) {
+//         noteMeters[i].innerHTML = renderNoteMeters(6);
+//         asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
+//         if (i === 7) {
+//             // Don't render arrows on last step
+//             asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│' + '<br>' + '│-│' + '<br>' + '│o│' + '<br>';
+//         }
+//     }
+// }
 
-///////  Update Note Meters  ////////
-function renderNoteMeters(inputVal) {
-    const BARS_MAX = 12; // Max slider value for note meters
-    let top = '_' + '<br>';
-    let bottom = '^' + '<br>';
-    let row = '|░|' + '<br>';
-    let filled = '|▓|' + '<br>';
-    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
-}
+// // ///////  Update Note Meters  ////////
+// function renderNoteMeters(inputVal) {
+//     const BARS_MAX = 12; // Max slider value for note meters
+//     let top = '_' + '<br>';
+//     let bottom = '^' + '<br>';
+//     let row = '|░|' + '<br>';
+//     let filled = '|▓|' + '<br>';
+//     return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
+// }
 
-// Repeater ascii-animation. There's probably a better way to do this but it works.
-function repeatAnim(target) {
-    let repeats = parseInt(target.value);
-    const empty = '│-│' + '<br>';
-    let arrowUp = '│-│↑' + '<br>';
-    let arrowDown = '│-│↓' + '<br>';
-    let arrowUpFilled = '│o│↑' + '<br>';
-    let arrowDownFilled = '│o│↓' + '<br>';
-    const filled = '│o│' + '<br>';
-    // Don't render the arrows on the last step
-    if (parseInt(target.dataset.index) === 7) {
-        arrowUp = empty;
-        arrowDown = empty;
-        arrowUpFilled = filled;
-        arrowDownFilled = filled;
-    }
-    if (repeats === 0) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDown + filled;
-    if (repeats === 1) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDownFilled + empty;
-    if (repeats === 2) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUpFilled + arrowDown + empty;
-    if (repeats === 3) asciiRepeater[target.dataset.index].innerHTML = filled + arrowUp + arrowDown + empty;
-}
+// // // Repeater ascii-animation. There's probably a better way to do this but it works.
+// function repeatAnim(target) {
+//     let repeats = parseInt(target.value);
+//     const empty = '│-│' + '<br>';
+//     let arrowUp = '│-│↑' + '<br>';
+//     let arrowDown = '│-│↓' + '<br>';
+//     let arrowUpFilled = '│o│↑' + '<br>';
+//     let arrowDownFilled = '│o│↓' + '<br>';
+//     const filled = '│o│' + '<br>';
+//     // Don't render the arrows on the last step
+//     if (parseInt(target.dataset.index) === 7) {
+//         arrowUp = empty;
+//         arrowDown = empty;
+//         arrowUpFilled = filled;
+//         arrowDownFilled = filled;
+//     }
+//     if (repeats === 0) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDown + filled;
+//     if (repeats === 1) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUp + arrowDownFilled + empty;
+//     if (repeats === 2) asciiRepeater[target.dataset.index].innerHTML = empty + arrowUpFilled + arrowDown + empty;
+//     if (repeats === 3) asciiRepeater[target.dataset.index].innerHTML = filled + arrowUp + arrowDown + empty;
+// }
 
-// Snooze Checks
-stepContainer.addEventListener('change', ({ target }) => {
-    const asciiCheck = document.querySelectorAll('#ascii-checkbox');
-    if (target.type == 'checkbox' && target.checked) {
-        notes[target.dataset.index].velocity = 1; // Turns step 'on'
-        // UI Update
-        asciiCheck[target.dataset.index].style.color = 'var(--checksOn)';
-        asciiRepeater[target.dataset.index].style.color = 'var(--repeaterOn)';
-        noteMeters[target.dataset.index].style.color = 'var(--metersOn)';
-    } else if (target.type == 'checkbox' && !target.checked) {
-        notes[target.dataset.index].velocity = 0; // Turns step 'off'
-        // UI Update
-        noteMeters[target.dataset.index].style.color = 'var(--off)';
-        asciiRepeater[target.dataset.index].style.color = 'var(--off)';
-        asciiCheck[target.dataset.index].style.color = 'var(--off)';
-    }
-});
+// // Snooze Checks
+// stepContainer.addEventListener('change', ({ target }) => {
+//     const asciiCheck = document.querySelectorAll('#ascii-checkbox');
+//     if (target.type == 'checkbox' && target.checked) {
+//         notes[target.dataset.index].velocity = 1; // Turns step 'on'
+//         // UI Update
+//         asciiCheck[target.dataset.index].style.color = 'var(--checksOn)';
+//         asciiRepeater[target.dataset.index].style.color = 'var(--repeaterOn)';
+//         noteMeters[target.dataset.index].style.color = 'var(--metersOn)';
+//     } else if (target.type == 'checkbox' && !target.checked) {
+//         notes[target.dataset.index].velocity = 0; // Turns step 'off'
+//         // UI Update
+//         noteMeters[target.dataset.index].style.color = 'var(--off)';
+//         asciiRepeater[target.dataset.index].style.color = 'var(--off)';
+//         asciiCheck[target.dataset.index].style.color = 'var(--off)';
+//     }
+// });
 
 // Sequence mode
 //TODO: refactor and add add array of modes like in scale select
@@ -255,69 +267,3 @@ function animateLFO(index) {
         }
     }, 500 / frequency);
 }
-
-function desktopTabController() {
-    const desktopTab = document.getElementById('fx-swap');
-    const synthOverlay = document.getElementById('ascii-synth-overlay');
-    const fxOverlay = document.getElementById('ascii-fx-overlay');
-    const fxControls = document.querySelector('#fx-container');
-    const synthControls = document.querySelector('#synth-container');
-    const asciiFx = '| fx |';
-    const asciiSynth = '| synth |';
-    let tabState = 'synth';
-    desktopTab.addEventListener('click', () => {
-        if (tabState === 'fx') {
-            console.log('fx state');
-            synthControls.style.display = 'grid';
-            fxControls.style.display = 'none';
-            desktopTab.innerText = asciiFx;
-            synthOverlay.style.display = 'block';
-            fxOverlay.style.display = 'none';
-            tabState = 'synth';
-        } else {
-            fxControls.style.display = 'grid';
-            synthControls.style.display = 'none';
-            desktopTab.innerText = asciiSynth;
-            console.log('synth state');
-            synthOverlay.style.display = 'none';
-            fxOverlay.style.display = 'block';
-            tabState = 'fx';
-        }
-    });
-}
-
-///////////// MOBILE TABS //////////////
-function mobileTabController() {
-    const fxSwapTab = document.getElementById('fx-swap-tab');
-    const synthSwap = document.getElementById('synth-swap');
-    const seqSwap = document.getElementById('seq-swap');
-    const tabContainer = document.querySelector('#tabs-container-mobile');
-    const swapLabels = document.querySelectorAll('#param-swap-text');
-    let tabState = 'seq';
-    tabContainer.addEventListener('click', ({ target }) => {
-        tabState = target.dataset.state;
-        // make highlighted text bold
-        swapLabels.forEach(element => {
-            element.style.fontWeight = 'normal';
-            target.style.fontWeight = 'bold';
-        });
-        if (tabState === 'seq') {
-            stepContainer.style.display = 'grid';
-            synthControls.style.display = 'none';
-            fxControls.style.display = 'none';
-            seqSwap.style.display = 'bold';
-        } else if (tabState === 'synth') {
-            stepContainer.style.display = 'none';
-            synthControls.style.display = 'grid';
-            fxControls.style.display = 'none';
-            synthSwap.style.fontWeight = 'bold';
-        } else if (tabState === 'fx') {
-            stepContainer.style.display = 'none';
-            synthControls.style.display = 'none';
-            fxControls.style.display = 'grid';
-            fxSwapTab.style.fontWeight = 'bold';
-        }
-    });
-}
-mobileTabController();
-desktopTabController();
