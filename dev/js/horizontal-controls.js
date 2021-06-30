@@ -2,8 +2,6 @@
 //    Slider Animations      //
 // ------------------------- //
 
-let transportInput = document.querySelector('#bpm');
-
 export function renderControls() {
     const synthControls = document.querySelector('#synth-container');
     const fxControls = document.querySelector('#fx-container');

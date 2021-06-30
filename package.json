@@ -3,12 +3,13 @@
     "version": "0.3.3",
     "description": "#### Created with HTML/CSS/JS and the [Tone.js](https://github.com/Tonejs/Tone.js) library.",
     "private": true,
-    "main": "index.js",
+    "main": "./src/scripts/index.js",
     "directories": {
         "doc": "docs"
     },
     "scripts": {
-        "build": "webpack"
+        "start": "webpack --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js"
     },
     "repository": {
         "type": "git",
@@ -28,7 +29,8 @@
         "html-webpack-plugin": "^5.3.2",
         "mini-css-extract-plugin": "^1.6.2",
         "webpack": "^5.41.1",
-        "webpack-cli": "^4.7.2"
+        "webpack-cli": "^4.7.2",
+        "webpack-merge": "^5.8.0"
     },
     "dependencies": {
         "tone": "^14.7.77"
