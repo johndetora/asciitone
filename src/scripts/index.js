@@ -131,9 +131,11 @@ part.loop = true;
 Tone.Transport.loopStart = '0m';
 Tone.Transport.loopEnd = '4m';
 Tone.Transport.loop = true;
+
 // Sequence mode
 //TODO: refactor and add add array of modes like in scale select
 function setSeqMode() {
+    const modes = ['forward', 'pendulum'];
     const ASCII_FORWARD = '[ --> ]';
     const ASCII_PENDULUM = '[ <--> ]';
     const modeBtn = document.getElementById('seq-mode');
@@ -185,3 +187,25 @@ function animateLFO(index) {
         }
     }, 500 / frequency);
 }
+
+const sequence = {
+    setNoteData: () => {
+        stepContainer.addEventListener('input', ({ target }) => {
+            // Note Sliders
+            if (target.className === 'meter') {
+                let reverse = 15 - target.dataset.index;
+                // className == Meter so that the repeater slider isn't targeted
+                noteMeters[target.dataset.index].innerHTML = renderNoteMeters(target.value); // Sets bar animation value
+                notes[target.dataset.index].note = currentScale[target.value];
+                notes[reverse].note = currentScale[target.value];
+            }
+            if (target.className === 'repeater-range') {
+                notes[target.dataset.index].repeat = parseInt(target.value);
+                repeatAnim(target);
+            }
+        });
+    },
+    propy: 'poop',
+};
+
+console.log(sequence.propy);
