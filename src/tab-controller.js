@@ -1,10 +1,5 @@
 //////////////// DESKTOP TABS ///////////////
-export function tabController() {
-    desktopTabController();
-    mobileTabController();
-}
-
-function desktopTabController() {
+export function desktopTabController() {
     const desktopTab = document.getElementById('fx-swap');
     const synthOverlay = document.getElementById('ascii-synth-overlay');
     const fxOverlay = document.getElementById('ascii-fx-overlay');
@@ -35,8 +30,11 @@ function desktopTabController() {
 }
 
 ///////////// MOBILE TABS //////////////
-function mobileTabController() {
+export function mobileTabController() {
+    const synthControls = document.querySelector('#synth-container');
+    const stepContainer = document.querySelector('#steps');
     const fxSwapTab = document.getElementById('fx-swap-tab');
+    const fxControls = document.querySelector('#fx-container');
     const synthSwap = document.getElementById('synth-swap');
     const seqSwap = document.getElementById('seq-swap');
     const tabContainer = document.querySelector('#tabs-container-mobile');
