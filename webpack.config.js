@@ -21,7 +21,7 @@ module.exports = {
             minify: false,
         }),
         new CopyPlugin({
-            patterns: [{ from: 'themes', to: 'themes' }],
+            patterns: [{ from: 'src/themes', to: 'themes' }],
         }),
     ],
     performance: {
