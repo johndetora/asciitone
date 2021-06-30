@@ -4,14 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.js',
+    entry: {
+        main: './src/index.js',
+    },
     output: {
         filename: '[name]-[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
+        new MiniCssExtractPlugin({ filename: '[name]-[contenthash].css' }),
         new HtmlWebpackPlugin({
             template: './src/template.html',
             minify: false,
