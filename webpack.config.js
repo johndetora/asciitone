@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -8,15 +9,19 @@ module.exports = {
         main: './src/index.js',
     },
     output: {
-        filename: '[name]-[contenthash].js',
-        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/[name]-[contenthash].js',
+        path: path.resolve(__dirname, 'build'),
         clean: true,
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: '[name]-[contenthash].css' }),
+        new MiniCssExtractPlugin({ filename: 'styles/[name]-[contenthash].css' }),
+
         new HtmlWebpackPlugin({
             template: './src/template.html',
             minify: false,
+        }),
+        new CopyPlugin({
+            patterns: [{ from: 'themes', to: 'themes' }],
         }),
     ],
     performance: {
@@ -36,18 +41,24 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name]-[hash].[ext]',
-                        outputPath: 'imgs',
+                        outputPath: 'assets',
                     },
                 },
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'assets',
+                    },
+                },
             },
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader, //3. Extract css into files
+                    MiniCssExtractPlugin.loader,
                     'css-loader', //2. Turns css into commonjs
                 ],
             },

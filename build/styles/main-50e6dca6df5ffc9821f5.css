@@ -1430,7 +1430,7 @@ use [class*="ascii-osc-"] to select this and the mod wave
     font-family: 'Menlo Regular';
     font-style: normal;
     font-weight: normal;
-    src: local('Menlo Regular'), url(02bb017483128058c0d0.woff) format('woff');
+    src: local('Menlo Regular'), url(assets/Menlo-Regular.woff) format('woff');
 }
 html * {
     -webkit-tap-highlight-color: transparent;

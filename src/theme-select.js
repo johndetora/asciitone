@@ -1,4 +1,5 @@
 // // This function is used to select different color themes
+import './styles/main.css';
 
 export function themeSelector() {
     const themeSelectBtn = document.querySelector('#theme-select');
