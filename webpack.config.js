@@ -19,6 +19,10 @@ module.exports = {
             minify: false,
         }),
     ],
+    performance: {
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+    },
 
     module: {
         rules: [
