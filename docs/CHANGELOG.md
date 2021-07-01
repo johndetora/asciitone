@@ -2,7 +2,9 @@
 
 All notable changes to ascii-tone will be documented in this file.
 
-## v0.3.1 - 2021-06-xx
+## v0.3.2 - 2021-06
+
+## v0.3.1 - 2021-06-20
 
 ### Added
 
