@@ -8,7 +8,7 @@
         "doc": "docs"
     },
     "scripts": {
-        "start": "webpack --config webpack.dev.js",
+        "start": "webpack serve --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js"
     },
     "repository": {
@@ -30,6 +30,7 @@
         "mini-css-extract-plugin": "^1.6.2",
         "webpack": "^5.41.1",
         "webpack-cli": "^4.7.2",
+        "webpack-dev-server": "^3.11.2",
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
