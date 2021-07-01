@@ -1,16 +1,14 @@
 // ------------------------- //
 //   Sequencer User Input    //
 // ------------------------- //
-import { notes } from './note-data';
-import { currentScale } from './note-data';
+import { notes, currentScale } from './note-data';
 
 export function sequencerInput() {
     const stepContainer = document.querySelector('#steps');
-
     const noteMeters = document.querySelectorAll('#ascii-meter');
     const asciiRepeater = document.querySelectorAll('#ascii-repeater');
-
     initVerticalControls();
+
     // // Notes and Repeats
     stepContainer.addEventListener('input', ({ target }) => {
         // Note Sliders

@@ -63,7 +63,6 @@ playButton.addEventListener('click', async () => {
         playHead.innerText = '';
         Tone.Transport.stop();
         sequenceIndex = 0;
-        clearInterval(randomMode);
     }
 });
 
@@ -120,11 +119,6 @@ let part = new Tone.Part((time, value) => {
         synth.triggerAttackRelease(value.note, '64n', time + 0.1, value.velocity);
         synth.triggerAttackRelease(value.note, '64n', time + 0.15, value.velocity);
     }
-
-    if (random === true && step === 0) {
-        setRandomNotes();
-    }
-
     playHeadUpdate(step);
     sequenceIndex++;
 }, notes);
@@ -140,65 +134,27 @@ Tone.Transport.loop = true;
 
 // Sequence mode
 //TODO: refactor and add add array of modes like in scale select
-let randomMode;
-let random = false;
 function setSeqMode() {
-    // const modes = ['forward', 'pendulum'];
+    const modes = ['forward', 'pendulum'];
     const ASCII_FORWARD = '[ --> ]';
     const ASCII_PENDULUM = '[ <-> ]';
     const ASCII_RANDOM = '[ ??? ]';
-    const modeText = [ASCII_FORWARD, ASCII_PENDULUM, ASCII_RANDOM];
-    let modeIndex = 1;
+    const modeIndex = 0;
     const modeBtn = document.getElementById('seq-mode');
-
+    let pendulum = false;
     modeBtn.addEventListener('click', e => {
-        let currentMode = modeIndex % modeText.length;
-        console.log(notes);
-        modeBtn.innerText = modeText[currentMode];
-        if (currentMode === 0) {
-            part.loopEnd = '2m';
-            steps = 8;
-            random = false;
-        }
-        if (currentMode === 1) {
+        pendulum = !pendulum;
+        if (pendulum === true) {
+            modeBtn.innerText = ASCII_PENDULUM;
             part.loopEnd = '4m';
             steps = 16;
-            clearInterval(randomMode);
-            random = false;
-        }
-        if (currentMode === 2) {
+        } else {
+            modeBtn.innerText = ASCII_FORWARD;
             part.loopEnd = '2m';
             steps = 8;
-            setRandomNotes();
-            random = true;
         }
-        modeIndex++;
     });
 }
-//TODO: move this and these other controls back to the sequencer controls
-// ///////  Update Note Meters  ////////
-function renderNoteMeters(inputVal) {
-    const BARS_MAX = 12; // Max slider value for note meters
-    let top = '_' + '<br>';
-    let bottom = '^' + '<br>';
-    let row = '|░|' + '<br>';
-    let filled = '|▓|' + '<br>';
-    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
-}
-
-function setRandomNotes() {
-    const noteMeters = document.querySelectorAll('#ascii-meter');
-    const metersEl = document.querySelectorAll('.meter');
-    for (let i = 0; i < noteMeters.length; i++) {
-        let rand = Math.floor(Math.random() * currentScale.length);
-        notes[i].note = currentScale[rand];
-        notes[15 - i].note = notes[i].note;
-        noteMeters[i].innerHTML = renderNoteMeters(rand);
-        // Calibrates input slider values
-        metersEl[i].value = rand;
-    }
-}
-
 // ------------------------- //
 //       Animations          //
 // ------------------------- //
