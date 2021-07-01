@@ -2,7 +2,17 @@
 
 All notable changes to ascii-tone will be documented in this file.
 
-## v0.3.2 - 2021-06
+## v0.4.0 - 2021-06-30
+
+### Changed
+
+-   Build system overhaul. ascii-tone now uses webpack for production builds. This has resulted in much faster performance, which has fixed or diminished many audio glitches.
+-   New updates should be recognized by the browser without clearing the cache due to including the hash numbers in the naming of the files.
+
+### Added
+
+-   Theme persistance: Themes now save in browser's cache so that next time you load ascii-tone, there's a good chance your theme has saved.
+-   Random note mode
 
 ## v0.3.1 - 2021-06-20
 
