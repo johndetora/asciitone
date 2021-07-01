@@ -8,10 +8,14 @@ All notable changes to ascii-tone will be documented in this file.
 
 -   Build system overhaul. ascii-tone now uses webpack for production builds. This has resulted in much faster performance, which has fixed or diminished many audio glitches.
 -   New updates should be recognized by the browser without clearing the cache due to including the hash numbers in the naming of the files.
+-   Lower BPMs are now possible with the tempo controls.
 
 ### Added
 
 -   Theme persistance: Themes now save in browser's cache so that next time you load ascii-tone, there's a good chance your theme has saved.
+-   Pendulum Mode: The classic inclusive forward and reverse sequencing mode but with a twist. When playing back in reverse, the snooze and repeater settings are ignored.
+-   Random Mode: Notes are changed every bar to random notes within the context of your scale. Fun!
+
 -   Random note mode
 
 ## v0.3.1 - 2021-06-20
