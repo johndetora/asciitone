@@ -68,6 +68,7 @@ playButton.addEventListener('click', async () => {
 });
 
 //TODO: add these conditions to renderHorizontalControls
+//TODO: make tap tempo respond
 function renderTempoSlider() {
     let transportInput = document.querySelector('#bpm');
     transportInput.addEventListener('input', ({ target }) => {
@@ -78,6 +79,15 @@ function renderTempoSlider() {
         let linesAmount = parseInt(target.value / 20);
         tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`;
     });
+}
+// TODO: combine these *
+function refreshSlider(e) {
+    const tempoMeter = document.getElementById('ascii-bpm');
+    let block = '▓';
+    let pipe = '|';
+    let equals = '═';
+    let linesAmount = parseInt(e / 20);
+    tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`;
 }
 
 function setTempo() {
@@ -255,10 +265,8 @@ const sequence = {
 };
 
 window.addEventListener('keydown', e => tapTempo(e));
-
-let total = 0;
+let tapTotal = 0;
 let startTimes = [];
-let results = [];
 
 // Works for total taps in 1 second span but we don't need the time for that
 function tapTempo(e) {
@@ -266,25 +274,20 @@ function tapTempo(e) {
     const TAPS_LIMIT = 5;
     if (e.key === 't') {
         // Pressing T starts the timer and adds a tap
-        total++;
+        tapTotal++;
         startTimes.push(Date.now() / MS); //The tap is represented as that moment in time
         window.setTimeout(() => {
-            let end = Date.now() / MS; // After 1 second, log the end time
-            if (total > 1 && total <= TAPS_LIMIT) {
-                // So that this doesn't repeat for every tap...
-                console.log('total: ', startTimes);
-                console.log('end:', end);
-                // console.log('result', 1 / startTimes.length);
+            if (tapTotal > 1 && tapTotal <= TAPS_LIMIT) {
                 calcTempo(startTimes); // Calculate the times
             }
-            total = 0; // reset times
+            tapTotal = 0; // reset times
             startTimes = [];
         }, 1000);
     }
 }
 
 // Calculate the time elapsed between each step
-function calcTempo(array, end) {
+function calcTempo(array) {
     let timeDiff = [];
     let sum = 0;
     for (let i = 0; i < array.length - 1; i++) {
@@ -297,6 +300,8 @@ function calcTempo(array, end) {
     let average = sum / timeDiff.length;
     let bpm = 60 / average;
     Tone.Transport.bpm.value = bpm;
+    console.log(bpm);
+    refreshSlider(bpm);
 
     // console.log('time difference: ', timeDiff);
 }
