@@ -8,13 +8,12 @@ import { browserChecker } from './browser-checker.js';
 import { mobileTabController, desktopTabController } from './tab-controller.js';
 import { renderControls } from './horizontal-controls.js';
 import { sequencerInput } from './sequencer-controls';
-
+import { playHeadUpdate } from './playhead';
 // ------------------------- //
 //         Variables         //
 // ------------------------- //
 //TODO: See which ones can go into their own functions
 
-const playHead = document.querySelector('#playhead');
 let sequenceIndex = 0;
 let steps = 8; // Total step length
 
@@ -47,6 +46,7 @@ document.querySelector('button')?.addEventListener('click', async () => {
 //////////////// Start Stop Init ////////////////////////
 //  Starts transport and initializes certain animations like playhead and spin //
 //TODO: add space key to play/pause
+//TODO: put what's inside start and stopped into a master function
 let playButton = document.getElementById('play-button');
 playButton.addEventListener('click', async () => {
     await Tone.start();
@@ -60,12 +60,14 @@ playButton.addEventListener('click', async () => {
         sequenceIndex = 0;
     } else {
         playButton.innerText = asciiPlay;
-        playHead.innerText = '';
+        playHeadUpdate('clear');
         Tone.Transport.stop();
         sequenceIndex = 0;
         clearInterval(randomMode);
     }
 });
+
+/*          ////////////// TEMPO /////////////////////// */
 
 //TODO: add these conditions to renderHorizontalControls
 //TODO: make tap tempo respond
@@ -80,7 +82,7 @@ function renderTempoSlider() {
         tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`;
     });
 }
-// TODO: combine these *
+// TODO: combine these three into own component
 function refreshSlider(e) {
     const tempoMeter = document.getElementById('ascii-bpm');
     let block = '▓';
@@ -97,6 +99,7 @@ function setTempo() {
         Tone.Transport.bpm.value = target.value;
     });
 }
+/**       /////////////////////////////////////                          */
 
 // Helper
 // window.addEventListener('click', helper);
@@ -213,24 +216,6 @@ function setRandomNotes() {
 //       Animations          //
 // ------------------------- //
 
-///// ASCII Playhead Animation
-function playHeadUpdate(step) {
-    let headFwd = '>';
-    let headBack = '<';
-    let tail = '──────';
-    let space = '&nbsp'.repeat(6);
-    // Draw Forward
-    if (step === 0) playHead.innerHTML = headFwd;
-    if (step > 0 && step <= 7) playHead.innerHTML = tail.repeat(step) + headFwd;
-    // Draw Backward
-    if (step === 8) playHead.innerHTML = space.repeat(15 - step) + headBack;
-    if (step === 15) playHead.innerHTML = headBack + tail.repeat(step - 8);
-    if (step > 8 && step < 15) {
-        playHead.innerHTML = '';
-        playHead.innerHTML = space.repeat(15 - step) + headBack + tail.repeat(step - 8);
-    }
-}
-
 ///////  Spin  ////////
 function animateLFO(index) {
     const ASCII_SPIN = ['&ndash;', '/', '|', '\\']; // Backward Spin
@@ -265,17 +250,20 @@ const sequence = {
 };
 
 window.addEventListener('keydown', e => keyHandler(e));
-playHead.addEventListener('click', e => handleTaps(e));
-// Works for total taps in 1 second span but we don't need the time for that
+
 function keyHandler(e) {
     if (e.key === 't') {
         handleTaps();
     }
+    if (e.code === 'Space') {
+        console.log('space');
+    }
 }
+
 //TODO: refactor this
 let tapTotal = 0;
 let startTimes = [];
-function handleTaps() {
+export function handleTaps() {
     const MS = 1000;
     const TAPS_LIMIT = 5;
     // Pressing T starts the timer and adds a tap
@@ -305,5 +293,5 @@ function calcTempo(array) {
     let bpm = 60 / average;
     Tone.Transport.bpm.value = bpm;
     refreshSlider(bpm); // Update tempo meter
-    console.log('BPM changed to' + bpm);
+    console.log('BPM changed to ' + bpm);
 }
