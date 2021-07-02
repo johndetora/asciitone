@@ -254,4 +254,49 @@ const sequence = {
     propy: 'poop',
 };
 
-console.log(sequence.propy);
+window.addEventListener('keydown', e => tapTempo(e));
+
+let total = 0;
+let startTimes = [];
+let results = [];
+
+// Works for total taps in 1 second span but we don't need the time for that
+function tapTempo(e) {
+    const MS = 1000;
+    const TAPS_LIMIT = 5;
+    if (e.key === 't') {
+        // Pressing T starts the timer and adds a tap
+        total++;
+        startTimes.push(Date.now() / MS); //The tap is represented as that moment in time
+        window.setTimeout(() => {
+            let end = Date.now() / MS; // After 1 second, log the end time
+            if (total > 1 && total <= TAPS_LIMIT) {
+                // So that this doesn't repeat for every tap...
+                console.log('total: ', startTimes);
+                console.log('end:', end);
+                // console.log('result', 1 / startTimes.length);
+                calcTempo(startTimes); // Calculate the times
+            }
+            total = 0; // reset times
+            startTimes = [];
+        }, 1000);
+    }
+}
+
+// Calculate the time elapsed between each step
+function calcTempo(array, end) {
+    let timeDiff = [];
+    let sum = 0;
+    for (let i = 0; i < array.length - 1; i++) {
+        timeDiff.push(array[i + 1] - array[i]); // Find difference between each tap
+    }
+    // for (let k=0; k<)
+    for (let j = 0; j < timeDiff.length; j++) {
+        sum += timeDiff[j];
+    }
+    let average = sum / timeDiff.length;
+    let bpm = 60 / average;
+    Tone.Transport.bpm.value = bpm;
+
+    // console.log('time difference: ', timeDiff);
+}
