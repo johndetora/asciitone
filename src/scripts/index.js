@@ -264,29 +264,33 @@ const sequence = {
     propy: 'poop',
 };
 
-window.addEventListener('keydown', e => tapTempo(e));
-let tapTotal = 0;
-let startTimes = [];
-
+window.addEventListener('keydown', e => keyHandler(e));
+playHead.addEventListener('click', e => handleTaps(e));
 // Works for total taps in 1 second span but we don't need the time for that
-function tapTempo(e) {
-    const MS = 1000;
-    const TAPS_LIMIT = 5;
+function keyHandler(e) {
     if (e.key === 't') {
-        // Pressing T starts the timer and adds a tap
-        tapTotal++;
-        startTimes.push(Date.now() / MS); //The tap is represented as that moment in time
-        window.setTimeout(() => {
-            if (tapTotal > 1 && tapTotal <= TAPS_LIMIT) {
-                calcTempo(startTimes); // Calculate the times
-            }
-            tapTotal = 0; // reset times
-            startTimes = [];
-        }, 1000);
+        handleTaps();
     }
 }
-
+//TODO: refactor this
+let tapTotal = 0;
+let startTimes = [];
+function handleTaps() {
+    const MS = 1000;
+    const TAPS_LIMIT = 5;
+    // Pressing T starts the timer and adds a tap
+    tapTotal++;
+    startTimes.push(Date.now() / MS); //The tap is represented as that moment in time
+    window.setTimeout(() => {
+        if (tapTotal > 1 && tapTotal <= TAPS_LIMIT) {
+            calcTempo(startTimes); // Calculate the times
+        }
+        tapTotal = 0; // reset times
+        startTimes = [];
+    }, 1000);
+}
 // Calculate the time elapsed between each step
+// TODO: sum += looping through the array doesn't really make sense but when I changed it before it broke.  Try again later
 function calcTempo(array) {
     let timeDiff = [];
     let sum = 0;
@@ -300,8 +304,6 @@ function calcTempo(array) {
     let average = sum / timeDiff.length;
     let bpm = 60 / average;
     Tone.Transport.bpm.value = bpm;
-    console.log(bpm);
-    refreshSlider(bpm);
-
-    // console.log('time difference: ', timeDiff);
+    refreshSlider(bpm); // Update tempo meter
+    console.log('BPM changed to' + bpm);
 }

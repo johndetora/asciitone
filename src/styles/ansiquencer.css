@@ -18,8 +18,10 @@
 #playhead {
     margin-top: 18px;
     margin-left: 25px;
+    width: 100%;
     font-size: 12px;
     position: absolute;
+    cursor: pointer;
 }
 
 /* note sliders */
