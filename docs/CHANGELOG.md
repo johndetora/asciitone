@@ -2,6 +2,10 @@
 
 All notable changes to ascii-tone will be documented in this file.
 
+## v0.4.1 - 2021-07-01
+
+-   Tap tempo added by tappng T or clicking the playhead
+
 ## v0.4.0 - 2021-06-30
 
 ### Changed
