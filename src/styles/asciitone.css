@@ -85,7 +85,7 @@ p {
     grid-template-areas:
         'oscillatorA envelope filter'
         'oscillatorB mod mixer';
-    gap: 3px;
+    gap: 1px;
     margin: auto auto auto auto;
 
     grid-area: controls;
