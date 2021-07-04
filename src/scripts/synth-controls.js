@@ -5,23 +5,19 @@ import { synth, delay, filter, crossFade, lfo, toFilt, reverb } from './audio-ob
 // TODO: after that, turn them into arrow functions
 export function synthParamController() {
     //////// OSC Select Boxes ////////////
+    const oscWaves = ['sine', 'triangle', 'square', 'sawtooth'];
+
     const oscWaveSwitch = document.querySelector('#ascii-osc-wave');
     const asciiOscWave = document.querySelector('#ascii-osc-wave-options');
     let waveSelectState = 0;
-    oscWaveSwitch.addEventListener('click', function () {
-        if (waveSelectState == 0) {
-            asciiOscWave.style.display = 'flex';
-            oscWaveSwitch.style.display = 'none';
-            return (waveSelectState = 1);
-        }
+    let waveIndex = 0;
+    oscWaveSwitch.addEventListener('click', () => {
+        waveIndex++;
+        let currentWave = oscWaves[waveIndex % oscWaves.length];
+        oscWaveSwitch.innerText = `[${oscWaves[waveIndex % oscWaves.length]}]`;
+        synth.oscillator.type = currentWave;
     });
-    asciiOscWave.addEventListener('click', ({ target }) => {
-        synth.oscillator.type = target.dataset.parameter;
-        asciiOscWave.style.display = 'none';
-        oscWaveSwitch.style.display = 'inline';
-        oscWaveSwitch.innerHTML = '[' + target.dataset.parameter + ']';
-        return (waveSelectState = 0);
-    });
+
     //// Glide /////
     glide.addEventListener('change', function () {
         const glide = document.getElementById('glide');
@@ -39,20 +35,20 @@ export function synthParamController() {
     const modWaveSwitch = document.querySelector('#ascii-mod-wave');
     const asciiModWave = document.querySelector('#ascii-mod-wave-options');
     let modSelectState = 0;
+    let modWaveIndex = 0;
     modWaveSwitch.addEventListener('click', function () {
-        if (modSelectState == 0) {
-            asciiModWave.style.display = 'flex';
-            modWaveSwitch.style.display = 'none';
-            return (modSelectState = 1);
-        }
+        modWaveIndex++;
+        let currentWave = oscWaves[modWaveIndex % oscWaves.length];
+        modWaveSwitch.innerText = `[${currentWave}]`;
+        synth.modulation.type = currentWave;
     });
-    asciiModWave.addEventListener('click', ({ target }) => {
-        synth.modulation.type = target.dataset.parameter;
-        asciiModWave.style.display = 'none';
-        modWaveSwitch.style.display = 'inline';
-        modWaveSwitch.innerHTML = '[' + target.dataset.parameter + ']';
-        return (modSelectState = 0);
-    });
+    // asciiModWave.addEventListener('click', ({ target }) => {
+    //     synth.modulation.type = target.dataset.parameter;
+    //     asciiModWave.style.display = 'none';
+    //     modWaveSwitch.style.display = 'inline';
+    //     modWaveSwitch.innerHTML = '[' + target.dataset.parameter + ']';
+    //     return (modSelectState = 0);
+    // });
 
     ///// HARMONICITY ///////
     let harmonicityInput = document.querySelector('#harmonicity');
