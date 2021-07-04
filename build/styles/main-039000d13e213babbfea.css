@@ -598,8 +598,7 @@ p {
 .group-label {
     padding: 0;
     font-size: 14px;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin: 5px 0px;
     letter-spacing: 2px;
     font-weight: bold;
 }
@@ -617,15 +616,15 @@ p {
     /* border: 1px solid red; */
     height: 250px;
     display: grid;
+    padding-top: 5px;
     padding-right: 20px;
     /* padding-left: 20px; */
-    padding-top: 5px;
     grid-template-columns: 95px 148px 148px;
     grid-template-rows: 115px auto;
     grid-template-areas:
         'oscillatorA envelope filter'
         'oscillatorB mod mixer';
-    gap: 3px;
+    gap: 1px;
     margin: auto auto auto auto;
 
     grid-area: controls;
@@ -698,7 +697,7 @@ p {
 #harmonicity-container {
     position: relative;
     width: 100px;
-    top: 10px;
+    top: 8px;
 }
 
 #harmonicity {
@@ -715,7 +714,7 @@ p {
 
 #crossfader-container {
     position: relative;
-    margin-top: 8px;
+    margin-top: 5px;
     width: 100px;
 }
 #crossfader {
