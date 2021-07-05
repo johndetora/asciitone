@@ -1,4 +1,4 @@
-import { synth, delay, filter, crossFade, lfo, toFilt, reverb } from './audio-objects.js';
+import { synth, delay, filter, crossFade, lfo, toFilt, toModIndex, toFreqRatio, reverb } from './audio-objects.js';
 
 //TODO: could easy crush this down to half the size.
 // Can do for instance synth[target.dataset.module][target.dataset.action] = target.value
@@ -8,8 +8,6 @@ export function synthParamController() {
     const oscWaves = ['sine', 'triangle', 'square', 'sawtooth'];
 
     const oscWaveSwitch = document.querySelector('#ascii-osc-wave');
-    const asciiOscWave = document.querySelector('#ascii-osc-wave-options');
-    let waveSelectState = 0;
     let waveIndex = 0;
     oscWaveSwitch.addEventListener('click', () => {
         waveIndex++;
@@ -33,8 +31,6 @@ export function synthParamController() {
 
     /////// MOD WAVE ///////
     const modWaveSwitch = document.querySelector('#ascii-mod-wave');
-    const asciiModWave = document.querySelector('#ascii-mod-wave-options');
-    let modSelectState = 0;
     let modWaveIndex = 0;
     modWaveSwitch.addEventListener('click', function () {
         modWaveIndex++;
@@ -42,13 +38,6 @@ export function synthParamController() {
         modWaveSwitch.innerText = `[${currentWave}]`;
         synth.modulation.type = currentWave;
     });
-    // asciiModWave.addEventListener('click', ({ target }) => {
-    //     synth.modulation.type = target.dataset.parameter;
-    //     asciiModWave.style.display = 'none';
-    //     modWaveSwitch.style.display = 'inline';
-    //     modWaveSwitch.innerHTML = '[' + target.dataset.parameter + ']';
-    //     return (modSelectState = 0);
-    // });
 
     ///// HARMONICITY ///////
     let harmonicityInput = document.querySelector('#harmonicity');
@@ -85,11 +74,25 @@ export function synthParamController() {
     //// LFO
     const lfoRate = document.getElementById('lfo-rate');
     const lfoAmt = document.querySelector('#lfo-amount');
+    const lfoDestinations = [toFilt, toModIndex, toFreqRatio];
+    const lfoDestinationsText = ['filter', 'mod index', 'freq ratio'];
+    let lfoState = lfoDestinations[0];
+    let lfoDestIndex = 0;
+    const lfoDestBtn = document.getElementById('lfo-dest');
+
+    lfoDestBtn.addEventListener('click', () => {
+        lfoDestIndex++;
+        let destBtnText = lfoDestinationsText[lfoDestIndex % lfoDestinationsText.length];
+        lfoState = lfoDestinations[lfoDestIndex % lfoDestinations.length];
+        lfoState.gain.value = lfoAmt.value;
+        lfoDestBtn.innerText = `[${destBtnText}]`;
+    });
     lfoRate.addEventListener('input', function () {
         lfo.frequency.value = this.value;
     });
+
     lfoAmt.addEventListener('input', function () {
-        toFilt.gain.value = this.value;
+        lfoState.gain.value = this.value;
     });
 
     //////// Delay /////////////
