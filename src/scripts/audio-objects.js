@@ -66,6 +66,7 @@ export function initAudioChain() {
 
     toFilt.connect(filter.frequency);
     toModIndex.connect(synth.modulationIndex);
+    toFreqRatio.connect(synth.harmonicity);
     synth.chain(gain, crossFade.a);
     synth.modulationEnvelope.chain(modGain, crossFade.b);
     crossFade.connect(filter);
