@@ -52,21 +52,19 @@ export const reverb = new Tone.Reverb({
 
 export const crossFade = new Tone.CrossFade(0);
 export const lfo = new Tone.LFO(1, 0.1, 1500).start();
+export const toFilt = new Tone.Gain(0);
 export const gain = new Tone.Gain(0.7);
 export const modGain = new Tone.Gain(0.2);
-
-export const toFilt = new Tone.Gain(0);
 export const toModIndex = new Tone.Gain(0);
-export const toFreqRatio = new Tone.Gain(0);
+
 // ------------------------- //
 //         Routing           //
 // ------------------------- //
 export function initAudioChain() {
-    lfo.fan(toFilt, toModIndex, toFreqRatio);
-
+    // lfo.connect(toFreqRatio);/notes
+    lfo.connect(toFilt);
     toFilt.connect(filter.frequency);
     toModIndex.connect(synth.modulationIndex);
-    toFreqRatio.connect(synth.harmonicity);
     synth.chain(gain, crossFade.a);
     synth.modulationEnvelope.chain(modGain, crossFade.b);
     crossFade.connect(filter);

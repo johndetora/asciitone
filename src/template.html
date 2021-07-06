@@ -150,7 +150,7 @@
          </pre>
 		</div>
 		<div id="header">
-			<span id="title">$ ascii-tone v0.4.0</span>
+			<span id="title">$ ascii-tone v0.4.1</span>
 			<span id="about-menu"></span>
 			<!-- <a id="money" href=> [ $ ]</span> -->
 			<a id="help" href="https://github.com/johndetora/asciitone" target="_blank">[ ? ]</a>
@@ -287,16 +287,9 @@
 		<div id="synth-container">
 			<div class="synth-control" id="oscillator-container-a">
 				<p class="group-label">osc</p>
-				<pre id="ascii-osc-wave" class="ascii-dropdown">[sine]</pre>
-				<div id="ascii-osc-wave-options" class="ascii-dropdown">
-					<span id="a-sine" class="ascii-wave" data-parameter="sine">~ sine</span>
-					<span id="a-triangle" class="ascii-wave" data-parameter="triangle">~ triangle</span>
-					<span id="a-square" class="ascii-wave" data-parameter="square">~ square</span>
-					<span id="a-sawtooth" class="ascii-wave" data-parameter="sawtooth">~ sawtooth</span>
-				</div>
-				<br><br>
+				<pre id="ascii-osc-wave" class="wave-select">[sine]</pre>
 				<div id="glide-container">
-					<p class="label">glide</p><input type="checkbox" id="glide">
+					<p class="label">glide</p>
 					<pre id="ascii-glide">[ ]</pre>
 					</span>
 				</div>
@@ -326,20 +319,13 @@
 					class="ascii-params">||||||||||||||||||||||||||||||||▓</span>
 				<p class="label">> resonance</p>
 				<input type="range" class="filter" id="Q" data-parameter="Q" data-ascii="ascii-q" value="0" min="0"
-					max="10" step="0.001"><span id="ascii-q"
+					max="15" step="0.001"><span id="ascii-q"
 					class="ascii-params">|▓-------------------------------|</span>
 			</div>
 
 			<div class="synth-control" id="oscillator-container-b">
 				<p class="group-label">mod</p>
-				<pre id="ascii-mod-wave" class="ascii-dropdown">[sine]</pre>
-				<div id="ascii-mod-wave-options" class="ascii-dropdown">
-					<span id="b-sine" class="ascii-wave" data-parameter="sine">~ sine</span>
-					<span id="b-triangle" class="ascii-wave" data-parameter="triangle">~ triangle</span>
-					<span id="b-square" class="ascii-wave" data-parameter="square">~ square</span>
-					<span id="b-sawtooth" class="ascii-wave" data-parameter="sawtooth">~ sawtooth</span>
-				</div>
-				<br>
+				<pre id="ascii-mod-wave" class="wave-select">[sine]</pre>
 				<div class="synth-control" id="harmonicity-container">
 					<p class="label">freq ratio</p>
 					<input id="harmonicity" data-ascii="ascii-harmonicity" type="range" value="1" min="0" max="6"
@@ -366,7 +352,15 @@
 					||||||||▓------------------------|</span>
 			</div>
 			<div class="synth-control" id="modulation">
-				<p class="group-label">lfo</p>
+				<p class="group-label">lfo </p>
+				<!-- <span class="label-param" id="lfo-wave">[sine]</span> -->
+
+				<span id="lfo-options">
+					<!-- <span id="lfo-wave" class="wave-select">[wave]</span> -->
+					<span id="lfo-dest" class="wave-select">> [filter] </span>
+
+				</span>
+
 				<p class="label">> rate</p>
 				<input type="range" id="lfo-rate" class="lfo" data-parameter="frequency" data-ascii="ascii-lfo-rate"
 					value="3" min="0.1" max="15" step="0.1"><span id="ascii-lfo-rate"
@@ -398,10 +392,6 @@
 			</div>
 			<div class="fx-control" id="reverb-container">
 				<p class="group-label">reverb</p>
-				<p class="label">mix</p>
-				<input type="range" class="reverb" id="reverbMix" data-parameter="wet" value="0" min="0" max="1"
-					step="0.05" data-ascii="ascii-reverb-mix">
-				<span id="ascii-reverb-mix" class="ascii-params">|▓-------------------------------|</span>
 				<p class="label">decay</p>
 				<input type="range" class="reverb" id="reverbDecay" data-parameter="decay" value="0.2" min="0.1"
 					max="10" step="0.01" data-ascii="ascii-reverb-decay">
@@ -410,6 +400,10 @@
 				<input type="range" class="reverb" id="reverbPreDelay" data-parameter="preDelay" value="0.1" min="0"
 					max="1" step="0.01" data-ascii="ascii-reverb-predelay">
 				<span id="ascii-reverb-predelay" class="ascii-params">||||▓----------------------------|</span>
+				<p class="label">mix</p>
+				<input type="range" class="reverb" id="reverbMix" data-parameter="wet" value="0" min="0" max="1"
+					step="0.05" data-ascii="ascii-reverb-mix">
+				<span id="ascii-reverb-mix" class="ascii-params">|▓-------------------------------|</span>
 			</div>
 		</div>
 		<!-- /////////// Desktop Tabs ///////////-->
