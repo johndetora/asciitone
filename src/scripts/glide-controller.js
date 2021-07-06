@@ -1,5 +1,4 @@
 import { synth } from './audio-objects.js';
-import { rand } from './index.js';
 
 console.log(rand);
 function setRandomGlide() {

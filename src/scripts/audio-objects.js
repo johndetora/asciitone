@@ -50,6 +50,30 @@ export const reverb = new Tone.Reverb({
     preDelay: 0.01,
 });
 
+export const chorus = new Tone.Chorus({
+    wet: 0.5,
+    frequency: 1000,
+    delayTime: 0.7,
+    depth: 100,
+    type: 'sine',
+    spread: 180,
+});
+
+export const newFX = new Tone.Vibrato({
+    depth: 0.8,
+    frequency: Math.random() * 2,
+    wet: 1,
+});
+
+// Lo-fi
+/*
+
+export const noise = new Tone.Noise("white")
+either bitcrusher, distortion, chebyshev
+
+
+*/
+
 export const crossFade = new Tone.CrossFade(0);
 export const lfo = new Tone.LFO(1, 0.1, 1500).start();
 export const gain = new Tone.Gain(0.7);
@@ -70,6 +94,8 @@ export function initAudioChain() {
     synth.chain(gain, crossFade.a);
     synth.modulationEnvelope.chain(modGain, crossFade.b);
     crossFade.connect(filter);
+    // filter.connect(newFX);
+    // newFX.connect(delay);
     filter.connect(delay);
     delay.connect(reverb);
     reverb.generate().then(reverb.toDestination(0.8));

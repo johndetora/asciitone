@@ -1,5 +1,5 @@
-import { synth, delay, filter, crossFade, lfo, toFilt, toModIndex, toFreqRatio, reverb } from './audio-objects.js';
-import { glideRandomState } from './index.js';
+import { synth, delay, filter, crossFade, lfo, toFilt, toModIndex, toFreqRatio, chorus, reverb } from './audio-objects.js';
+// import { glideRandomState } from './index.js';
 
 //TODO: could easy crush this down to half the size.
 // Can do for instance synth[target.dataset.module][target.dataset.action] = target.value

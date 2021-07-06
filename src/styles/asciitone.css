@@ -96,10 +96,10 @@ p {
     display: none;
     padding-top: 10px;
     grid-template-columns: 195px 195px;
-    grid-template-rows: 100px auto;
+    grid-template-rows: auto auto;
     grid-template-areas:
         'delay reverb'
-        '. .';
+        'chorus .';
     gap: 1px;
     margin: auto auto auto auto;
     width: auto;
@@ -236,6 +236,11 @@ p {
 
 #reverb-container {
     grid-area: reverb;
+    position: relative;
+}
+
+#chorus-container {
+    grid-area: chorus;
     position: relative;
 }
 .ascii-label {

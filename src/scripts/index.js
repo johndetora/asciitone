@@ -9,7 +9,7 @@ import { mobileTabController, desktopTabController } from './tab-controller.js';
 import { renderControls } from './horizontal-controls.js';
 import { sequencerInput } from './sequencer-controls';
 import { playHeadUpdate } from './playhead';
-import { glideController } from './glide-controller';
+// import { glideController } from './glide-controller';
 // ------------------------- //
 //         Variables         //
 // ------------------------- //
