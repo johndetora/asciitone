@@ -2,9 +2,7 @@
 
 #### Created with HTML/CSS/JS and the [Tone.js](https://github.com/Tonejs/Tone.js) library.
 
-Welcome to ascii-tone, a web based FM Synth and step sequencer with a 100% text based user interface.
-
-This project is in the early development period and there are a lot of features planned. Suggestions are welcome.
+Welcome to ascii-tone, an FM Synth and step sequencer with a 100% text based user interface.
 
 ascii-tone runs best on google chrome or mozilla firefox, but will also work with many mobile devices.
 See a live demo [here](www.echocoast.net/asciitone/index.html)
@@ -14,8 +12,7 @@ See a live demo [here](www.echocoast.net/asciitone/index.html)
 1. Getting started with ascii-tone couldn't be simpler. First make sure your device's audio is enabled (turn your phone off silent!) and adjust your volume so that it's not too loud.
 2. Click or tap the \[ play \] button and enjoy. You can start adjusting the controls by clicking parts of the sliders, or by clicking and dragging.
 3. Mobile Pro tip: Tap a parameter and continue to hold it to the screen while dragging your finger below the parameter. This makes it so you can see the parameter being adjusted without your finger being in the way. This is especially useful when adjusting some of the smaller controls.
-
-    Keep reading if you want to learn more about ascii-tone and its functions.
+4. play. asciitone is about exploring synthesis and sketching sounds. Be aware that your settings won't save once you leave the page.
 
 ## About
 
@@ -31,8 +28,6 @@ Specifications:
 -   1 low pass filter with frequency cutoff and resonance parameters
 -   1 lfo hard wired to the low pass filter filter cutoff
 -   8 step sequencer with flutter and snooze per step
-
-## Instructions
 
 ### Sequencer
 
@@ -80,17 +75,17 @@ Block Diagram
 
 The $osc section controls the primary (carrier) operator as well as the blending of the carrier and modulator signal levels.
 
--   Engage the [waveform] button to see all available waveform options. Click again to select the new waveform.
+-   Engage the [waveform] button to rotate through the waveform options.
 -   To enable glide, click the glide box. Note that you may need to adjust the decay amount of the primary envelope generator in order to hear the effects.
     -- [ ] = glide disabled
     -- [@] = glide enabled
--   The cross fader (labeled 'osc <> mod') controls the level blending of the carrier and modulator operators before reaching the lpf section. By default, only the primary carrier osc is heard.
+-   The cross fader (labeled 'osc <> mod') controls the level blending of the carrier and modulator operators before reaching the lpf section. By default, only the primary carrier osc reaches the final output.
 
 ### mod osc
 
 The $mod osc section controls the secondary (modulation) operator's waveform and frequency ratio. Use this to change the timbre of te final output.
 
--   Engage the [waveform] button to see all available waveform options. Click again to select the new waveform.
+-   Engage the [waveform] button to rotate through the waveform options.
 -   Move the |freq ratio| to raise the frequency of $mod osc, thus changing the ratio between the carrier operator's frequency and the modulation operator's frequency.
 
 ### envelope
@@ -112,7 +107,7 @@ The $filter section allows you to adjust the low pass filter's frequency cutoff 
 
 ### lfo
 
-The $lfo controls the modulation of the $filter section's cutoff. Note that the effect will be more apparent the more that the cutoff control is lowered.
+The $lfo modulates the the selected destination with a constant wave. By default, [filter] modulates the $filter's cutoff. Note that the effect will be more apparent the more that the cutoff control is lowered.
 
 ### effects
 
@@ -126,12 +121,6 @@ Click the fx tab to see all effects controls. Click the synth tab to switch view
 
 ### reverb
 
--   mix:
 -   decay:
 -   pre-delay:
-
-### There are several known issues and things to note:
-
--   The lfo is uni-polar and only connects to the filter cutoff right now. This means that the filter cutoff must be set relatively low in frequency in order to hear the lfo doing its thing. If the decay is set to a low value, this will be even less noticeable.
--   Similarly, the glide control will only work if the decay is set low enough.
--   The volume get slightly louder and then quiet again when the waveforms are set to anything but sine. I'm not sure why, so just consider it a quirk
+-   mix:
