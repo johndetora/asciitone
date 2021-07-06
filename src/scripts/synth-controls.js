@@ -1,4 +1,5 @@
 import { synth, delay, filter, crossFade, lfo, toFilt, toModIndex, toFreqRatio, reverb } from './audio-objects.js';
+import { glideRandomState } from './index.js';
 
 //TODO: could easy crush this down to half the size.
 // Can do for instance synth[target.dataset.module][target.dataset.action] = target.value
@@ -17,16 +18,36 @@ export function synthParamController() {
     });
 
     //// Glide /////
-    glide.addEventListener('change', function () {
-        const glide = document.getElementById('glide');
-        const asciiGlide = document.getElementById('ascii-glide');
-        if (glide.checked) {
-            synth.portamento = 0.05;
-            asciiGlide.innerHTML = '[@]';
-        } else {
-            synth.portamento = 0;
-            asciiGlide.innerHTML = '[ ]';
-        }
+    let glideIndex = 0;
+
+    function coinToss() {
+        const glideOptions = [0, 0, 0.05];
+        synth.portamento = glideOptions[Math.floor(Math.random() * glideOptions.length)];
+    }
+
+    const asciiGlide = document.getElementById('ascii-glide');
+    asciiGlide.addEventListener('click', () => {
+        // const glideRandom = setInterval(() => {
+        //     const glideOptions = [0, 0, 0.05];
+        //     synth.portamento = glideOptions[Math.floor(Math.random() * glideOptions.length)];
+        //     console.log(synth.portamento);
+        // }, bpm.value);
+        // console.log(glideRandomState);
+        glideIndex++;
+        const glideText = ['[ ]', '[@]'];
+        const glideStates = [0, 0.05];
+        let glideState = glideStates[glideIndex % glideStates.length];
+
+        asciiGlide.innerText = glideText[[glideIndex % glideText.length]];
+        synth.portamento = glideState;
+        // console.log(glideState);
+        // if (glideState === 'random') {
+        //     // glideRandom;
+        //     synth.portamento = glideRandomState
+        // } else {
+        //     synth.portamento = glideState;
+        //     // clearInterval(glideRandom);
+        // }
     });
 
     /////// MOD WAVE ///////
@@ -72,6 +93,11 @@ export function synthParamController() {
     });
 
     //// LFO
+    // const lfoWaveBtn = document.getElementById('lfo-wave');
+    // let lfoWaves = ['sine', 'triangle', 'square2', 'sawtooth2'];
+    // const lfoWaveLabels = ['sine', 'triangle', 'square', 'sawtooth'];
+    // let lfoWaveIndex = 0;
+
     const lfoRate = document.getElementById('lfo-rate');
     const lfoAmt = document.querySelector('#lfo-amount');
     const lfoDestinations = [toFilt, toModIndex, toFreqRatio];
@@ -80,12 +106,22 @@ export function synthParamController() {
     let lfoDestIndex = 0;
     const lfoDestBtn = document.getElementById('lfo-dest');
 
+    // lfoWaveBtn.addEventListener('click', () => {
+    //     lfoWaveIndex++;
+    //     lfoWaveBtn.innerText = `[${lfoWaveLabels[lfoWaveIndex % lfoWaves.length]}]`;
+    //     lfo.type = lfoWaves[lfoWaveIndex % lfoWaves.length];
+    //     console.log(lfo.type);
+    // });
+
     lfoDestBtn.addEventListener('click', () => {
         lfoDestIndex++;
         let destBtnText = lfoDestinationsText[lfoDestIndex % lfoDestinationsText.length];
         lfoState = lfoDestinations[lfoDestIndex % lfoDestinations.length];
+        // Resets gain for each parameter
+        lfoDestinations.forEach(destination => (destination.gain.value = 0));
+        // Sets gain to current slider value
         lfoState.gain.value = lfoAmt.value;
-        lfoDestBtn.innerText = `[${destBtnText}]`;
+        lfoDestBtn.innerText = `> [${destBtnText}]`;
     });
     lfoRate.addEventListener('input', function () {
         lfo.frequency.value = this.value;

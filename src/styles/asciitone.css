@@ -146,12 +146,14 @@ p {
     margin: auto;
     cursor: pointer;
     opacity: 0;
+    z-index: -10;
 }
 #ascii-glide {
     position: absolute;
     left: 45px;
     top: -15px;
-    z-index: -1;
+    cursor: pointer;
+    z-index: 10;
 }
 
 #harmonicity-container {
@@ -211,6 +213,13 @@ p {
     grid-area: mod;
 }
 
+#lfo-options {
+    display: flex;
+}
+
+#lfo-wave {
+    cursor: pointer;
+}
 #modulation {
     position: relative;
 
