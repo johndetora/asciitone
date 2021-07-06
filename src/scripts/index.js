@@ -231,28 +231,7 @@ function animateLFO(index) {
     }, 500 / frequency);
 }
 
-// const sequence = {
-//     setNoteData: () => {
-//         stepContainer.addEventListener('input', ({ target }) => {
-//             // Note Sliders
-//             if (target.className === 'meter') {
-//                 let reverse = 15 - target.dataset.index;
-//                 // className == Meter so that the repeater slider isn't targeted
-//                 noteMeters[target.dataset.index].innerHTML = renderNoteMeters(target.value); // Sets bar animation value
-//                 notes[target.dataset.index].note = currentScale[target.value];
-//                 notes[reverse].note = currentScale[target.value];
-//             }
-//             if (target.className === 'repeater-range') {
-//                 notes[target.dataset.index].repeat = parseInt(target.value);
-//                 repeatAnim(target);
-//             }
-//         });
-//     },
-//     propy: 'poop',
-// };
-
 window.addEventListener('keydown', e => keyHandler(e));
-
 function keyHandler(e) {
     if (e.key === 't') {
         handleTaps();

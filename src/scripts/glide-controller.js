@@ -1,5 +1,7 @@
 import { synth } from './audio-objects.js';
+import { rand } from './index.js';
 
+console.log(rand);
 function setRandomGlide() {
     const glideOptions = [0, 0, 0, 0, 0.01, 0.02, 0.05, 0.07];
     synth.portamento = glideOptions[Math.floor(Math.random() * glideOptions.length)];
