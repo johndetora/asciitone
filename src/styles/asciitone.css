@@ -137,22 +137,12 @@ p {
     position: relative;
     margin-top: 8px;
 }
-#glide {
-    position: absolute;
-    width: 30px;
-    height: 20px;
-    left: 45px;
-    top: -3px;
-    margin: auto;
-    cursor: pointer;
-    opacity: 0;
-    z-index: -10;
-}
+
 #ascii-glide {
+    cursor: pointer;
     position: absolute;
     left: 45px;
     top: -15px;
-    cursor: pointer;
     z-index: 10;
 }
 

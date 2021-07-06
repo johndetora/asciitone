@@ -1,31 +1,27 @@
-let glideIndex = 0;
+import { synth } from './audio-objects.js';
 
-function coinToss() {
-    const glideOptions = [0, 0, 0.05];
+function setRandomGlide() {
+    const glideOptions = [0, 0, 0, 0, 0.01, 0.02, 0.05, 0.07];
     synth.portamento = glideOptions[Math.floor(Math.random() * glideOptions.length)];
 }
+let interval = (bpm.value * 10) / 8;
+export function glideController() {
+    let glideIndex = 0;
+    const asciiGlide = document.getElementById('ascii-glide');
+    asciiGlide.addEventListener('click', () => {
+        glideIndex++;
+        const glideRandom = setInterval(setRandomGlide, bpm.value);
+        const glideText = ['[ ]', '[@]', '[p]'];
+        const glideStates = [0, 0.05, 'random'];
 
-const asciiGlide = document.getElementById('ascii-glide');
-asciiGlide.addEventListener('click', () => {
-    // const glideRandom = setInterval(() => {
-    //     const glideOptions = [0, 0, 0.05];
-    //     synth.portamento = glideOptions[Math.floor(Math.random() * glideOptions.length)];
-    //     console.log(synth.portamento);
-    // }, bpm.value);
-    // console.log(glideRandomState);
-    glideIndex++;
-    const glideText = ['[ ]', '[@]', '[p]'];
-    const glideStates = [0, 0.05, 'random'];
-    let glideState = glideStates[glideIndex % glideStates.length];
+        let glideState = glideStates[glideIndex % glideStates.length];
+        asciiGlide.innerText = glideText[[glideIndex % glideText.length]];
 
-    asciiGlide.innerText = glideText[[glideIndex % glideText.length]];
-
-    // console.log(glideState);
-    if (glideState === 'random') {
-        // glideRandom;
-        synth.portamento = glideRandomState;
-    } else {
-        synth.portamento = glideState;
-        // clearInterval(glideRandom);
-    }
-});
+        if (glideState === 'random') {
+            glideRandom;
+        } else {
+            synth.portamento = glideState;
+            clearInterval(glideRandom);
+        }
+    });
+}
