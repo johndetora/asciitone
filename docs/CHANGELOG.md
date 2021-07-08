@@ -4,7 +4,8 @@ All notable changes to ascii-tone will be documented in this file.
 
 ## v0.4.1 - 2021-07-01
 
--   Tap tempo added by tappng T or clicking the playhead
+-   Tap tempo added by tappng T or clicking/tapping the playhead
+-   Hit space to play or pause ascii-tone after initially clicking play (due to autoplay policy)
 
 ## v0.4.0 - 2021-06-30
 
