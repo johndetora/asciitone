@@ -9,7 +9,7 @@ import { mobileTabController, desktopTabController } from './tab-controller.js';
 import { renderControls } from './horizontal-controls.js';
 import { sequencerInput } from './sequencer-controls';
 import { playHeadUpdate } from './playhead';
-import { glideController } from './glide-controller';
+// import { glideController } from './glide-controller';
 // ------------------------- //
 //         Variables         //
 // ------------------------- //
@@ -204,7 +204,8 @@ function renderNoteMeters(inputVal) {
 function setRandomNotes() {
     const noteMeters = document.querySelectorAll('#ascii-meter');
     const metersEl = document.querySelectorAll('.meter');
-    for (let i = 0; i < noteMeters.length; i++) {
+    const MAX = noteMeters.length;
+    for (let i = 0; i < MAX; i++) {
         let rand = Math.floor(Math.random() * currentScale.length);
         notes[i].note = currentScale[rand];
         notes[15 - i].note = notes[i].note;
@@ -237,6 +238,8 @@ function keyHandler(e) {
         handleTaps();
     }
     if (e.code === 'Space') {
+        if (Tone.Transport.state === 'started') Tone.Transport.stop;
+        else Tone.Transport.start;
         console.log('space');
     }
 }
@@ -259,17 +262,12 @@ export function handleTaps() {
     }, 1000);
 }
 // Calculate the time elapsed between each step
-// TODO: sum += looping through the array doesn't really make sense but when I changed it before it broke.  Try again later
 function calcTempo(array) {
     let timeDiff = [];
-    let sum = 0;
     for (let i = 0; i < array.length - 1; i++) {
         timeDiff.push(array[i + 1] - array[i]); // Find difference between each tap
     }
-    // for (let k=0; k<)
-    for (let j = 0; j < timeDiff.length; j++) {
-        sum += timeDiff[j];
-    }
+    const sum = timeDiff.reduce((accumulator, time) => accumulator + time);
     let average = sum / timeDiff.length;
     let bpm = 60 / average;
     Tone.Transport.bpm.value = bpm;

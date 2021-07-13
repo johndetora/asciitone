@@ -4,7 +4,15 @@ All notable changes to ascii-tone will be documented in this file.
 
 ## v0.4.1 - 2021-07-01
 
--   Tap tempo added by tappng T or clicking the playhead
+### Added
+
+-   Tap tempo added by tappng T or clicking/tapping the playhead
+-   Hit space to play or pause ascii-tone after initially clicking play (due to autoplay policy)
+-   LFO Destinations added. You can now modulate Mod Index and Freq Ratio in addition to filter cutoff. Only one destination is active at a time.
+
+### Changed
+
+-   Moved LFO Spinning pipe animation to bottom right corner to make room for LFO destinations.
 
 ## v0.4.0 - 2021-06-30
 
