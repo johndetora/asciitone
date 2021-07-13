@@ -100,7 +100,7 @@ export function synthParamController() {
         lfoDestinations.forEach(destination => (destination.gain.value = 0));
         // Sets gain to current slider value
         lfoState.gain.value = lfoAmt.value;
-        lfoDestBtn.innerText = `> [${destBtnText}]`;
+        lfoDestBtn.innerText = `[${destBtnText}]`;
     });
     lfoRate.addEventListener('input', function () {
         lfo.frequency.value = this.value;

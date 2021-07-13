@@ -48,27 +48,33 @@ export const reverb = new Tone.Reverb({
     wet: 0,
     decay: 1.5,
     preDelay: 0.01,
+    channelCount: 2,
+    channels: 2,
 });
 
 export const crossFade = new Tone.CrossFade(0);
 export const lfo = new Tone.LFO(1, 0.1, 1500).start();
-export const toFilt = new Tone.Gain(0);
 export const gain = new Tone.Gain(0.7);
 export const modGain = new Tone.Gain(0.2);
-export const toModIndex = new Tone.Gain(0);
 
+export const toFilt = new Tone.Gain(0);
+export const toModIndex = new Tone.Gain(0);
+export const toFreqRatio = new Tone.Gain(0);
 // ------------------------- //
 //         Routing           //
 // ------------------------- //
 export function initAudioChain() {
-    // lfo.connect(toFreqRatio);/notes
-    lfo.connect(toFilt);
+    lfo.fan(toFilt, toModIndex, toFreqRatio);
+
     toFilt.connect(filter.frequency);
     toModIndex.connect(synth.modulationIndex);
+    toFreqRatio.connect(synth.harmonicity);
     synth.chain(gain, crossFade.a);
     synth.modulationEnvelope.chain(modGain, crossFade.b);
     crossFade.connect(filter);
     filter.connect(delay);
     delay.connect(reverb);
     reverb.generate().then(reverb.toDestination());
+    // reverb.generate().then(reverb.connect(limiter));
+    // limiter.toDestination(1);
 }
