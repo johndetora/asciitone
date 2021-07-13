@@ -39,7 +39,8 @@ function initHorizontalControls() {
     let pipe = '|';
     let dash = '-';
     let FACTOR = 31;
-    for (let i = 0; i < controls.length; i++) {
+    const MAX = controls.length;
+    for (let i = 0; i < MAX; i++) {
         let linesAmount = parseInt((FACTOR / controls[i].max) * controls[i].value);
         console.log(controls[i]);
         // console.log(controlsAscii[i].innerText);

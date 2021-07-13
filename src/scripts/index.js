@@ -204,7 +204,8 @@ function renderNoteMeters(inputVal) {
 function setRandomNotes() {
     const noteMeters = document.querySelectorAll('#ascii-meter');
     const metersEl = document.querySelectorAll('.meter');
-    for (let i = 0; i < noteMeters.length; i++) {
+    const MAX = noteMeters.length;
+    for (let i = 0; i < MAX; i++) {
         let rand = Math.floor(Math.random() * currentScale.length);
         notes[i].note = currentScale[rand];
         notes[15 - i].note = notes[i].note;

@@ -16,10 +16,11 @@ export function setScale() {
     function defineScale() {
         scaleIndex++;
         let currentNotes = document.querySelectorAll('.meter');
+        const MAX = currentNotes.length;
         // Set global current scale
         currentScale = scales[scaleIndex % scales.length];
         // Loop through the current note object and set the notes to the current slider values
-        for (let i = 0; i < currentNotes.length; i++) {
+        for (let i = 0; i < MAX; i++) {
             notes[i].note = currentScale[currentNotes[i].value];
             notes[15 - i].note = notes[i].note;
         }
