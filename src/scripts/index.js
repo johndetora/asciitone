@@ -9,6 +9,8 @@ import { mobileTabController, desktopTabController } from './tab-controller.js';
 import { renderControls } from './horizontal-controls.js';
 import { sequencerInput } from './sequencer-controls';
 import { playHeadUpdate } from './playhead';
+import { renderNoteMeters } from './render-note-meters.js';
+// import { meta } from './meta.js';./
 // import { glideController } from './glide-controller';
 // ------------------------- //
 //         Variables         //
@@ -148,6 +150,7 @@ part.start('0m');
 part.loopStart = '0m';
 part.loopEnd = '2m';
 part.loop = true;
+
 Tone.Transport.loopStart = '0m';
 Tone.Transport.loopEnd = '4m';
 Tone.Transport.loop = true;
@@ -192,14 +195,14 @@ function setSeqMode() {
 
 //TODO: move this and these other controls back to the sequencer controls
 // ///////  Update Note Meters  ////////
-function renderNoteMeters(inputVal) {
-    const BARS_MAX = 12; // Max slider value for note meters
-    let top = '_' + '<br>';
-    let bottom = '^' + '<br>';
-    let row = '|░|' + '<br>';
-    let filled = '|▓|' + '<br>';
-    return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
-}
+// function renderNoteMeters(inputVal) {
+//     const BARS_MAX = 12; // Max slider value for note meters
+//     let top = '_' + '<br>';
+//     let bottom = '^' + '<br>';
+//     let row = '|░|' + '<br>';
+//     let filled = '|▓|' + '<br>';
+//     return top + row.repeat(BARS_MAX - inputVal) + filled.repeat(inputVal) + filled + bottom;
+// }
 
 function setRandomNotes() {
     const noteMeters = document.querySelectorAll('#ascii-meter');
