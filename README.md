@@ -4,7 +4,7 @@
 
 Welcome to ascii-tone, an FM Synth and step sequencer with a 100% text based user interface.
 
-ascii-tone runs best on google chrome or mozilla firefox, but will also work with many mobile devices.
+ascii-tone runs best on google chrome or mozilla firefox, but is also designed with iOS in mind.
 See a live demo [here](www.echocoast.net/asciitone/index.html)
 
 ### Quick Start

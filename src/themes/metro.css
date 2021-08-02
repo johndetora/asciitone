@@ -21,7 +21,7 @@
 /* Background and text color 1 */
 body {
     /* Text Colors */
-    color: var(--blue);
+    color: var(--primary);
     /* frame color -- set to same as --bg if no frame is needed*/
     background-color: var(--bg);
 }
@@ -29,6 +29,7 @@ body {
 #header {
     color: var(--off);
 }
+
 /* ascii-tone background color */
 #main-container {
     /* This has to be the --bg variable */
@@ -54,13 +55,16 @@ body {
 /* Transport */
 /*//////////*/
 #play-button {
-    color: var(--red);
+    color: var(--accent1);
 }
 
 #ascii-bpm {
     color: var(--primary);
 }
-
+/* sequence mode */
+#seq-mode {
+    color: var(--primary);
+}
 #scale-select {
     color: var(--secondary);
 }

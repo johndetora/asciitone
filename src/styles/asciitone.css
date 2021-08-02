@@ -18,6 +18,15 @@ p {
     pointer-events: none;
     z-index: 0;
 }
+
+#help-container {
+    display: none;
+    font-size: 14px;
+    position: relative;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .overlay {
     /* font-family: Courier, monospace !important; */
     position: absolute;
@@ -30,6 +39,15 @@ p {
     display: block;
 }
 #ascii-fx-overlay {
+    display: none;
+}
+
+#ascii-help-overlay {
+    color: red;
+    left: -200px;
+}
+
+#ascii-helpfx-overlay {
     display: none;
 }
 

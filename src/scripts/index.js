@@ -82,6 +82,7 @@ function renderTempoSlider() {
         let block = '▓';
         let pipe = '|';
         let equals = '═';
+        let tempoVal = target.value;
         let linesAmount = parseInt(target.value / 20);
         tempoMeter.innerHTML = pipe.repeat(linesAmount - 1) + block + equals.repeat(25 - linesAmount) + ` ${pipe}`;
     });

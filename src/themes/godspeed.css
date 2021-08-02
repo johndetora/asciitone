@@ -1,22 +1,24 @@
 :root {
-    --black: #050404;
-    --orange: #d6482a;
-    --sand: #e0a144;
-    --red: #a81b0b;
-    --rust: #9f3f1b;
-    --lightBlue: #acd8e2;
-    --blue: #588696;
+    /* Set Base Colors here */
+    --white: rgb(227, 213, 185);
+    --blue: rgb(89, 145, 174);
+    --yellow: rgb(255, 219, 88);
+    --red: rgb(186, 19, 18);
+    --green: rgb(105, 208, 165);
+    --grey: rgb(125, 124, 120);
+
     /* Quick Change */
-    --bg: var(--black);
-    --primary: var(--sand);
-    --secondary: var(--rust);
-    --accent1: var(--blue);
+    --bg: var(--blue);
+
+    --primary: var(--white);
+    --secondary: var(--yellow);
+    --accent1: var(--red);
 
     /* Change these as long as they match condition*/
-    --metersOn: var(--rust); /*  note meters are set to this */
-    --repeaterOn: var(--red); /* ascii-repeater is set to this */
-    --checksOn: var(--sand); /* Checks are set to this */
-    --off: #e0a24486;
+    --metersOn: var(--primary); /*  note meters are set to this */
+    --repeaterOn: var(--primary); /* ascii-repeater is set to this */
+    --checksOn: var(--white); /* Checks are set to this */
+    --off: rgba(60, 219, 192, 0.5); /* primary with half opacity */
 }
 
 /* Background and text color 1 */
@@ -28,8 +30,9 @@ body {
 }
 
 #header {
-    color: var(--blue);
+    color: var(--gray);
 }
+
 /* ascii-tone background color */
 #main-container {
     /* This has to be the --bg variable */
@@ -48,22 +51,25 @@ body {
 
 /* For f and Zzz */
 .ascii-label {
-    color: var(--rust);
+    color: var(--yellow);
 }
 
 /*//////////*/
 /* Transport */
 /*//////////*/
 #play-button {
-    color: var(--yellow);
+    color: var(--accent1);
 }
 
 #ascii-bpm {
-    color: var(--red);
+    color: var(--yellow);
 }
-
+/* sequence mode */
+#seq-mode {
+    color: var(--yellow);
+}
 #scale-select {
-    color: var(--rust);
+    color: var(--yellow);
 }
 
 /* The 'playhead' arrow that moves along the top */
@@ -88,23 +94,23 @@ body {
 
 /*  Control box titles */
 .group-label {
-    color: var(--red);
+    color: var(--secondary);
 }
 
 /* titles for each parameter */
 .label {
-    color: var(--blue);
+    color: var(--primary);
 }
 
 #ascii-lfo-spin {
-    color: var(--red);
+    color: var(--accent1);
 }
 /* the fx tab */
 #fx-swap {
-    color: var(--rust);
+    color: var(--secondary);
 }
 
 /* param tabs on mobile */
 #tabs-container-mobile {
-    color: var(--rust);
+    color: var(--secondary);
 }

@@ -2,6 +2,16 @@
 
 All notable changes to ascii-tone will be documented in this file.
 
+## v0.4.2 - 2021-07-28
+
+### Added
+
+-   Botanical, xio, godspeed themes
+
+### Changed
+
+-   Tweaked theme colors
+
 ## v0.4.1 - 2021-07-01
 
 ### Added
