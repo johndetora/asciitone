@@ -6,15 +6,16 @@ export function themeSelector() {
 
     // remove this for production:
     // resetTheme();
+    setTheme('light');
 
-    //TODO: change to if localStorage.getItem('theme') is true
-    if (localStorage.length > 1) {
+    if (localStorage.getItem('theme')) {
         window.addEventListener('load', () => {
             let theme = localStorage.getItem('theme');
             themeIndex = localStorage.getItem('themeIndex');
             setTheme(theme);
         });
     }
+
     themeSelectBtn.addEventListener('click', () => {
         let theme = allThemes[themeIndex % allThemes.length];
         setTheme(theme);
