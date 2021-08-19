@@ -13,10 +13,13 @@ export function setScale() {
     const minorScale = ['C3', 'D3', 'D#3', 'F3', 'G3', 'G#3', 'A#3', 'C4', 'D4', 'D#4', 'F4', 'G4', 'G#4'];
     const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
     const scales = [majorScale, minorScale, pentScale, chromaticScale];
+
+    // DOM
     const scaleSelect = document.getElementById('scale-select');
     let scaleNames = ['[scale: major]', '[scale: minor]', '[scale: pent]', '[scale: chrom]'];
-
     scaleSelect.innerText = scaleNames[scaleIndex % scales.length];
+
+    // Scale button click
     scaleSelect.addEventListener('click', defineScale);
 
     function defineScale() {
@@ -29,10 +32,7 @@ export function setScale() {
         // Set global current scale
         currentScale = scales[scaleIndex % scales.length];
 
-        // Set Storage
-        storage.scale = currentScale;
-        storage.index = scaleIndex;
-        localStorage.setItem('scale', JSON.stringify(storage));
+        // Storage
         setNotes();
 
         // Loop through the current note object and set the notes to the current slider values
@@ -185,6 +185,12 @@ export let notes = [
     },
 ];
 
+let storage = {
+    scale: currentScale,
+    // index: scaleIndex,
+    index: 0,
+    steps: notes,
+};
 function getNotes() {
     // If Notes have been saved, load them
     const noteMeters = document.querySelectorAll('#ascii-meter');
@@ -207,14 +213,12 @@ function getNotes() {
 
 function setNotes() {
     localStorage.setItem('notes', JSON.stringify(notes));
+    // Set Storage
+    storage.scale = currentScale;
+    storage.index = scaleIndex;
+    localStorage.setItem('scale', JSON.stringify(storage));
 }
 
-let storage = {
-    scale: currentScale,
-    // index: scaleIndex,
-    index: 0,
-    steps: notes,
-};
 // console.log(storage);
 window.addEventListener('load', getNotes());
 setInterval(setNotes, 5000);
