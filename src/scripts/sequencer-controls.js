@@ -7,7 +7,9 @@ import { currentScale } from './note-data';
 export function sequencerInput() {
     const stepContainer = document.querySelector('#steps');
     const noteMeters = document.querySelectorAll('#ascii-meter');
+    const metersEl = document.querySelectorAll('.meter');
     const asciiRepeater = document.querySelectorAll('#ascii-repeater');
+
     initVerticalControls();
 
     // // Notes and Repeats
@@ -28,7 +30,10 @@ export function sequencerInput() {
 
     function initVerticalControls() {
         for (let i = 0; i < noteMeters.length; i++) {
-            noteMeters[i].innerHTML = renderNoteMeters(6);
+            // noteMeters[i].innerHTML = renderNoteMeters(6);
+            // Sets the notemeters value and rendering
+            noteMeters[i].innerHTML = renderNoteMeters(currentScale.indexOf(notes[i].note));
+            metersEl[i].value = currentScale.indexOf(notes[i].note);
             asciiRepeater[i].innerHTML = '│-│' + '<br>' + '│-│↑' + '<br>' + '│-│↓' + '<br>' + '│o│' + '<br>';
             if (i === 7) {
                 // Don't render arrows on last step

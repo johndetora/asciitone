@@ -1,5 +1,6 @@
 import * as Tone from 'tone';
 import '../styles/main.css';
+// import { storeData } from './store-data';
 import { themeSelector } from './theme-select.js';
 import { synth, initAudioChain } from './audio-objects.js';
 import { synthParamController } from './synth-controls.js';
@@ -16,6 +17,7 @@ import { renderNoteMeters } from './render-note-meters.js';
 //         Variables         //
 // ------------------------- //
 //TODO: See which ones can go into their own functions
+//TODO: off center when on left side of monitor and small
 
 let sequenceIndex = 0;
 let steps = 8; // Total step length
@@ -26,6 +28,7 @@ themeSelector();
 
 window.addEventListener('load', () => {
     // glideController();
+    // storeData();
     sequencerInput();
     desktopTabController();
     mobileTabController();

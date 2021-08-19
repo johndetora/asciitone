@@ -1,3 +1,5 @@
+import { renderNoteMeters } from './render-note-meters';
+
 // ------------------------- //
 //        Note Data          //
 // ------------------------- //
@@ -19,11 +21,13 @@ export function setScale() {
         const MAX = currentNotes.length;
         // Set global current scale
         currentScale = scales[scaleIndex % scales.length];
+        // localStorage.setItem('scale', currentScale);
         // Loop through the current note object and set the notes to the current slider values
         for (let i = 0; i < MAX; i++) {
             notes[i].note = currentScale[currentNotes[i].value];
             notes[15 - i].note = notes[i].note;
         }
+        // setNotes();
         // DOM
         if (currentScale === scales[0]) scaleSelect.innerText = '[scale: major]';
         if (currentScale === scales[1]) scaleSelect.innerText = '[scale: minor]';
@@ -167,3 +171,26 @@ export let notes = [
         repeat: 0,
     },
 ];
+
+function getNotes() {
+    // If Notes have been saved, load them
+    const noteMeters = document.querySelectorAll('#ascii-meter');
+    const metersEl = document.querySelectorAll('.meter');
+
+    if (localStorage.getItem('notes')) {
+        console.log('got them');
+        let storedNotes = JSON.parse(localStorage.getItem('notes'));
+        notes = storedNotes;
+    }
+    // if (localStorage.getItem('scale')) {
+    //     currentScale = JSON.parse(localStorage.getItem('scale'));
+    // }
+    console.log('current', currentScale);
+}
+
+function setNotes() {
+    localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+// window.addEventListener('load', getNotes());
+setInterval(setNotes, 5000);

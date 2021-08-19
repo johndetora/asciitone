@@ -124,3 +124,8 @@ Click the fx tab to see all effects controls. Click the synth tab to switch view
 -   decay:
 -   pre-delay:
 -   mix:
+
+## Requirements
+
+-   Chrome based browser or Mozilla Firefox
+-   ascii-tone's interface may be disrupted if using the mem.dev extension.

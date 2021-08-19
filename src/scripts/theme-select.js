@@ -1,12 +1,13 @@
 // // This function is used to select different color themes
 export function themeSelector() {
     const themeSelectBtn = document.querySelector('#theme-select');
-    const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'nord2', 'dmg', 'solarized', '9009', 'botanical', 'xio', 'godspeed', 'new'];
+    const allThemes = ['light', 'dark', 'metro', 'dune', 'nord', 'nord2', 'dmg', 'solarized', '9009', 'botanical', 'xio', 'godspeed'];
     let themeIndex = 1;
 
     // remove this for production:
     // resetTheme();
 
+    //TODO: change to if localStorage.getItem('theme') is true
     if (localStorage.length > 1) {
         window.addEventListener('load', () => {
             let theme = localStorage.getItem('theme');
