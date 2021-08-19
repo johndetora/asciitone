@@ -7,17 +7,6 @@ import { renderNoteMeters } from './render-note-meters';
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
 export let currentScale = majorScale;
 let scaleIndex = 0; // Should be global
-if (localStorage.getItem('scale')) {
-    // console.log(JSON.parse(localStorage.getItem('scale')));
-    // console.log(localStorage.getItem('scale'));
-
-    let savedScale = JSON.parse(localStorage.getItem('scale'));
-
-    console.log(savedScale.scale);
-    currentScale = savedScale.scale;
-    scaleIndex = parseInt(savedScale.index);
-    console.log(currentScale);
-}
 
 export function setScale() {
     const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4'];
@@ -25,8 +14,9 @@ export function setScale() {
     const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
     const scales = [majorScale, minorScale, pentScale, chromaticScale];
     const scaleSelect = document.getElementById('scale-select');
-    scaleSelect.innerText = 'poop';
+    let scaleNames = ['[scale: major]', '[scale: minor]', '[scale: pent]', '[scale: chrom]'];
 
+    scaleSelect.innerText = scaleNames[scaleIndex % scales.length];
     scaleSelect.addEventListener('click', defineScale);
 
     function defineScale() {
@@ -43,18 +33,19 @@ export function setScale() {
         storage.scale = currentScale;
         storage.index = scaleIndex;
         localStorage.setItem('scale', JSON.stringify(storage));
+        setNotes();
 
         // Loop through the current note object and set the notes to the current slider values
         for (let i = 0; i < MAX; i++) {
             notes[i].note = currentScale[currentNotes[i].value];
             notes[15 - i].note = notes[i].note;
         }
-        // setNotes();
-        // DOM
-        if (currentScale === scales[0]) scaleSelect.innerText = '[scale: major]';
-        if (currentScale === scales[1]) scaleSelect.innerText = '[scale: minor]';
-        if (currentScale === scales[2]) scaleSelect.innerText = '[scale: pent]';
-        if (currentScale === scales[3]) scaleSelect.innerText = '[scale: chrom]';
+
+        scaleSelect.innerText = scaleNames[scaleIndex % scales.length];
+        // if (currentScale === scales[0]) scaleSelect.innerText = '[scale: major]';
+        // if (currentScale === scales[1]) scaleSelect.innerText = '[scale: minor]';
+        // if (currentScale === scales[2]) scaleSelect.innerText = '[scale: pent]';
+        // if (currentScale === scales[3]) scaleSelect.innerText = '[scale: chrom]';
     }
 }
 
@@ -198,15 +189,19 @@ function getNotes() {
     // If Notes have been saved, load them
     const noteMeters = document.querySelectorAll('#ascii-meter');
     const metersEl = document.querySelectorAll('.meter');
-
     if (localStorage.getItem('notes')) {
         console.log('got them');
         let storedNotes = JSON.parse(localStorage.getItem('notes'));
         notes = storedNotes;
     }
-    // if (localStorage.getItem('scale')) {
-    //     currentScale = JSON.parse(localStorage.getItem('scale'));
-    // }
+
+    if (localStorage.getItem('scale')) {
+        let savedScale = JSON.parse(localStorage.getItem('scale'));
+        console.log(savedScale.scale);
+        currentScale = savedScale.scale;
+        scaleIndex = parseInt(savedScale.index);
+        console.log(currentScale);
+    }
     console.log('current', currentScale);
 }
 
@@ -221,5 +216,5 @@ let storage = {
     steps: notes,
 };
 // console.log(storage);
-// window.addEventListener('load', getNotes());
+window.addEventListener('load', getNotes());
 setInterval(setNotes, 5000);
