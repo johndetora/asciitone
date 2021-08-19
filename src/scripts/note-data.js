@@ -6,6 +6,18 @@ import { renderNoteMeters } from './render-note-meters';
 
 const majorScale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];
 export let currentScale = majorScale;
+let scaleIndex = 0; // Should be global
+if (localStorage.getItem('scale')) {
+    // console.log(JSON.parse(localStorage.getItem('scale')));
+    // console.log(localStorage.getItem('scale'));
+
+    let savedScale = JSON.parse(localStorage.getItem('scale'));
+
+    console.log(savedScale.scale);
+    currentScale = savedScale.scale;
+    scaleIndex = parseInt(savedScale.index);
+    console.log(currentScale);
+}
 
 export function setScale() {
     const chromaticScale = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4'];
@@ -13,15 +25,25 @@ export function setScale() {
     const pentScale = ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
     const scales = [majorScale, minorScale, pentScale, chromaticScale];
     const scaleSelect = document.getElementById('scale-select');
+    scaleSelect.innerText = 'poop';
+
     scaleSelect.addEventListener('click', defineScale);
-    let scaleIndex = 0; // Should be global
+
     function defineScale() {
         scaleIndex++;
+
+        console.log(scaleIndex);
+
         let currentNotes = document.querySelectorAll('.meter');
         const MAX = currentNotes.length;
         // Set global current scale
         currentScale = scales[scaleIndex % scales.length];
-        // localStorage.setItem('scale', currentScale);
+
+        // Set Storage
+        storage.scale = currentScale;
+        storage.index = scaleIndex;
+        localStorage.setItem('scale', JSON.stringify(storage));
+
         // Loop through the current note object and set the notes to the current slider values
         for (let i = 0; i < MAX; i++) {
             notes[i].note = currentScale[currentNotes[i].value];
@@ -192,5 +214,12 @@ function setNotes() {
     localStorage.setItem('notes', JSON.stringify(notes));
 }
 
+let storage = {
+    scale: currentScale,
+    // index: scaleIndex,
+    index: 0,
+    steps: notes,
+};
+// console.log(storage);
 // window.addEventListener('load', getNotes());
 setInterval(setNotes, 5000);
