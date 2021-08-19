@@ -1,14 +1,24 @@
 import { notes } from './note-data';
 
-// export function storeData() {
-//     // If Notes have been saved, load them
-//     console.table(localStorage);
-//     if (localStorage.getItem('notes')) {
-//         console.log('got them');
-//         let storedNotes = JSON.parse(localStorage.getItem('notes'));
+/* 
+/// Need Data from:
+Tempo
+Theme (already set)
+Note Object: 
+	Notes
+	Repeat
+	Snooze
+Synth Object: 
+	All parameters
 
-//     } else {
-//         // Otherwise, store note data
-//         localStorage.setItem('notes', JSON.stringify(notes));
-//     }
-// }
+FX Object:
+	All Parameters
+
+/// Set storage when:
+
+Scale is clicked (low porential live performance impact)
+Every 5 seconds 
+
+
+
+*/
